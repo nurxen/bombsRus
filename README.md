@@ -2,6 +2,8 @@
 
 Bombs "R" Us es un juego competitivo en el que dos jugadores se enfrentan dentro de una fábrica de juguetes llena de bloques y cintas transportadoras. Inspirado en Bomberman, los jugadores colocan bombas de juguete con apariencia de regalos sorpresa que explotan en confeti. El objetivo es eliminar al adversario antes de que acabe el tiempo, utilizando de manera estratégica las bombas, los portales y los elementos del entorno.  
 
+![Portada](IMAGENES_README/portada.jpg)
+
 ## Autores:
 - **Nuria Serrano Martín**  
   - Correo: [n.serranom.2022@alumnos.urjc.es](mailto:n.serranom.2022@alumnos.urjc.es)  
@@ -149,6 +151,8 @@ El diagrama de flujo de la interfaz del juego sigue una estructura simple entre 
 - **Pantalla de juego**: Después de seleccionar la opción de comenzar la partida, el jugador es llevado directamente al tablero de juego donde se desarrolla la acción.
 - **Pantalla de victoria/derrota**: Al finalizar la partida, dependiendo del resultado (ganador o perdedor), el jugador es redirigido a una pantalla que muestra el resultado de la partida y les ofrece la opción de volver al menú principal.
 
+![Diagramas](IMAGENES_README/diagramaDeFlujo.png)
+
 ### 4.3 Créditos
 En la pantalla de créditos, se muestra a los desarrolladores del juego:
 - Nuria Serrano Martín
@@ -180,16 +184,22 @@ Las principales influencias visuales para este proyecto provienen de títulos co
 ### 5.3 Diseño de personajes y escenarios
 
 **Personajes:** Serán diseñados en estilo **PixelArt**. Los personajes estarán inspirados en la estética infantil y de juguetes, con un aspecto caricaturesco y colores pastel. Algunos personajes serán:
+
+![Personaje](IMAGENES_README/puffy.jpg)
 - **Puffy:** Un conejo de peluche blanco con pijama rosa.
+
+![Personaje](IMAGENES_README/cuddles.jpg)
 - **Cuddles:** Un oso marrón con un lazo rojo.
 
 **Regalos (bombas):**  
+
+![Regalos](IMAGENES_README/regalos.jpg)
 - **Bomba en cruz:**  
 - **Bomba en área:**
 
 **Escenarios:** El tablero representará una **fábrica de juguetes en funcionamiento**. Habrá cintas transportadoras animadas, bloques de colores que contrastarán entre los rompibles y los no rompibles, y detalles industriales.
 
-*IMAGEN DEL ESCENARIO* (Incluir imágenes representativas)
+![Escenario](IMAGENES_README/escenario.png)
 
 ### 5.4 UI/UX
 La interfaz de usuario será **simple, clara y minimalista**, diseñada para no distraer al jugador de la acción principal.
@@ -197,10 +207,14 @@ La interfaz de usuario será **simple, clara y minimalista**, diseñada para no 
 - **Menús:** Los menús serán fáciles de navegar, con texto en PixelArt y botones grandes.
 - **Indicadores visuales:** Las bombas, power-ups y otros elementos interactivos estarán bien diferenciados con colores llamativos y claros, asegurando que los jugadores puedan identificarlos rápidamente.
 
-*IMÁGENES DE LAS INTERFACES* (Incluir imágenes representativas)
+![Interfaces](IMAGENES_README/pantallaInicio.png)
+
+![Interfaces](IMAGENES_README/pantallaVictoria.png)
+
+![Interfaces](IMAGENES_README/pantallaDerrota.png)
 
 ### 5.5 Logo del juego
-*IMÁGENES DEL LOGO* (Incluir el diseño del logo)
+![Logo](IMAGENES_README/logo.png)
 
 ---
 
