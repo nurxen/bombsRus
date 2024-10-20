@@ -16,4 +16,4 @@ Hugo Camuñas González:
 
 Lucía García Pérez: 
 - Correo : l.garciaper.2022@alumnos.urjc.es
-- GitHub: || https://github.com/Camuuss 
+- GitHub: lugarpe|| https://github.com/lugarpe
