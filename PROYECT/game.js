@@ -17,6 +17,7 @@ const game = new Phaser.Game(config);
 
 // Métodos para gestionar escenas
 
+
 function removeScene(key) {
     game.scene.remove(key);
 }
