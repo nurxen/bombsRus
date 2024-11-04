@@ -17,6 +17,10 @@ class PreloadScene extends Phaser.Scene {
 
         // Barra de progreso dinámica
         const progressBarFill = this.add.graphics();
+        
+        //tile
+        this.load.image("tile", "./assets/bk.png");
+        
 
         // Texto del porcentaje de carga
         const loadingText = this.add.text(this.cameras.main.width / 2, progressBarY - 30, 'Cargando: 0%', {
@@ -41,8 +45,8 @@ class PreloadScene extends Phaser.Scene {
         });
 
         // Simulación de carga larga
-        for (let i = 0; i < 10000; i++) {
-            this.load.image(`dummy${i}`, '/images/homer.png'); // Usa una imagen pequeña y repítela
+        for (let i = 0; i < 50; i++) {
+            //this.load.image(`dummy${i}`, '/images/homer.png'); // Usa una imagen pequeña y repítela
         }
     }
     
