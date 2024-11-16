@@ -19,12 +19,12 @@ class GameScene extends Phaser.Scene{
         //this.playersInput.arrowKeys = this.input.keyboard.createCursorKeys();
         //this.playersInput.bombKey2 = this.input.keyboard.addKey("P");
         
-        this.bk=this.add.image(0,0, "tile");
-        this.p1=this.add.image(0,0, "pato");
+        //this.bk=this.add.image(0,0, "tile");
+        //this.p1=this.add.image(0,0, "pato");
         this.initPlayer1();
         
-        this.bk.setOrigin(0,0);
-        this.p1.setOrigin(0,0);
+        //his.bk.setOrigin(0,0);
+        //this.p1.setOrigin(0,0);
     }
 
     update(time, delta)
@@ -36,16 +36,24 @@ class GameScene extends Phaser.Scene{
     processInput()
     {
         //player 1
-        if(this.playersInput.wasdKeys.A.isDown)this.player1.xInput = -1;
-        if(this.playersInput.wasdKeys.D.isDown) this.player1.xInput = 1;
-        if(this.playersInput.wasdKeys.W.isDown) this.player1.yInput = -1;
-        if(this.playersInput.wasdKeys.S.isDown) this.player1.yInput = 1;
-
-        if(this.playersInput.bombKey1.isDown) this.player1.bombKey1 = 1;
+        //añadir if ele para no ir en diagonal
+        if(this.playersInput.wasdKeys.A.isDown) {
+            this.player1.xInput = -1;
+        }
+        else if(this.playersInput.wasdKeys.D.isDown) {
+            this.player1.xInput = 1;
+        }
+        else if(this.playersInput.wasdKeys.W.isDown) {
+            this.player1.yInput = -1;
+        }
+        else if(this.playersInput.wasdKeys.S.isDown)
+        {
+            this.player1.yInput = 1;
+        }
+        if(this.playersInput.bombKey1.isDown) {
+            this.player1.bombKey1 = 1;
+        }
         
-
-        //pausa
-        this.checkPauseKeyPressed();
 
     }
 
