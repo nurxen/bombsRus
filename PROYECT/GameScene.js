@@ -21,6 +21,7 @@ class GameScene extends Phaser.Scene{
         
         this.bk=this.add.image(0,0, "tile");
         this.p1=this.add.image(0,0, "pato");
+        
         this.initPlayer1();
         
         //this.bk.setOrigin(0,0);
