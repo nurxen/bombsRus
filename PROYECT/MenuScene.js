@@ -4,19 +4,43 @@ class MenuScene extends Phaser.Scene {
     }
 
     create() {
-        this.bk=this.add.image(0,0, "bg");
-        // Texto del título del menú
-        const titleText = this.add.text(400, 150, 'Menú Principal', {
-            fontSize: '32px',
-            fill: '#ffffff'
-        }).setOrigin(0.5);
+        // Agregar la imagen de fondo y ajustarla al tamaño del canvas
+        const bg = this.add.image(0, 0, 'bg')
+            .setOrigin(0) // Establece el origen en la esquina superior izquierda
+            .setDisplaySize(this.sys.game.config.width, this.sys.game.config.height); // Ajusta al tamaño del canvas
 
-        // Botón de "Iniciar Juego"
-        const startButton = this.add.text(400, 300, 'Iniciar Juego', {
-            fontSize: '24px',
-            fill: '#0f0'
-        }).setOrigin(0.5).setInteractive();
+        // Crear el botón de "Start Game"
+        const startButton = this.add.image(640, 400, 'pato')
+            .setOrigin(0.5, 0.5)
+            .setInteractive() // Hacer el botón interactivo
+            .on('pointerdown', () => {
+                // Cambiar a la escena del juego
+                this.scene.start('GameScene');
+            });
 
-        startButton.on('pointerdown', () => { this.scene.start('GameScene'); });
+        const startText = this.add.text(640, 400, 'Start Game', {
+            font: '32px Arial',
+            fill: '#fff'
+        }).setOrigin(0.5, 0.5);
+
+        // Crear el botón de "Exit"
+        const exitButton = this.add.image(640, 500, 'pato')
+            .setOrigin(0.5, 0.5)
+            .setInteractive() // Hacer el botón interactivo
+            .on('pointerdown', () => {
+                // Salir del juego (esto depende del entorno; no siempre funciona en navegadores)
+                console.log("Salir del juego");
+            });
+
+        const exitText = this.add.text(640, 500, 'Exit', {
+            font: '32px Arial',
+            fill: '#fff'
+        }).setOrigin(0.5, 0.5);
+
+        // Opcional: Animaciones o efectos al pasar el ratón sobre los botones
+        [startButton, exitButton].forEach(button => {
+            button.on('pointerover', () => button.setScale(1.1)); // Aumentar ligeramente el tamaño
+            button.on('pointerout', () => button.setScale(1)); // Volver al tamaño original
+        });
     }
 }
