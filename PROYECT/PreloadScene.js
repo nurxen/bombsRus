@@ -19,7 +19,6 @@ class PreloadScene extends Phaser.Scene {
         const progressBarFill = this.add.graphics();
         
         //tile
-        this.load.image("tile", "./assets/bk.png");
         this.load.image("pato", "./assets/pato.png");
         
 
