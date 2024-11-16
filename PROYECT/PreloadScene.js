@@ -40,7 +40,7 @@ class PreloadScene extends Phaser.Scene {
         this.load.image("PuffyMoveDown", "./assets/tile.png");
 
         // Assets interactuables
-        this.load.image("Present", "./assets/regalos.png");
+        this.load.image("Present", "./assets/PRESENT1_5_21.png");
         this.load.image("CoveyorBeltExtremo", "./assets/regalos.png"); // cinta transpoirtadora
         this.load.image("CoveyorBeltMedio1", "./assets/regalos.png");
         this.load.image("CoveyorBeltMedio2", "./assets/regalos.png");
@@ -64,6 +64,34 @@ class PreloadScene extends Phaser.Scene {
         this.load.image("PlayAgainButton", "./assets/regalos.png");
         this.load.image("ExitButton", "./assets/regalos.png");
         this.load.image("PauseButton", "./assets/regalos.png");
+
+        // Cargar imágenes de explosión de regalo
+        this.load.image("PresentExplosion1", "./assets/PRESENT1_5_21.png");
+        this.load.image("PresentExplosion2", "./assets/PRESENT2_4_22.png");
+        this.load.image("PresentExplosion3", "./assets/PRESENT3_23.png");
+        this.load.image("PresentExplosion4", "./assets/PRESENT2_4_22.png");
+        this.load.image("PresentExplosion5", "./assets/PRESENT1_5_21.png");
+        this.load.image("PresentExplosion6", "./assets/PRESENT6_20.png");
+        this.load.image("PresentExplosion7", "./assets/PRESENT7_19.png");
+        this.load.image("PresentExplosion8", "./assets/PRESENT8_18.png");
+        this.load.image("PresentExplosion9", "./assets/PRESENT9_17.png");
+        this.load.image("PresentExplosion10", "./assets/PRESENT10_16.png");
+        this.load.image("PresentExplosion11", "./assets/PRESENT11_15.png");
+        this.load.image("PresentExplosion12", "./assets/PRESENT12_14.png");
+        this.load.image("PresentExplosion13", "./assets/PRESENT13.png");
+        this.load.image("PresentExplosion14", "./assets/PRESENT12_14.png");
+        this.load.image("PresentExplosion15", "./assets/PRESENT11_15.png");
+        this.load.image("PresentExplosion16", "./assets/PRESENT10_16.png");
+        this.load.image("PresentExplosion17", "./assets/PRESENT9_17.png");
+        this.load.image("PresentExplosion18", "./assets/PRESENT8_18.png");
+        this.load.image("PresentExplosion19", "./assets/PRESENT7_19.png");
+        this.load.image("PresentExplosion20", "./assets/PRESENT6_20.png");
+        this.load.image("PresentExplosion21", "./assets/PRESENT1_5_21.png");
+        this.load.image("PresentExplosion22", "./assets/PRESENT2_4_22.png");
+        this.load.image("PresentExplosion23", "./assets/PRESENT3_23.png");
+        this.load.image("PresentExplosion24", "./assets/PRESENT24.png");
+        this.load.image("PresentExplosion25", "./assets/PRESENT25.png");
+        this.load.image("PresentExplosion26", "./assets/PRESENT26.png");
         
         //pruebas
         this.load.image("pato", "./assets/pato.png");
