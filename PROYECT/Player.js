@@ -1,7 +1,9 @@
+// noinspection SpellCheckingInspection
+
 class Player {
 
     // Variables públicas
-    characterSprite; // referencia al sprite del bomberman
+    characterSprite = ""; // referencia al sprite del bomberman
     horizontalInput = 0; // input horizontal: -1 (izquierda), 0 (quieto), 1 (derecha)
     verticalInput = 0; // input vertical: -1 (arriba), 0 (quieto), 1 (abajo)
     bombInput = 0; //input de disparar: 0, 1
@@ -27,7 +29,9 @@ class Player {
 
     constructor(scene, id, position, xDirection)
     {
-        
+        this._scene = scene;
+        this.id = id;
+        this.p1=scene.physics.add.sprite(position.x, position.y, "pato");
     }
     
     update(time, delta)
@@ -59,6 +63,7 @@ class Player {
         //direccion (para disparar)
         this.direction.y = this.yInput;
     }
+
 
     _placeBomb(){
         
