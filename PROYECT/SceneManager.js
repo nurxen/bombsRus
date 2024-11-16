@@ -1,8 +1,10 @@
 // Configuración del juego en Phaser
+// noinspection SpellCheckingInspection
+
 const config = {
     type: Phaser.AUTO,
-    width: 800,
-    height: 600,
+    width: 1280,
+    height: 720,
     physics: {
         default: 'arcade',
         arcade: {

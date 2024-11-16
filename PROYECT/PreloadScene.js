@@ -20,6 +20,7 @@ class PreloadScene extends Phaser.Scene {
         
         //tile
         this.load.image("tile", "./assets/bk.png");
+        this.load.image("pato", "./assets/pato.png");
         
 
         // Texto del porcentaje de carga
