@@ -19,11 +19,11 @@ class GameScene extends Phaser.Scene{
         //this.playersInput.arrowKeys = this.input.keyboard.createCursorKeys();
         //this.playersInput.bombKey2 = this.input.keyboard.addKey("P");
         
-        //this.bk=this.add.image(0,0, "tile");
-        //this.p1=this.add.image(0,0, "pato");
+        this.bk=this.add.image(0,0, "tile");
+        this.p1=this.add.image(0,0, "pato");
         this.initPlayer1();
         
-        //his.bk.setOrigin(0,0);
+        //this.bk.setOrigin(0,0);
         //this.p1.setOrigin(0,0);
     }
 

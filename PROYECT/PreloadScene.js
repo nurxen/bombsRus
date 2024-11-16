@@ -20,6 +20,8 @@ class PreloadScene extends Phaser.Scene {
         
         //tile
         this.load.image("pato", "./assets/pato.png");
+        this.load.image("tile", "./assets/tile.png");
+        this.load.image("bg", "./assets/bk.png");
         
 
         // Texto del porcentaje de carga
@@ -43,11 +45,7 @@ class PreloadScene extends Phaser.Scene {
             loadingText.destroy();
             this.scene.start('MenuScene');
         });
-
-        // Simulación de carga larga
-        for (let i = 0; i < 50; i++) {
-            //this.load.image(`dummy${i}`, '/images/homer.png'); // Usa una imagen pequeña y repítela
-        }
+        
     }
     
     
