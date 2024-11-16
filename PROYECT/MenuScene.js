@@ -4,7 +4,7 @@ class MenuScene extends Phaser.Scene {
     }
 
     create() {
-
+        this.bk=this.add.image(0,0, "bg");
         // Texto del título del menú
         const titleText = this.add.text(400, 150, 'Menú Principal', {
             fontSize: '32px',
