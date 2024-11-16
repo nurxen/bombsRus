@@ -36,7 +36,7 @@ class GameScene extends Phaser.Scene{
     processInput()
     {
         //player 1
-        //añadir if ele para no ir en diagonal
+        //añadir else if para no ir en diagonal
         if(this.playersInput.wasdKeys.A.isDown) {
             this.player1.xInput = -1;
         }
