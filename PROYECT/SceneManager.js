@@ -10,7 +10,8 @@ const config = {
     physics: {
         default: 'arcade',
         arcade: {
-            gravity: { y: 0 }  // Gravedad en el eje Y
+            gravity: { y: 0 },  // Gravedad en el eje Y
+            debug:true
         }
     },
     scene: [PreloadScene, MenuScene, GameScene, PauseScene, GameOverScene, WinScene] // Orden de las escenas

@@ -1,3 +1,5 @@
+// noinspection SpellCheckingInspection
+
 class Player {
 
     // Variables públicas
@@ -9,6 +11,7 @@ class Player {
     direction = new Phaser.Math.Vector2(); // Dirección (para disparar)
     xInput = 0; // Input horizontal : -1, 0, 1
     yInput = 0; // Input vertical : -1, 0, 1
+    dispararInput = 0; //input de disparar: 0, 1
 
     // Variables privadas
     _animationKeys = {
@@ -21,6 +24,8 @@ class Player {
     _bombCooldown = 0.5; // Tiempo a esperar entre colocar bombas
     _isBombOnCooldown = false; // Control para el cooldown de la bomba
     _cooldownTimer = 0; // Timer para el cooldown de la bomba
+    _isOnCooldown = false;
+    _castCooldown = 1000; //tiempo a esperar entre disparo y disparo
     _healthPoints = 6; // Salud del bomberman
     _isAlive = true; // Control para no moverse al estar muerto
     _hitCallbacks = []; // Array para guardar los callbacks cuando el bomberman reciba daño
@@ -40,13 +45,14 @@ class Player {
             this._stopMovement(); // Detener movimiento si está muerto
             return;
         }
-
         this._move(delta);
-        this._resetInputs();
+        this._disparar(delta);
+        //reseteo para el sigueinte frame
+        this.xInput = 0;
+        this.yInput = 0;
+        this.dispararInput = 0;
     }
-
-    // Métodos privados
-
+    
     // Crear el sprite del jugador
     _createPlayerSprite(position) {
         this.gameObject = this._scene.physics.add.sprite(position.x, position.y, "pato");
@@ -65,6 +71,25 @@ class Player {
 
         // Actualizar la dirección para disparar
         this.direction.set(this.xInput, this.yInput);
+    }
+
+    _disparar(delta) {
+        if(!this._isOnCooldown)
+        {
+            if(this.dispararInput)
+            {
+                //cast
+                this._isOnCooldown = true;
+                this._cooldownTimer = 0;
+                // console.log(this.direction);
+                let bomba = new Bomba(this._scene, this.id, this.gameObject.x + this.direction.x * 30, this.gameObject.y, this.direction);
+            }
+        }
+        else
+        {
+            this._cooldownTimer += delta;
+            if(this._cooldownTimer >= this._castCooldown) this._isOnCooldown = false;
+        }
     }
 
     // Restablecer las entradas después de cada frame
