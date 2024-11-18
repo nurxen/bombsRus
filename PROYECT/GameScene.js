@@ -1,3 +1,4 @@
+// noinspection SpellCheckingInspection
 class GameScene extends Phaser.Scene {
     
     // Variables públicas
@@ -7,6 +8,7 @@ class GameScene extends Phaser.Scene {
     }
 
     player1; // El jugador 1 instancia la clase Player
+    bombas;
     position = new Phaser.Math.Vector2(64, 256); // Posición inicial del jugador
 
     constructor() {
@@ -31,6 +33,17 @@ class GameScene extends Phaser.Scene {
         this._initPlayer1(); // Inicializar jugador 1
         this._createPresentExplosionAnimation(); // Crear la animación del regalo
         this._createPresentAnimationSprite(); // Crear el sprite para la animación
+
+        this.bombas = this.physics.add.group({
+            classType: Bomba,
+            runChildUpdate: true, // Llama a `update` automáticamente para cada bomba
+            allowGravity: false,
+        });
+
+        //this.physics.add.overlap(this.player1, this.bombas, this.player1.bombasHit, null, this.player1);
+
+        this.physics.add.collider(this.player1.body, this.ground);
+        this.physics.add.collider(this.bombas, this.ground);
 
         // Reproducir la animación de explosión de regalo solo una vez
         this._presentAnimation.play("presentExplosion");  // es una prueba
@@ -92,7 +105,7 @@ class GameScene extends Phaser.Scene {
 
         // Si el jugador presiona la tecla para colocar una bomba
         if (this.playersInput.bombKey1.isDown) {
-            this.player1.bombKey1 = 1;
+            this.player1.dispararInput = 1;
         }
     }
 
