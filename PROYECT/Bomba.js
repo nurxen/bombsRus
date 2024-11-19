@@ -5,11 +5,10 @@
     _maxDistance = 300; // Distancia máxima que la bomba puede recorrer
     _startPosition = new Phaser.Math.Vector2();
     _hasStopped = false;
-
+    
     constructor(scene, id, x, y, direction) {
         super(scene, x, y, "PresentExplosion1");
         this.id = id;
-
         this._startPosition.set(x, y); // Guardar posición inicial
         this.direction = direction.clone().normalize();
 
@@ -21,9 +20,9 @@
 
         console.log(`Velocidad X: ${this.body.velocity.x}, Velocidad Y: ${this.body.velocity.y}`);
 
-
-
+        
     }
+    
 
     update(time, delta) {
         super.update(time, delta);
@@ -37,8 +36,10 @@
                 this.body.y
             );
             
+            
 
             if (distanceTravelled >= this._maxDistance) {
+                console.log(distanceTravelled)
                 this.body.setVelocity(0); // Detener el movimiento
                 this._disableCollision(); // Desactivar colisión
                 this._hasStopped = true;
@@ -50,4 +51,7 @@
         // Desactivar la colisión para esta bomba
         this.body.checkCollision.none = true; // Desactiva todas las colisiones
     }
+    
+
+    
 }
