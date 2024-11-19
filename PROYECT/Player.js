@@ -67,12 +67,43 @@ class Player {
 
     // Mover al jugador según la dirección de entrada
     _move(delta) {
-        this.body.setVelocityX(this._moveSpeed * this.xInput);
-        this.body.setVelocityY(this._moveSpeed * this.yInput);
+        // Calcular la nueva velocidad
+        let velocityX = this._moveSpeed * this.xInput;
+        let velocityY = this._moveSpeed * this.yInput;
+
+        // Obtener límites del mundo
+        let bounds = this._scene.physics.world.bounds;
+
+        // Comprobar si la posición actual más el movimiento está dentro de los límites
+        let newX = this.body.x + velocityX * (delta / 1000);
+        let newY = this.body.y + velocityY * (delta / 1000);
+
+        // Limitar el movimiento si se sale de los límites, si no sale no entra en los ifs
+        // y mete en setvelocity la velocidad normal
+        if (newX < bounds.left) {
+            velocityX = 0;
+            this.body.x = bounds.left; //reseteo para que no avance mas
+        } else if (newX > bounds.right - this.body.width) {
+            velocityX = 0;
+            this.body.x = bounds.right - this.body.width; //reseteo para que no avance mas
+        }
+
+        if (newY < bounds.top) {
+            velocityY = 0;
+            this.body.y = bounds.top;
+        } else if (newY > bounds.bottom - this.body.height) {
+            velocityY = 0;
+            this.body.y = bounds.bottom - this.body.height;
+        }
+
+        // Aplicar la velocidad restringida
+        this.body.setVelocityX(velocityX);
+        this.body.setVelocityY(velocityY);
 
         // Actualizar la dirección para disparar
         this.direction.set(this.xInput, this.yInput);
     }
+
 
     _disparar(delta) {
         if(!this._isOnCooldown)

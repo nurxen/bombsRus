@@ -16,8 +16,7 @@
         scene.bombas.add(this, true);
         this.body.setAllowGravity(false);
         this.body.setBounce(0);
-
-        this.direction = direction.clone().normalize();
+        
         this.body.setVelocity(this.direction.x * this._moveSpeed, this.direction.y * this._moveSpeed);
 
         console.log(`Velocidad X: ${this.body.velocity.x}, Velocidad Y: ${this.body.velocity.y}`);
