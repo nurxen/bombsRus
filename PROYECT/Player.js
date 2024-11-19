@@ -130,9 +130,6 @@ class Player {
         this.yInput = 0;
     }
     
-    _placeBomb() {
-        // Por hacer
-    }
 
     // Actualizar las animaciones (por ahora vacío, pero puede ser implementado)
     _updateAnimations() {

@@ -8,13 +8,15 @@ class GameScene extends Phaser.Scene {
         bombKey1: 0,
         bombKey2: 0,
     }
-
+    ground;
     player1; // El jugador 1 instancia la clase Player
     player2; // El jugador 1 instancia la clase Player
     bombas;
     position = new Phaser.Math.Vector2(64, 256); // Posición inicial del jugador
     position2 = new Phaser.Math.Vector2(1216, 256); // Posición inicial del jugador
 
+    _animInput=0;
+    
     constructor() {
         super({ key: 'GameScene' });
     }
@@ -35,7 +37,7 @@ class GameScene extends Phaser.Scene {
         this._setupInputs(); // Configurar las teclas de entrada
         this._createBackground(); // Crear fondo
         this._initPlayer1(); // Inicializar jugador 1
-        this._initPlayer2(); // Inicializar jugador 1
+        this._initPlayer2(); // Inicializar jugador 2
         this._createPresentExplosionAnimation(); // Crear la animación del regalo
         this._createPresentAnimationSprite(); // Crear el sprite para la animación
 
@@ -44,9 +46,13 @@ class GameScene extends Phaser.Scene {
             runChildUpdate: true, // Llama a `update` automáticamente para cada bomba
             allowGravity: false,
         });
-
+        
         //this.physics.add.overlap(this.player1, this.bombas, this.player1.bombasHit, null, this.player1);
 
+
+        this.ground = this.physics.add.staticGroup();
+        this.ground.create(640, 360, "pato");
+        
         this.physics.add.collider(this.player1.body, this.ground);
         this.physics.add.collider(this.player2.body, this.ground);
         this.physics.add.collider(this.bombas, this.ground);
@@ -74,8 +80,7 @@ class GameScene extends Phaser.Scene {
 
     // Crear fondo y elementos base
     _createBackground() {
-        this._bk = this.add.image(0, 0, "tile");
-        this._p1 = this.add.image(0, 0, "pato");
+        this._bk = this.add.image(0, 0, "bk").setOrigin(0).setDisplaySize(this.sys.game.config.width, this.sys.game.config.height);
     }
 
     // Crear la animación de explosión del regalo
@@ -133,6 +138,7 @@ class GameScene extends Phaser.Scene {
         if (this.playersInput.bombKey2.isDown) {
             this.player2.dispararInput = 1;
         }
+        
     }
 
     // Inicializar al jugador 1
@@ -142,6 +148,8 @@ class GameScene extends Phaser.Scene {
     _initPlayer2() {
         this.player2 = new Player(this, 2, this.position2, -1);
     }
+    
+    
 
     // Cargar los assets de la animación (puedes usar esta función para cargar más assets en el futuro)
     _loadAssets() {
@@ -149,4 +157,5 @@ class GameScene extends Phaser.Scene {
             this.load.image("PresentExplosion" + i, "./assets/PRESENT" + i + ".png");
         }
     }
+
 }
