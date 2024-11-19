@@ -4,12 +4,16 @@ class GameScene extends Phaser.Scene {
     // Variables públicas
     playersInput = {
         wasdKeys: 0,
+        arrowKeys: 0,
         bombKey1: 0,
+        bombKey2: 0,
     }
 
     player1; // El jugador 1 instancia la clase Player
+    player2; // El jugador 1 instancia la clase Player
     bombas;
     position = new Phaser.Math.Vector2(64, 256); // Posición inicial del jugador
+    position2 = new Phaser.Math.Vector2(1216, 256); // Posición inicial del jugador
 
     constructor() {
         super({ key: 'GameScene' });
@@ -20,7 +24,7 @@ class GameScene extends Phaser.Scene {
     _p1; // Imagen del jugador (pato)
     _presentAnimation; // Animación de los regalos
     _frames; // Frames de la animación
-    _framesRate = 6; // Velocidad de la animación
+    _framesRate = 10; // Velocidad de la animación
 
     preload() {
         console.log("carga GameScene");
@@ -31,6 +35,7 @@ class GameScene extends Phaser.Scene {
         this._setupInputs(); // Configurar las teclas de entrada
         this._createBackground(); // Crear fondo
         this._initPlayer1(); // Inicializar jugador 1
+        this._initPlayer2(); // Inicializar jugador 1
         this._createPresentExplosionAnimation(); // Crear la animación del regalo
         this._createPresentAnimationSprite(); // Crear el sprite para la animación
 
@@ -43,6 +48,7 @@ class GameScene extends Phaser.Scene {
         //this.physics.add.overlap(this.player1, this.bombas, this.player1.bombasHit, null, this.player1);
 
         this.physics.add.collider(this.player1.body, this.ground);
+        this.physics.add.collider(this.player2.body, this.ground);
         this.physics.add.collider(this.bombas, this.ground);
 
         // Reproducir la animación de explosión de regalo solo una vez
@@ -52,6 +58,7 @@ class GameScene extends Phaser.Scene {
     update(time, delta) {
         this._processInput(); // Procesar las entradas del jugador
         this.player1.update(time, delta); // Actualizar el jugador
+        this.player2.update(time, delta); // Actualizar el jugador
     }
 
     // Métodos privados
@@ -60,6 +67,9 @@ class GameScene extends Phaser.Scene {
     _setupInputs() {
         this.playersInput.wasdKeys = this.input.keyboard.addKeys("W,A,S,D");
         this.playersInput.bombKey1 = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+
+        this.playersInput.arrowKeys = this.input.keyboard.createCursorKeys();
+        this.playersInput.bombKey2 = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
     }
 
     // Crear fondo y elementos base
@@ -103,15 +113,34 @@ class GameScene extends Phaser.Scene {
             this.player1.yInput = 1;
         }
 
+        // Movimiento del jugador 2
+        if (this.playersInput.arrowKeys.left.isDown) {
+            this.player2.xInput = -1;
+        } else if (this.playersInput.arrowKeys.right.isDown) {
+            this.player2.xInput = 1;
+        } else if (this.playersInput.arrowKeys.up.isDown) {
+            this.player2.yInput = -1;
+        } else if (this.playersInput.arrowKeys.down.isDown) {
+            this.player2.yInput = 1;
+        }
+
         // Si el jugador presiona la tecla para colocar una bomba
         if (this.playersInput.bombKey1.isDown) {
             this.player1.dispararInput = 1;
+        }
+
+        // Si el jugador presiona la tecla para colocar una bomba
+        if (this.playersInput.bombKey2.isDown) {
+            this.player2.dispararInput = 1;
         }
     }
 
     // Inicializar al jugador 1
     _initPlayer1() {
         this.player1 = new Player(this, 1, this.position, 1);
+    }
+    _initPlayer2() {
+        this.player2 = new Player(this, 2, this.position2, -1);
     }
 
     // Cargar los assets de la animación (puedes usar esta función para cargar más assets en el futuro)
