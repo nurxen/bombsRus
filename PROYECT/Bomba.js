@@ -15,10 +15,15 @@
 
         scene.bombas.add(this, true);
         this.body.setAllowGravity(false);
-        this.body.setBounce(1);
+        this.body.setBounce(0);
 
-        // Aplicar la velocidad ajustada
+        this.direction = direction.clone().normalize();
         this.body.setVelocity(this.direction.x * this._moveSpeed, this.direction.y * this._moveSpeed);
+
+        console.log(`Velocidad X: ${this.body.velocity.x}, Velocidad Y: ${this.body.velocity.y}`);
+
+
+
     }
 
     update(time, delta) {
@@ -32,6 +37,7 @@
                 this.body.x,
                 this.body.y
             );
+            
 
             if (distanceTravelled >= this._maxDistance) {
                 this.body.setVelocity(0); // Detener el movimiento

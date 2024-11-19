@@ -56,6 +56,7 @@ class Player {
     // Crear el sprite del jugador
     _createPlayerSprite(position) {
         this.gameObject = this._scene.physics.add.sprite(position.x, position.y, "pato");
+        this.gameObject.setOrigin(0.5, 0.5);
         this.body = this.gameObject.body;
     }
 
