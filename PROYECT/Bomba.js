@@ -11,7 +11,6 @@
         this.id = id;
         this._startPosition.set(x, y); // Guardar posición inicial
         this.direction = direction.clone().normalize();
-
         scene.bombas.add(this, true);
         this.body.setAllowGravity(false);
         this.body.setBounce(0);
@@ -19,21 +18,22 @@
         this.body.setVelocity(this.direction.x * this._moveSpeed, this.direction.y * this._moveSpeed);
 
         console.log(`Velocidad X: ${this.body.velocity.x}, Velocidad Y: ${this.body.velocity.y}`);
-
+        console.log(this.direction);
+        
         
     }
     
 
     update(time, delta) {
         super.update(time, delta);
-
+        
         if (!this._hasStopped) {
             // Calcular la distancia recorrida
             let distanceTravelled = Phaser.Math.Distance.Between(
                 this._startPosition.x,
                 this._startPosition.y,
-                this.body.x,
-                this.body.y
+                this.x,
+                this.y
             );
             
             
@@ -43,6 +43,7 @@
                 this.body.setVelocity(0); // Detener el movimiento
                 this._disableCollision(); // Desactivar colisión
                 this._hasStopped = true;
+                console.log(this.body.x, this.body.y, this.x, this.y);
             }
         }
     }
