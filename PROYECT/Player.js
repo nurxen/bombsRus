@@ -114,7 +114,7 @@ class Player {
                 this._isOnCooldown = true;
                 this._cooldownTimer = 0;
                 // console.log(this.direction);
-                let bomba = new Bomba(this._scene, this.id, this.gameObject.x + this.direction.x * 30, this.gameObject.y, this.direction);
+                let bomba = new Bomba(this._scene, this.id, this.gameObject.x, this.gameObject.y, this.direction);
             }
         }
         else

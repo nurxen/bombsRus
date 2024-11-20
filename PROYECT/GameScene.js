@@ -102,7 +102,7 @@ class GameScene extends Phaser.Scene {
     _createPresentAnimationSprite() {
         this._presentAnimation = this.add.sprite(400, 300, "PresentExplosion1") // Posición inicial del sprite
             .setScale(1) // Escala del sprite
-            .setOrigin(0.5, 0.5); // Centro del sprite como origen
+            .setOrigin(0,0); // Centro del sprite como origen
     }
 
     // Procesar las entradas del jugador
@@ -157,5 +157,6 @@ class GameScene extends Phaser.Scene {
             this.load.image("PresentExplosion" + i, "./assets/PRESENT" + i + ".png");
         }
     }
+    
 
 }
