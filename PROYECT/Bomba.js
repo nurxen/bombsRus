@@ -5,7 +5,7 @@
     _maxDistance = 300; // Distancia máxima que la bomba puede recorrer
     _startPosition = new Phaser.Math.Vector2();
     _hasStopped = false;
-    
+    //commit
     constructor(scene, id, x, y, direction) {
         super(scene, x, y, "PresentExplosion1");
         this.id = id;
@@ -45,7 +45,6 @@
                 this._hasStopped = true;
                 // Reproducir la animación de explosión
                 this._playExplosion();
-                console.log(this.body.x, this.body.y, this.x, this.y);
             }
         }
     }
