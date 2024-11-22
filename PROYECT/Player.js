@@ -52,7 +52,7 @@ class Player {
         this.yInput = 0;
         this.dispararInput = 0;
     }
-    
+
     // Crear el sprite del jugador
     _createPlayerSprite(position) {
         this.gameObject = this._scene.physics.add.sprite(position.x, position.y, "pato");
@@ -129,7 +129,7 @@ class Player {
         this.xInput = 0;
         this.yInput = 0;
     }
-    
+
 
     // Actualizar las animaciones (por ahora vacío, pero puede ser implementado)
     _updateAnimations() {
@@ -154,11 +154,11 @@ class Player {
 
     // Registrar un callback cuando el jugador recibe daño
     _onHit() {
-        
+
     }
 
     // Registrar un callback cuando el jugador muere
     _onDeath() {
-        
+
     }
 }

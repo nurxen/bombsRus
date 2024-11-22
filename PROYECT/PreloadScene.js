@@ -1,4 +1,5 @@
 class PreloadScene extends Phaser.Scene {
+    //commit
     constructor() {
         super({ key: 'PreloadScene' });
     }
@@ -17,7 +18,7 @@ class PreloadScene extends Phaser.Scene {
 
         // Barra de progreso dinámica
         const progressBarFill = this.add.graphics();
-        
+
         // Accedemos a los assets
         // Animacion de Cuddles
         this.load.image("CuddlesIdleLeft", "./assets/tile.png");
@@ -44,7 +45,7 @@ class PreloadScene extends Phaser.Scene {
         this.load.image("CoveyorBeltExtremo", "./assets/regalos.png"); // cinta transpoirtadora
         this.load.image("CoveyorBeltMedio1", "./assets/regalos.png");
         this.load.image("CoveyorBeltMedio2", "./assets/regalos.png");
-        
+
         // Assets de decoracion
         this.load.image("CubesDecoration", "./assets/regalos.png");
         this.load.image("LegoDecoration", "./assets/regalos.png");
@@ -52,7 +53,7 @@ class PreloadScene extends Phaser.Scene {
         this.load.image("CarDecoration", "./assets/regalos.png");
         this.load.image("CubeDecoration", "./assets/regalos.png");
         this.load.image("Towerdecoration", "./assets/regalos.png");
-        
+
         // Interfaces
         this.load.image("MainMenuBackground", "./assets/regalos.png");
         this.load.image("PauseBackground", "./assets/regalos.png");
@@ -92,13 +93,16 @@ class PreloadScene extends Phaser.Scene {
         this.load.image("PresentExplosion24", "./assets/PRESENT24.png");
         this.load.image("PresentExplosion25", "./assets/PRESENT25.png");
         this.load.image("PresentExplosion26", "./assets/PRESENT26.png");
-        
+
         //pruebas
         this.load.image("pato", "./assets/pato.png");
         this.load.image("bk", "./assets/bk.png");
         this.load.image("RetryButton", "./assets/retryButton.png");
         this.load.image("RetryButtonGrande", "./assets/RetryButton2.png");
-        
+
+        //load json
+        this.load.atlas('regalo', 'assets/spritesheet.png', 'assets/regalo.json');
+
 
         // Texto del porcentaje de carga
         const loadingText = this.add.text(this.cameras.main.width / 2, progressBarY - 30, 'Cargando: 0%', {
@@ -121,8 +125,8 @@ class PreloadScene extends Phaser.Scene {
             loadingText.destroy();
             this.scene.start('MenuScene');
         });
-        
+
     }
-    
-    
+
+
 }
