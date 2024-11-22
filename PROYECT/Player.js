@@ -73,27 +73,27 @@ class Player {
 
         // Obtener límites del mundo
         let bounds = this._scene.physics.world.bounds;
-
+        
         // Comprobar si la posición actual más el movimiento está dentro de los límites
         let newX = this.body.x + velocityX * (delta / 1000);
         let newY = this.body.y + velocityY * (delta / 1000);
 
         // Limitar el movimiento si se sale de los límites, si no sale no entra en los ifs
         // y mete en setvelocity la velocidad normal
-        if (newX < bounds.left) {
+        if (newX < bounds.left + 64) {
             velocityX = 0;
-            this.body.x = bounds.left; //reseteo para que no avance mas
-        } else if (newX > bounds.right - this.body.width) {
+            this.body.x = bounds.left + 64; //reseteo para que no avance mas
+        } else if (newX > bounds.right - this.body.width - 64) {
             velocityX = 0;
-            this.body.x = bounds.right - this.body.width; //reseteo para que no avance mas
+            this.body.x = bounds.right - this.body.width - 64; //reseteo para que no avance mas
         }
 
-        if (newY < bounds.top) {
+        if (newY < bounds.top + 64) {
             velocityY = 0;
-            this.body.y = bounds.top;
-        } else if (newY > bounds.bottom - this.body.height) {
+            this.body.y = bounds.top + 64;
+        } else if (newY > bounds.bottom - this.body.height - 64) {
             velocityY = 0;
-            this.body.y = bounds.bottom - this.body.height;
+            this.body.y = bounds.bottom - this.body.height - 64;
         }
 
         // Aplicar la velocidad restringida
