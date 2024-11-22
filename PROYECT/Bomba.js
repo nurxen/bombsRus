@@ -43,9 +43,7 @@
                 this.body.setVelocity(0); // Detener el movimiento
                 this._disableCollision(); // Desactivar colisión
                 this._hasStopped = true;
-                // Reproducir la animación de explosión
-                this._playExplosion();
-                //console.log(this.body.x, this.body.y, this.x, this.y);
+                console.log(this.body.x, this.body.y, this.x, this.y);
             }
         }
     }
@@ -54,29 +52,7 @@
         // Desactivar la colisión para esta bomba
         this.body.checkCollision.none = true; // Desactiva todas las colisiones
     }
+    
 
-    _playExplosion() {
-        // Crear el sprite de explosión en la posición actual de la bomba
-        const explosion = this.scene.add.sprite(this.x, this.y, "regaloSprite");
-        explosion.play("regaloSprite_anim"); // Reproducir la animación
-
-        // Eliminar el sprite de explosión al finalizar la animación
-        explosion.on("animationcomplete", () => {
-            explosion.destroy();
-        });
-
-        // Destruir la bomba después de la explosión
-        this.destroy();
-    }
-
-    _onCollision() {
-        // Llamado cuando la bomba colisiona con el ground
-        if (!this._hasStopped) {
-            this.body.setVelocity(0); // Detener el movimiento
-            this._disableCollision(); // Desactivar colisión
-            this._hasStopped = true;
-            this._playExplosion(); // Reproducir la animación de explosión
-        }
-    }
     
 }
