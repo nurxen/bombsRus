@@ -67,6 +67,7 @@ class PreloadScene extends Phaser.Scene {
         this.load.image("PauseButton", "./assets/regalos.png");
 
         // Cargar imágenes de explosión de regalo
+        this.load.image("Present64", "./assets/present64.png");
         this.load.image("PresentExplosion1", "./assets/PRESENT1_5_21.png");
         this.load.image("PresentExplosion2", "./assets/PRESENT2_4_22.png");
         this.load.image("PresentExplosion3", "./assets/PRESENT3_23.png");

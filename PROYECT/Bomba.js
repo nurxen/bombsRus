@@ -1,13 +1,15 @@
 ﻿class Bomba extends Phaser.Physics.Arcade.Sprite {
     direction = new Phaser.Math.Vector2();
     id;
+    _cont = 0;
     _moveSpeed = 500;
     _maxDistance = 300; // Distancia máxima que la bomba puede recorrer
     _startPosition = new Phaser.Math.Vector2();
     _hasStopped = false;
+    
     //commit
     constructor(scene, id, x, y, direction) {
-        super(scene, x, y, "PresentExplosion1");
+        super(scene, x, y, "Present64");
         this.id = id;
         this._startPosition.set(x, y); // Guardar posición inicial
         this.direction = direction.clone().normalize();
@@ -33,8 +35,14 @@
                 this.x,
                 this.y
             );
-
-
+            
+            if(this.body.velocity.x == 0 && this.body.velocity.y == 0) {
+                this._cont++;
+                if(this._cont >= 200){
+                    this._playExplosion();
+                }
+                
+            }
 
             if (distanceTravelled >= this._maxDistance) {
                 console.log(distanceTravelled)

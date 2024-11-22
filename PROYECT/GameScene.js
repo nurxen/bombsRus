@@ -51,7 +51,7 @@ class GameScene extends Phaser.Scene {
         this.anims.create({
             key: "regaloSprite_anim",
             frames:this.anims.generateFrameNumbers("regaloSprite" ,{start:0 , end: 25}),
-            frameRate: 20,
+            frameRate: 30,
             repeat: 0
         })
         //this.physics.add.overlap(this.player1, this.bombas, this.player1.bombasHit, null, this.player1);
