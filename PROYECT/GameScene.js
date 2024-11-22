@@ -31,6 +31,7 @@ class GameScene extends Phaser.Scene {
     preload() {
         console.log("carga GameScene");
         this._loadAssets(); // Cargar assets para la animación
+        
     }
 
     create() {
@@ -47,18 +48,29 @@ class GameScene extends Phaser.Scene {
             allowGravity: false,
         });
         
+        this.anims.create({
+            key: "regaloSprite_anim",
+            frames:this.anims.generateFrameNumbers("regaloSprite" ,{start:0 , end: 25}),
+            frameRate: 20,
+            repeat: 0
+        })
         //this.physics.add.overlap(this.player1, this.bombas, this.player1.bombasHit, null, this.player1);
 
 
         this.ground = this.physics.add.staticGroup();
         this.ground.create(640, 360, "pato");
+
+        // Añadir colisiones entre la bomba y el "ground"
+        this.physics.add.collider(this.bombas, this.ground, (bomba, ground) => {
+            bomba._onCollision();
+        });
         
         this.physics.add.collider(this.player1.body, this.ground);
         this.physics.add.collider(this.player2.body, this.ground);
         this.physics.add.collider(this.bombas, this.ground);
 
         // Reproducir la animación de explosión de regalo solo una vez
-        this._presentAnimation.play("presentExplosion");  // es una prueba
+        //this._presentAnimation.play("presentExplosion");  // es una prueba
     }
 
     update(time, delta) {
@@ -153,9 +165,11 @@ class GameScene extends Phaser.Scene {
 
     // Cargar los assets de la animación (puedes usar esta función para cargar más assets en el futuro)
     _loadAssets() {
-        for (let i = 1; i <= 26; i++) {
-            this.load.image("PresentExplosion" + i, "./assets/PRESENT" + i + ".png");
-        }
+        this.load.spritesheet("regaloSprite", "assets/spritesheet.png" , {
+            frameWidth: 192,
+            frameHeight: 192
+        });
+        
     }
     
 

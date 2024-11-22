@@ -99,6 +99,9 @@ class PreloadScene extends Phaser.Scene {
         this.load.image("RetryButton", "./assets/retryButton.png");
         this.load.image("RetryButtonGrande", "./assets/RetryButton2.png");
         
+        //load json
+        this.load.atlas('regalo', 'assets/spritesheet.png', 'assets/regalo.json');
+        
 
         // Texto del porcentaje de carga
         const loadingText = this.add.text(this.cameras.main.width / 2, progressBarY - 30, 'Cargando: 0%', {
