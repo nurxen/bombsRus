@@ -1,5 +1,4 @@
 class PreloadScene extends Phaser.Scene {
-    //commit
     constructor() {
         super({ key: 'PreloadScene' });
     }

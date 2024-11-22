@@ -1,6 +1,6 @@
 // noinspection SpellCheckingInspection
 class GameScene extends Phaser.Scene {
-    //commit
+    
     // Variables públicas
     playersInput = {
         wasdKeys: 0,
