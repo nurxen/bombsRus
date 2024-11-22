@@ -45,7 +45,7 @@
                 this._hasStopped = true;
                 // Reproducir la animación de explosión
                 this._playExplosion();
-                console.log(this.body.x, this.body.y, this.x, this.y);
+                //console.log(this.body.x, this.body.y, this.x, this.y);
             }
         }
     }
