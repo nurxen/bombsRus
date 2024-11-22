@@ -80,20 +80,20 @@ class Player {
 
         // Limitar el movimiento si se sale de los límites, si no sale no entra en los ifs
         // y mete en setvelocity la velocidad normal
-        if (newX < bounds.left + 64) {
+        if (newX < bounds.left + 66) {
             velocityX = 0;
-            this.body.x = bounds.left + 64; //reseteo para que no avance mas
-        } else if (newX > bounds.right - this.body.width - 64) {
+            this.body.x = bounds.left + 66; //reseteo para que no avance mas
+        } else if (newX > bounds.right - this.body.width - 66) {
             velocityX = 0;
-            this.body.x = bounds.right - this.body.width - 64; //reseteo para que no avance mas
+            this.body.x = bounds.right - this.body.width - 66; //reseteo para que no avance mas
         }
 
-        if (newY < bounds.top + 64) {
+        if (newY < bounds.top + 72) {
             velocityY = 0;
-            this.body.y = bounds.top + 64;
-        } else if (newY > bounds.bottom - this.body.height - 64) {
+            this.body.y = bounds.top + 72;
+        } else if (newY > bounds.bottom - this.body.height - 72) {
             velocityY = 0;
-            this.body.y = bounds.bottom - this.body.height - 64;
+            this.body.y = bounds.bottom - this.body.height - 72;
         }
 
         // Aplicar la velocidad restringida
