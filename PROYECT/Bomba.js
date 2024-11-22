@@ -19,14 +19,12 @@
 
         console.log(`Velocidad X: ${this.body.velocity.x}, Velocidad Y: ${this.body.velocity.y}`);
         console.log(this.direction);
-
-
     }
 
 
     update(time, delta) {
         super.update(time, delta);
-
+        
         if (!this._hasStopped) {
             // Calcular la distancia recorrida
             let distanceTravelled = Phaser.Math.Distance.Between(
@@ -45,6 +43,7 @@
                 this._hasStopped = true;
                 // Reproducir la animación de explosión
                 this._playExplosion();
+
             }
         }
     }
