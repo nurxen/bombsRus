@@ -54,12 +54,31 @@ class GameScene extends Phaser.Scene {
             frameRate: 30,
             repeat: 0
         })
-        //this.physics.add.overlap(this.player1, this.bombas, this.player1.bombasHit, null, this.player1);
+        
 
-
+        //MONTAR ESCENARIO
         this.ground = this.physics.add.staticGroup();
-        this.ground.create(640, 360, "pato");
+        
+        //FILA 1
+        this.ground.create(226, 244, "pato");
+        this.ground.create(418, 244, "pato");
+        this.ground.create(866, 244, "pato");
+        this.ground.create(1056, 244, "pato");
 
+        //FILA 2
+        this.ground.create(226, 522, "pato");
+        this.ground.create(418, 522, "pato");
+        this.ground.create(866, 522, "pato");
+        this.ground.create(1056, 522, "pato");
+        
+        //COLUMNA CENTRAL
+        this.ground.create(609, 174, "pato");
+        this.ground.create(675, 174, "pato");
+        this.ground.create(609, 382, "pato");
+        this.ground.create(675, 382, "pato");
+        this.ground.create(609, 592, "pato");
+        this.ground.create(675, 592, "pato");
+        
         // Añadir colisiones entre la bomba y el "ground"
         this.physics.add.collider(this.bombas, this.ground, (bomba, ground) => {
             bomba._onCollision();
@@ -68,9 +87,7 @@ class GameScene extends Phaser.Scene {
         this.physics.add.collider(this.player1.body, this.ground);
         this.physics.add.collider(this.player2.body, this.ground);
         this.physics.add.collider(this.bombas, this.ground);
-
-        // Reproducir la animación de explosión de regalo solo una vez
-        //this._presentAnimation.play("presentExplosion");  // es una prueba
+        
     }
 
     update(time, delta) {
