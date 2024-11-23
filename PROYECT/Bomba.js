@@ -41,7 +41,6 @@
                 if(this._cont >= 200){
                     this._playExplosion();
                 }
-                
             }
 
             if (distanceTravelled >= this._maxDistance) {
@@ -51,7 +50,8 @@
                 this._hasStopped = true;
                 // Reproducir la animación de explosión
                 this._playExplosion();
-
+                this.add.image(this.x, this.y, 'ColiderPresentExplosion')
+                // CONTINUAR 
             }
         }
     }

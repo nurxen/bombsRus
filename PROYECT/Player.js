@@ -159,6 +159,7 @@ class Player {
 
     // Registrar un callback cuando el jugador recibe daño
     _onHit() {
+        
 
     }
 

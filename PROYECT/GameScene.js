@@ -109,6 +109,8 @@ class GameScene extends Phaser.Scene {
         this._processInput(); // Procesar las entradas del jugador
         this.player1.update(time, delta); // Actualizar el jugador
         this.player2.update(time, delta); // Actualizar el jugador
+        this._checkColisionWithBomb(player1, bomba);
+        this._checkColisionWithBomb(player2, bomba);
     }
 
     // Métodos privados
@@ -193,9 +195,13 @@ class GameScene extends Phaser.Scene {
         this.player2 = new Player(this, 2, this.position2, -1);
     }
 
+    _checkColisionWithBomb(player, bomb) {
+        if(player ){
+            
+        }
+    }
 
-
-    // Cargar los assets de la animación (puedes usar esta función para cargar más assets en el futuro)
+    // Cargar los assets de la animación
     _loadAssets() {
         this.load.spritesheet("regaloSprite", "assets/ASSTES/spritesheet.png" , {
             frameWidth: 192,
