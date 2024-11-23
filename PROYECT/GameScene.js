@@ -12,8 +12,8 @@ class GameScene extends Phaser.Scene {
     player1; // El jugador 1 instancia la clase Player
     player2; // El jugador 1 instancia la clase Player
     bombas;
-    position = new Phaser.Math.Vector2(64, 256); // Posición inicial del jugador
-    position2 = new Phaser.Math.Vector2(1216, 256); // Posición inicial del jugador
+    position = new Phaser.Math.Vector2(64, 64); // Posición inicial del jugador
+    position2 = new Phaser.Math.Vector2(1216, 680); // Posición inicial del jugador
 
     _animInput=0;
 
@@ -55,29 +55,44 @@ class GameScene extends Phaser.Scene {
             repeat: 0
         })
         
-
+        ///////////////////////////////////////////////////
         //MONTAR ESCENARIO
         this.ground = this.physics.add.staticGroup();
-        
-        //FILA 1
-        this.ground.create(226, 244, "pato");
-        this.ground.create(418, 244, "pato");
-        this.ground.create(866, 244, "pato");
-        this.ground.create(1056, 244, "pato");
 
-        //FILA 2
-        this.ground.create(226, 522, "pato");
-        this.ground.create(418, 522, "pato");
-        this.ground.create(866, 522, "pato");
-        this.ground.create(1056, 522, "pato");
-        
-        //COLUMNA CENTRAL
-        this.ground.create(609, 174, "pato");
-        this.ground.create(675, 174, "pato");
-        this.ground.create(609, 382, "pato");
-        this.ground.create(675, 382, "pato");
-        this.ground.create(609, 592, "pato");
-        this.ground.create(675, 592, "pato");
+        // Lista de decoraciones
+        const decorations = [
+            "LegoDecoration",
+            "BallDecoration",
+            "CarDecoration",
+            "CubeDecoration",
+            "Towerdecoration",
+            "PinkDuckDecoration",
+            "YellowDuckDecoration"
+        ];
+
+        // Función para elegir un asset aleatorio
+        const getRandomDecoration = () => decorations[Math.floor(Math.random() * decorations.length)];
+
+        // FILA 1
+        this.ground.create(226, 244, getRandomDecoration());
+        this.ground.create(418, 244, getRandomDecoration());
+        this.ground.create(866, 244, getRandomDecoration());
+        this.ground.create(1056, 244, getRandomDecoration());
+
+        // FILA 2
+        this.ground.create(226, 522, getRandomDecoration());
+        this.ground.create(418, 522, getRandomDecoration());
+        this.ground.create(866, 522, getRandomDecoration());
+        this.ground.create(1056, 522, getRandomDecoration());
+
+        // COLUMNA CENTRAL
+        this.ground.create(609, 174, getRandomDecoration());
+        this.ground.create(675, 174, getRandomDecoration());
+        this.ground.create(609, 382, getRandomDecoration());
+        this.ground.create(675, 382, getRandomDecoration());
+        this.ground.create(609, 592, getRandomDecoration());
+        this.ground.create(675, 592, getRandomDecoration());
+        ////////////////////////////////////////////////////
         
         // Añadir colisiones entre la bomba y el "ground"
         this.physics.add.collider(this.bombas, this.ground, (bomba, ground) => {
@@ -129,7 +144,7 @@ class GameScene extends Phaser.Scene {
 
     // Crear el sprite de la animación
     _createPresentAnimationSprite() {
-        this._presentAnimation = this.add.sprite(400, 300, "PresentExplosion1") // Posición inicial del sprite
+        this._presentAnimation = this.add.sprite(1000, 1000, "PresentExplosion1") // Posición inicial del sprite
             .setScale(1) // Escala del sprite
             .setOrigin(0,0); // Centro del sprite como origen
     }
@@ -182,7 +197,7 @@ class GameScene extends Phaser.Scene {
 
     // Cargar los assets de la animación (puedes usar esta función para cargar más assets en el futuro)
     _loadAssets() {
-        this.load.spritesheet("regaloSprite", "assets/spritesheet.png" , {
+        this.load.spritesheet("regaloSprite", "assets/ASSTES/spritesheet.png" , {
             frameWidth: 192,
             frameHeight: 192
         });
