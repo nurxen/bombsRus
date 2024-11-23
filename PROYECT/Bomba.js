@@ -24,9 +24,10 @@
     }
 
 
+    // Método update de la bomba para detenerla correctamente
     update(time, delta) {
         super.update(time, delta);
-        
+
         if (!this._hasStopped) {
             // Calcular la distancia recorrida
             let distanceTravelled = Phaser.Math.Distance.Between(
@@ -35,27 +36,16 @@
                 this.x,
                 this.y
             );
-            
-            if(this.body.velocity.x == 0 && this.body.velocity.y == 0) {
-                this._cont++;
-                if(this._cont >= 200){
-                    this._playExplosion();
-                }
-            }
 
-            if (distanceTravelled >= this._maxDistance) {
-                console.log(distanceTravelled)
+            // Detener la bomba cuando se haya movido la distancia máxima
+            if (distanceTravelled >= this._maxDistance || (this.body.velocity.x === 0 && this.body.velocity.y === 0)) {
                 this.body.setVelocity(0); // Detener el movimiento
-                //this._disableCollision(); // Desactivar colisión
-                this._hasStopped = true;
-                
-                // Reproducir la animación de explosión
-                this._playExplosion();
- 
+                this._hasStopped = true; // Marcar que la bomba se ha detenido
+                this._playExplosion(); // Reproducir la animación de explosión
             }
         }
-        
     }
+
 
     _disableCollision() {
         // Desactivar la colisión para esta bomba
@@ -69,6 +59,9 @@
 
         // Agregar la imagen de "ColiderPresentExplosion" en la misma posición
         const explosionImage = this.scene.physics.add.sprite(this.x, this.y, "ColiderPresentExplosion");
+
+        // Llamar para verificar si hay colisión con los jugadores
+        this.scene.checkCollisionWithPlayers(explosionImage); // Verificar colisión con los jugadores
         
         // Eliminar el sprite de explosión al finalizar la animación
         explosion.on("animationcomplete", () => {
@@ -77,8 +70,9 @@
         });
 
         // Destruir la bomba después de la explosión
-
         this.destroy();
+
+        
     }
 
     _onCollision() {

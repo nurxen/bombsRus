@@ -61,7 +61,7 @@ class PreloadScene extends Phaser.Scene {
         this.load.image("MainMenuBackground", "./assets/ESCENARIOS/LoseBackground.png");
         this.load.image("PauseBackground", "./assets/ESCENARIOS/regalos.png");
         this.load.image("WinPlayerOneBackground", "./assets/ESCENARIOS/LoseBackground.png");
-        this.load.image("WinPlayerTwoBackground", "./assets/ESCENARIOS/regalos.png");
+        this.load.image("WinPlayerTwoBackground", "./assets/ESCENARIOS/LoseBackground.png");
         this.load.image("GameBackground", "./assets/ESCENARIOS/GameBackground.png");
         this.load.image("StartButton", "./assets/BOTONES/MainMenuButton.png");
         this.load.image("CreditsButton", "./assets/BOTONES/regalos.png");
@@ -104,8 +104,6 @@ class PreloadScene extends Phaser.Scene {
         //pruebas
         this.load.image("pato", "./assets/pato.png");
         this.load.image("bk", "./assets/backgroundDef.png");
-        // this.load.image("RetryButton", "./assets/BOTONES/retryButton.png");
-        // this.load.image("RetryButtonGrande", "./assets/BOTONES/RetryButton2.png");
 
         //load json
         this.load.atlas('regalo', './assets/ASSTES/spritesheet.png', './assets/ASSTES/regalo.json');

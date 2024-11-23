@@ -12,7 +12,7 @@ class GameScene extends Phaser.Scene {
     player1; // El jugador 1 instancia la clase Player
     player2; // El jugador 1 instancia la clase Player
     bombas;
-    position = new Phaser.Math.Vector2(64, 100); // Posición inicial del jugador
+    position = new Phaser.Math.Vector2(1300, 800); // Posición inicial del jugador
     position2 = new Phaser.Math.Vector2(1300, 1000); // Posición inicial del jugador
     player1Lifes = []; // Array para las vidas del jugador 1
     player2Lifes = []; // Array para las vidas del jugador 2
@@ -43,7 +43,6 @@ class GameScene extends Phaser.Scene {
         this._createLifes(); // Crear fondo
         this._initPlayer1(); // Inicializar jugador 1
         this._initPlayer2(); // Inicializar jugador 2
-        
         this._createPresentExplosionAnimation(); // Crear la animación del regalo
         this._createPresentAnimationSprite(); // Crear el sprite para la animación
 
@@ -163,14 +162,8 @@ class GameScene extends Phaser.Scene {
         
         ////////////////////////////////////////////////////
         // Crear el sprite del regalo y configurarlo fuera de la pantalla inicialmente
-        this.regalo = this.physics.add.sprite(-100, -100, "PresentExplosion26").setScale(1);
+        this.regalo = this.physics.add.sprite(-100, -100, "regaloColiderPresentExplosion").setScale(1);
 
-
-        // Detectar el final de la animación del regalo
-        this.regalo.on("animationcomplete", () => {
-            // Detectar colisión con los jugadores al final de la animación
-            this._checkCollisionWithPlayers();
-        });
 
         ////////////////////////////////////////////////////
 
@@ -197,6 +190,10 @@ class GameScene extends Phaser.Scene {
         this.physics.add.collider(this.player1.body, this.ground);
         this.physics.add.collider(this.player2.body, this.ground);
         this.physics.add.collider(this.bombas, this.ground);
+
+        this.physics.add.overlap(this.regalo, this.player1.gameObject, () => this._playerHit(this.player1), null, this);
+        this.physics.add.overlap(this.regalo, this.player2.gameObject, () => this._playerHit(this.player2), null, this);
+        
     }
     
     // Métodos privados
@@ -235,21 +232,21 @@ class GameScene extends Phaser.Scene {
     // Metodo que se ejecuta cuando un jugador recibe daño
     _playerHit(player) {
         player.isHit(); // Reduce la vida del jugador
-        this._updatePlayerLives(player);
+        this._updatePlayerLives(player); // Actualiza la UI de las vidas
         console.log('player hit');
     }
-
+    
+    
     // Metodo para comprobar la colisión con los jugadores después de la animación
-    _checkCollisionWithPlayers() {
+    checkCollisionWithPlayers(explosionImage) {
         // Verificar si el regalo ha colisionado con los jugadores
-        if (this.physics.overlap(this.regalo, this.player1.gameObject)) {
+        if (this.physics.overlap(explosionImage, this.player1.gameObject)) {
             this._playerHit(this.player1); // El jugador 1 ha sido golpeado
-        } else if (this.physics.overlap(this.regalo, this.player2.gameObject)) {
+        } else if (this.physics.overlap(explosionImage, this.player2.gameObject)) {
             this._playerHit(this.player2); // El jugador 2 ha sido golpeado
         }
     }
-
-
+    
     // Crear la animación de explosión del regalo
     _createPresentExplosionAnimation() {
         this._frames = []; // Aseguramos que _frames esté vacío antes de llenarlo
@@ -343,6 +340,7 @@ class GameScene extends Phaser.Scene {
             lifeSprite.destroy(); // Destruye el sprite para quitarlo de la pantalla
         }
         else {
+            this.endGame();
             player.isLoserPlayer = true;
         }
     }
@@ -371,6 +369,10 @@ class GameScene extends Phaser.Scene {
         } else {
             return 2;
         }
+    }
+
+    endGame() {
+        this.scene.start('FinalScene'); // Cambiar a la escena del juego
     }
     
 
