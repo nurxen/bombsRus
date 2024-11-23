@@ -22,12 +22,15 @@ class FinalScene extends Phaser.Scene {
     // Crear el fondo de la escena
     _createBackground() {
         if (this.scene.getLoser == 1){
-        this.loseBackground = this.add.image(0, 0, 'LoseBackground') // Gana jugador 1
+        this.loseBackground = this.add.image(0, 0, 'WinPlayerOneBackground') // Gana jugador 1
+            .setOrigin(0) // Establece el origen en la esquina superior izquierda
+            .setDisplaySize(this.sys.game.config.width, this.sys.game.config.height); // Ajusta al tamaño del canvas
         } else {
-            this.loseBackground = this.add.image(0, 0, 'LoseBackground') // Gana jugador 2
+            this.loseBackground = this.add.image(0, 0, 'WinPlayerTwoBackground') // Gana jugador 2
+                .setOrigin(0) // Establece el origen en la esquina superior izquierda
+                .setDisplaySize(this.sys.game.config.width, this.sys.game.config.height); // Ajusta al tamaño del canvas
         }
-        this.setOrigin(0) // Establece el origen en la esquina superior izquierda
-        .setDisplaySize(this.sys.game.config.width, this.sys.game.config.height); // Ajusta al tamaño del canvas
+        
     }
 
     // Crear el botón de "Retry"
@@ -43,6 +46,8 @@ class FinalScene extends Phaser.Scene {
     _startGame() {
         this.scene.start('GameScene'); // Cambiar a la escena del juego
     }
+
+    
 
     // Crear el botón de "Exit"
     _createExitButton() {

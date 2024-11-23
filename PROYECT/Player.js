@@ -155,12 +155,12 @@ class Player {
     _die() {
         this._isAlive = false;
         this._stopMovement(); // Detiene el movimiento
-        this.scene.start('FinalSecene');
         this.isWinnerPlayer = false;
     }
 
     // Registrar un callback cuando el jugador recibe daño
     isHit() {
+        console.log("hit player");
         this._healthPoints--; // Reduce la vida del jugador
 
         if (this._healthPoints <= 0) {
