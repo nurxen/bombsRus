@@ -124,7 +124,6 @@ class GameScene extends Phaser.Scene {
     _initPlayers() {
         this.player1 = new Player(this, 1, this.position, 1);
         this.player2 = new Player(this, 2, this.position2, -1);
-        
     }
 
     // Configurar las bombas
@@ -152,6 +151,8 @@ class GameScene extends Phaser.Scene {
             "YellowDuckDecoration"
         ];
 
+        this.ground = this.physics.add.staticGroup();
+        
         // Añadir decoraciones y bordes
         this._addDecorations(decorations);
         this._addBorders();
@@ -183,7 +184,6 @@ class GameScene extends Phaser.Scene {
     }
     
     _addBorders() {
-        this.ground = this.physics.add.staticGroup();
         
         // Borde izquierdo
         for (let i = 70; i <= 700; i += 70) {
@@ -199,11 +199,15 @@ class GameScene extends Phaser.Scene {
 
     // Configurar las colisiones
     _setupCollisions() {
-        this.physics.add.collider(this.bombas, this.ground, (bomba) => bomba._onCollision());
+        // Añadir colisiones entre la bomba y el "ground"
+        this.physics.add.collider(this.bombas, this.ground, (bomba, ground) => {
+            bomba._onCollision();
+        });
         this.physics.add.collider(this.player1.body, this.ground);
         this.physics.add.collider(this.player2.body, this.ground);
-        this.physics.add.overlap(this.regalo, this.player1.gameObject, () => this._playerHit(this.player1));
-        this.physics.add.overlap(this.regalo, this.player2.gameObject, () => this._playerHit(this.player2));
+        this.physics.add.collider(this.bombas, this.ground);
+        this.physics.add.overlap(this.regalo, this.player1.gameObject, () => this._playerHit(this.player1), null, this);
+        this.physics.add.overlap(this.regalo, this.player2.gameObject, () => this._playerHit(this.player2), null, this);
     }
     
     // Crear la animación de explosión del regalo
@@ -273,6 +277,17 @@ class GameScene extends Phaser.Scene {
         player.isHit(); // Reduce la vida del jugador
         this._updatePlayerLives(player); // Actualiza la UI de las vidas
         console.log('player hit');
+    }
+
+    // Actualizar las vidas del jugador
+    _updatePlayerLives(player) {
+        const lifesArray = player.id === 1 ? this.player1Lifes : this.player2Lifes;
+        if (lifesArray.length > 0) {
+            lifesArray.pop().destroy();
+        } else {
+            this.endGame();
+            player.isLoserPlayer = true;
+        }
     }
     
     // Comprobar si el juego ha terminado
