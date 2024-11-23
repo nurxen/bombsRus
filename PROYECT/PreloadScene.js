@@ -41,6 +41,7 @@ class PreloadScene extends Phaser.Scene {
         this.load.image("PuffyMoveDown", "./assets/tile.png");
 
         // Assets interactuables
+        this.load.image("ColiderPresentExplosion", "./assets/ASSTES/ColiderExplosionRegalo.png");
         this.load.image("Present64", "./assets/ASSTES/Present.png");
         this.load.image("CoveyorBeltExtremo", "./assets/ASSTES/CoveyorBeltExtremo.png"); // cinta transpoirtadora
         this.load.image("CoveyorBeltMedio1", "./assets/ASSTES/CoveyorBeltMedio1.png");
