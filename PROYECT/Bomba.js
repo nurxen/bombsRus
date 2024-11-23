@@ -48,12 +48,13 @@
                 this.body.setVelocity(0); // Detener el movimiento
                 //this._disableCollision(); // Desactivar colisión
                 this._hasStopped = true;
+                
                 // Reproducir la animación de explosión
                 this._playExplosion();
-                // this.add.image(this.x, this.y, 'ColiderPresentExplosion');
-                
+ 
             }
         }
+        
     }
 
     _disableCollision() {
@@ -66,12 +67,17 @@
         const explosion = this.scene.add.sprite(this.x, this.y, "regaloSprite");
         explosion.play("regaloSprite_anim"); // Reproducir la animación
 
+        // Agregar la imagen de "ColiderPresentExplosion" en la misma posición
+        const explosionImage = this.scene.physics.add.sprite(this.x, this.y, "ColiderPresentExplosion");
+        
         // Eliminar el sprite de explosión al finalizar la animación
         explosion.on("animationcomplete", () => {
             explosion.destroy();
+            explosionImage.destroy();
         });
 
         // Destruir la bomba después de la explosión
+
         this.destroy();
     }
 

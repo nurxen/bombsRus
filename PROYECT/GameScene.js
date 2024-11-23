@@ -12,8 +12,8 @@ class GameScene extends Phaser.Scene {
     player1; // El jugador 1 instancia la clase Player
     player2; // El jugador 1 instancia la clase Player
     bombas;
-    position = new Phaser.Math.Vector2(1000, 500); // Posición inicial del jugador
-    position2 = new Phaser.Math.Vector2(1000, 600); // Posición inicial del jugador
+    position = new Phaser.Math.Vector2(64, 100); // Posición inicial del jugador
+    position2 = new Phaser.Math.Vector2(1300, 1000); // Posición inicial del jugador
     player1Lifes = []; // Array para las vidas del jugador 1
     player2Lifes = []; // Array para las vidas del jugador 2
 
@@ -97,12 +97,69 @@ class GameScene extends Phaser.Scene {
         this.ground.create(675, 382, getRandomDecoration());
         this.ground.create(609, 592, getRandomDecoration());
         this.ground.create(675, 592, getRandomDecoration());
-        ////////////////////////////////////////////////////
+        
+        // BORDES
+        //IZQUIERDA
+        this.ground.create(32, 70, "Colider64");
+        this.ground.create(32, 140, "Colider64");
+        this.ground.create(32, 210, "Colider64");
+        this.ground.create(32, 280, "Colider64");
+        this.ground.create(32, 350, "Colider64");
+        this.ground.create(32, 420, "Colider64");
+        this.ground.create(32, 490, "Colider64");
+        this.ground.create(32, 560, "Colider64");
+        this.ground.create(32, 630, "Colider64");
+        this.ground.create(32, 700, "Colider64");
 
+        //DERECHA
+        this.ground.create(1248, 70, "Colider64");
+        this.ground.create(1248, 140, "Colider64");
+        this.ground.create(1248, 210, "Colider64");
+        this.ground.create(1248, 280, "Colider64");
+        this.ground.create(1248, 350, "Colider64");
+        this.ground.create(1248, 420, "Colider64");
+        this.ground.create(1248, 490, "Colider64");
+        this.ground.create(1248, 560, "Colider64");
+        this.ground.create(1248, 630, "Colider64");
+        this.ground.create(1248, 700, "Colider64");
 
+        //ARRIBA
+        this.ground.create(70, 34, "Colider64");
+        this.ground.create(140, 34, "Colider64");
+        this.ground.create(210, 34, "Colider64");
+        this.ground.create(280, 34, "Colider64");
+        this.ground.create(350, 34, "Colider64");
+        this.ground.create(420, 34, "Colider64");
+        this.ground.create(490, 34, "Colider64");
+        this.ground.create(560, 34, "Colider64");
+        this.ground.create(630, 34, "Colider64");
+        this.ground.create(700, 34, "Colider64");
+        this.ground.create(770, 34, "Colider64");
+        this.ground.create(840, 34, "Colider64");
+        this.ground.create(910, 34, "Colider64");
+        this.ground.create(980, 34, "Colider64");
+        this.ground.create(1050, 34, "Colider64");
+        this.ground.create(1120, 34, "Colider64");
+        this.ground.create(1190, 34, "Colider64");
         
-        
-        
+        //ABAJO
+        this.ground.create(70, 732, "Colider64");
+        this.ground.create(140, 732, "Colider64");
+        this.ground.create(210, 732, "Colider64");
+        this.ground.create(280, 732, "Colider64");
+        this.ground.create(350, 732, "Colider64");
+        this.ground.create(420, 732, "Colider64");
+        this.ground.create(490, 732, "Colider64");
+        this.ground.create(560, 732, "Colider64");
+        this.ground.create(630, 732, "Colider64");
+        this.ground.create(700, 732, "Colider64");
+        this.ground.create(770, 732, "Colider64");
+        this.ground.create(840, 732, "Colider64");
+        this.ground.create(910, 732, "Colider64");
+        this.ground.create(980, 732, "Colider64");
+        this.ground.create(1050, 732, "Colider64");
+        this.ground.create(1120, 732, "Colider64");
+        this.ground.create(1190, 732, "Colider64");
         
         ////////////////////////////////////////////////////
         // Crear el sprite del regalo y configurarlo fuera de la pantalla inicialmente
@@ -175,14 +232,14 @@ class GameScene extends Phaser.Scene {
         }
     }
 
-    // Método que se ejecuta cuando un jugador recibe daño
+    // Metodo que se ejecuta cuando un jugador recibe daño
     _playerHit(player) {
         player.isHit(); // Reduce la vida del jugador
         this._updatePlayerLives(player);
         console.log('player hit');
     }
 
-    // Método para comprobar la colisión con los jugadores después de la animación
+    // Metodo para comprobar la colisión con los jugadores después de la animación
     _checkCollisionWithPlayers() {
         // Verificar si el regalo ha colisionado con los jugadores
         if (this.physics.overlap(this.regalo, this.player1.gameObject)) {
