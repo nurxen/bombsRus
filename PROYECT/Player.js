@@ -3,35 +3,36 @@
 class Player {
 
     // Variables públicas
-    characterSprite = ""; // Referencia al sprite del bomberman
+    /*characterSprite = ""; // Referencia al sprite del bomberman
     horizontalInput = 0; // Input horizontal: -1 (izquierda), 0 (quieto), 1 (derecha)
     verticalInput = 0; // Input vertical: -1 (arriba), 0 (quieto), 1 (abajo)
     bombInput = 0; // Input de disparar: 0, 1
-    bombDirection = new Phaser.Math.Vector2(); // Dirección para colocar la bomba
+    bombDirection = new Phaser.Math.Vector2(); // Dirección para colocar la bomba*/
     direction = new Phaser.Math.Vector2(); // Dirección (para disparar)
     xInput = 0; // Input horizontal : -1, 0, 1
     yInput = 0; // Input vertical : -1, 0, 1
     dispararInput = 0; //input de disparar: 0, 1
+    isWinner = false; //Comprueba si el jugador ha ganado o perdido
 
     // Variables privadas
-    _animationKeys = {
+    /*_animationKeys = {
         idle: "idle",   // Animación de estar quieto
         walk: "walk",   // Animación de caminar
         die: "die",     // Animación de morir (explosión)
     };
-    _currentAnimationKey = ""; // Animación actual
-    _moveSpeed = 200; // Velocidad de movimiento (horizontal y vertical)
     _bombCooldown = 0.5; // Tiempo a esperar entre colocar bombas
     _isBombOnCooldown = false; // Control para el cooldown de la bomba
+    _healthPoints = 6; // Salud del bomberman
+    _hitCallbacks = []; // Array para guardar los callbacks cuando el bomberman reciba daño
+    _deathCallbacks = []; // Lo mismo que _hitCallbacks pero cuando el bomberman muere*/
+    _currentAnimationKey = ""; // Animación actual
+    _moveSpeed = 200; // Velocidad de movimiento (horizontal y vertical)
     _cooldownTimer = 0; // Timer para el cooldown de la bomba
     _isOnCooldown = false;
     _castCooldown = 1000; //tiempo a esperar entre disparo y disparo
-    _healthPoints = 6; // Salud del bomberman
-    _isAlive = true; // Control para no moverse al estar muerto
-    _hitCallbacks = []; // Array para guardar los callbacks cuando el bomberman reciba daño
-    _deathCallbacks = []; // Lo mismo que _hitCallbacks pero cuando el bomberman muere
     _shouldUpdateAnimations = true; // Control para no cambiar de animación si está en estado de golpe o muerto
-
+    _isAlive = true; // Control para no moverse al estar muerto
+    
     constructor(scene, id, position, xDirection) {
         this._scene = scene;
         this.id = id;
@@ -51,6 +52,10 @@ class Player {
         this.xInput = 0;
         this.yInput = 0;
         this.dispararInput = 0;
+    }
+    
+    isWinner(){
+        return this.isWinner;
     }
 
     // Crear el sprite del jugador
