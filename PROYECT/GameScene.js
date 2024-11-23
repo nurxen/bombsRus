@@ -109,7 +109,7 @@ class GameScene extends Phaser.Scene {
 
     // Crear fondo y elementos base
     _createBackground() {
-        this._bk = this.add.image(0, 0, "bk").setOrigin(0).setDisplaySize(this.sys.game.config.width, this.sys.game.config.height);
+        this._bk = this.add.image(0, 0, "GameBackground").setOrigin(0).setDisplaySize(this.sys.game.config.width, this.sys.game.config.height);
     }
 
     // Crear la animación de explosión del regalo
