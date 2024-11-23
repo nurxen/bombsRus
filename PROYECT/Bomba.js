@@ -46,12 +46,12 @@
             if (distanceTravelled >= this._maxDistance) {
                 console.log(distanceTravelled)
                 this.body.setVelocity(0); // Detener el movimiento
-                this._disableCollision(); // Desactivar colisión
+                //this._disableCollision(); // Desactivar colisión
                 this._hasStopped = true;
                 // Reproducir la animación de explosión
                 this._playExplosion();
-                this.add.image(this.x, this.y, 'ColiderPresentExplosion')
-                // CONTINUAR 
+                // this.add.image(this.x, this.y, 'ColiderPresentExplosion');
+                
             }
         }
     }

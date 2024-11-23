@@ -12,8 +12,10 @@ class GameScene extends Phaser.Scene {
     player1; // El jugador 1 instancia la clase Player
     player2; // El jugador 1 instancia la clase Player
     bombas;
-    position = new Phaser.Math.Vector2(64, 64); // Posición inicial del jugador
-    position2 = new Phaser.Math.Vector2(1216, 680); // Posición inicial del jugador
+    position = new Phaser.Math.Vector2(1000, 500); // Posición inicial del jugador
+    position2 = new Phaser.Math.Vector2(1000, 600); // Posición inicial del jugador
+    player1Lifes = []; // Array para las vidas del jugador 1
+    player2Lifes = []; // Array para las vidas del jugador 2
 
     _animInput=0;
 
@@ -27,7 +29,8 @@ class GameScene extends Phaser.Scene {
     _presentAnimation; // Animación de los regalos
     _frames; // Frames de la animación
     _framesRate = 10; // Velocidad de la animación
-
+    
+    
     preload() {
         console.log("carga GameScene");
         this._loadAssets(); // Cargar assets para la animación
@@ -37,22 +40,24 @@ class GameScene extends Phaser.Scene {
     create() {
         this._setupInputs(); // Configurar las teclas de entrada
         this._createBackground(); // Crear fondo
+        this._createLifes(); // Crear fondo
         this._initPlayer1(); // Inicializar jugador 1
         this._initPlayer2(); // Inicializar jugador 2
+        
         this._createPresentExplosionAnimation(); // Crear la animación del regalo
         this._createPresentAnimationSprite(); // Crear el sprite para la animación
 
         this.bombas = this.physics.add.group({
             classType: Bomba,
             runChildUpdate: true, // Llama a `update` automáticamente para cada bomba
-            allowGravity: false,
+                allowGravity: false,
         });
 
         this.anims.create({
             key: "regaloSprite_anim",
             frames:this.anims.generateFrameNumbers("regaloSprite" ,{start:0 , end: 25}),
             frameRate: 30,
-            repeat: 0
+            repeat: 0 // No se repite
         })
         
         ///////////////////////////////////////////////////
@@ -93,7 +98,40 @@ class GameScene extends Phaser.Scene {
         this.ground.create(609, 592, getRandomDecoration());
         this.ground.create(675, 592, getRandomDecoration());
         ////////////////////////////////////////////////////
+
+
         
+        
+        
+        
+        ////////////////////////////////////////////////////
+        // Crear el sprite del regalo y configurarlo fuera de la pantalla inicialmente
+        this.regalo = this.physics.add.sprite(-100, -100, "PresentExplosion26").setScale(1);
+
+
+        // Detectar el final de la animación del regalo
+        this.regalo.on("animationcomplete", () => {
+            // Detectar colisión con los jugadores al final de la animación
+            this._checkCollisionWithPlayers();
+        });
+
+        ////////////////////////////////////////////////////
+
+        this._setupCollisions(); // Configurar colisiones
+        
+    }
+
+    update(time, delta) {
+        this._processInput(); // Procesar las entradas del jugador
+        this.player1.update(time, delta); // Actualizar jugador 1
+        this.player2.update(time, delta); // Actualizar jugador 2
+
+        // Fin del juego si un jugador pierde todas sus vidas
+        this._checkGameOver();
+    }
+
+    // Configurar las colisiones
+    _setupCollisions() {
         // Añadir colisiones entre la bomba y el "ground"
         this.physics.add.collider(this.bombas, this.ground, (bomba, ground) => {
             bomba._onCollision();
@@ -102,17 +140,8 @@ class GameScene extends Phaser.Scene {
         this.physics.add.collider(this.player1.body, this.ground);
         this.physics.add.collider(this.player2.body, this.ground);
         this.physics.add.collider(this.bombas, this.ground);
-        
     }
-
-    update(time, delta) {
-        this._processInput(); // Procesar las entradas del jugador
-        this.player1.update(time, delta); // Actualizar el jugador
-        this.player2.update(time, delta); // Actualizar el jugador
-        this._checkColisionWithBomb(player1, bomba);
-        this._checkColisionWithBomb(player2, bomba);
-    }
-
+    
     // Métodos privados
 
     // Configura las teclas de entrada
@@ -126,12 +155,47 @@ class GameScene extends Phaser.Scene {
 
     // Crear fondo y elementos base
     _createBackground() {
-        this._bk = this.add.image(0, 0, "GameBackground").setOrigin(0).setDisplaySize(this.sys.game.config.width, this.sys.game.config.height);
+        this._bk = this.add.image(0, 0, "GameBackground")
+            .setOrigin(0)
+            .setDisplaySize(this.sys.game.config.width, this.sys.game.config.height);
     }
+
+    // Crear y posicionar las vidas de los jugadores
+    _createLifes() {
+        // Crear las vidas del jugador 1
+        for (let i = 0; i < 3; i++) {
+            const life = this.add.image(35 + i * 40, 30, "Life").setScale(0.2);
+            this.player1Lifes.push(life); // Agrega cada vida al array
+        }
+
+        // Crear las vidas del jugador 2
+        for (let i = 0; i < 3; i++) {
+            const life = this.add.image(1216 - i * 40, 730, "Life").setScale(0.2);
+            this.player2Lifes.push(life); // Agrega cada vida al array
+        }
+    }
+
+    // Método que se ejecuta cuando un jugador recibe daño
+    _playerHit(player) {
+        player.isHit(); // Reduce la vida del jugador
+        this._updatePlayerLives(player);
+        console.log('player hit');
+    }
+
+    // Método para comprobar la colisión con los jugadores después de la animación
+    _checkCollisionWithPlayers() {
+        // Verificar si el regalo ha colisionado con los jugadores
+        if (this.physics.overlap(this.regalo, this.player1.gameObject)) {
+            this._playerHit(this.player1); // El jugador 1 ha sido golpeado
+        } else if (this.physics.overlap(this.regalo, this.player2.gameObject)) {
+            this._playerHit(this.player2); // El jugador 2 ha sido golpeado
+        }
+    }
+
 
     // Crear la animación de explosión del regalo
     _createPresentExplosionAnimation() {
-        this._frames = []; // Asegurar que _frames esté vacío antes de llenarlo
+        this._frames = []; // Aseguramos que _frames esté vacío antes de llenarlo
         for (let i = 1; i <= 26; i++) {
             this._frames.push({ key: "PresentExplosion" + i });
         }
@@ -144,7 +208,7 @@ class GameScene extends Phaser.Scene {
         });
     }
 
-    // Crear el sprite de la animación
+// Crear el sprite de la animación
     _createPresentAnimationSprite() {
         this._presentAnimation = this.add.sprite(1000, 1000, "PresentExplosion1") // Posición inicial del sprite
             .setScale(1) // Escala del sprite
@@ -196,18 +260,60 @@ class GameScene extends Phaser.Scene {
     }
 
     _checkColisionWithBomb(player, bomb) {
-        if(player ){
-            
+        //colisiona con un regalo
+        player.isHit();
+        if(_player1Colision()){
+            this.player1Lifes.pop();
+        }else{
+            this.player2Lifes.pop();
         }
     }
 
-    // Cargar los assets de la animación
+    // Método para actualizar la interfaz de las vidas
+    _updatePlayerLives(player) {
+        // Determinar qué array de vidas se debe actualizar según el ID del jugador
+        let lifesArray;
+
+        if (player.id === 1) {
+            lifesArray = this.player1Lifes; // Selecciona las vidas del jugador 1
+        } else  {
+            lifesArray = this.player2Lifes; // Selecciona las vidas del jugador 2
+        }
+
+        // Si el array de vidas tiene al menos un sprite, elimina el último
+        if (lifesArray.length > 0) {
+            const lifeSprite = lifesArray.pop(); // Saca el último sprite de la lista
+            lifeSprite.destroy(); // Destruye el sprite para quitarlo de la pantalla
+        }
+        else {
+            player.isLoserPlayer = true;
+        }
+    }
+
+
+        // Cargar los assets de la animación
     _loadAssets() {
         this.load.spritesheet("regaloSprite", "assets/ASSTES/spritesheet.png" , {
             frameWidth: 192,
             frameHeight: 192
         });
 
+    }
+    
+    _checkGameOver(){
+        if(this.player1.isLoser()){
+            this.scene.start('FinalScene');
+        }else if(this.player2.isLoser()){
+            this.scene.start('FinalScene');
+        }
+    }
+    
+    getLoser(){
+        if(this.player1.isLoser()){
+            return 1;
+        } else {
+            return 2;
+        }
     }
     
 

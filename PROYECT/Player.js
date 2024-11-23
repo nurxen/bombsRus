@@ -12,7 +12,7 @@ class Player {
     xInput = 0; // Input horizontal : -1, 0, 1
     yInput = 0; // Input vertical : -1, 0, 1
     dispararInput = 0; //input de disparar: 0, 1
-    isWinner = false; //Comprueba si el jugador ha ganado o perdido
+    isLoserPlayer = false; //Comprueba si el jugador ha ganado o perdido
 
     // Variables privadas
     /*_animationKeys = {
@@ -21,10 +21,10 @@ class Player {
         die: "die",     // Animación de morir (explosión)
     };
     _bombCooldown = 0.5; // Tiempo a esperar entre colocar bombas
-    _isBombOnCooldown = false; // Control para el cooldown de la bomba
-    _healthPoints = 6; // Salud del bomberman
+    _isBombOnCooldown = false; // Control para el cooldown de la bombas
     _hitCallbacks = []; // Array para guardar los callbacks cuando el bomberman reciba daño
     _deathCallbacks = []; // Lo mismo que _hitCallbacks pero cuando el bomberman muere*/
+    _healthPoints = 3; // Salud del bomberman
     _currentAnimationKey = ""; // Animación actual
     _moveSpeed = 200; // Velocidad de movimiento (horizontal y vertical)
     _cooldownTimer = 0; // Timer para el cooldown de la bomba
@@ -53,9 +53,9 @@ class Player {
         this.yInput = 0;
         this.dispararInput = 0;
     }
-    
-    isWinner(){
-        return this.isWinner;
+
+    isLoser(){
+        return this.isLoserPlayer;
     }
 
     // Crear el sprite del jugador
@@ -155,16 +155,21 @@ class Player {
     _die() {
         this._isAlive = false;
         this._stopMovement(); // Detiene el movimiento
+        this.scene.start('FinalSecene');
+        this.isWinnerPlayer = false;
     }
 
     // Registrar un callback cuando el jugador recibe daño
-    _onHit() {
-        
+    isHit() {
+        this._healthPoints--; // Reduce la vida del jugador
+
+        if (this._healthPoints <= 0) {
+            this._die(); // Si la vida es 0 o menos, el jugador muere
+        }
 
     }
-
-    // Registrar un callback cuando el jugador muere
-    _onDeath() {
-
+    
+    getLifes(){
+        return _healthPoints;
     }
 }

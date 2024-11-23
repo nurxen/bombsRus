@@ -3,11 +3,9 @@ class FinalScene extends Phaser.Scene {
     loseBackground; // Fondo de la escena de pérdida
     retryButton; // Botón de volver a jugar
     exitButton; // Botón de salida
-    winnerPlayer = 0; // Guarda ell jugador ganador
 
-    constructor(winnerPlayer) {
+    constructor() {
         super({ key: 'FinalScene' });
-        this.winnerPlayer = winnerPlayer;
         
     }
 
@@ -23,11 +21,10 @@ class FinalScene extends Phaser.Scene {
 
     // Crear el fondo de la escena
     _createBackground() {
-        if (winnerPlayer == 1){
-        this.loseBackground = this.add.image(0, 0, 'LoseBackground')
-            
+        if (this.scene.getLoser == 1){
+        this.loseBackground = this.add.image(0, 0, 'LoseBackground') // Gana jugador 1
         } else {
-            this.loseBackground = this.add.image(0, 0, 'LoseBackground')
+            this.loseBackground = this.add.image(0, 0, 'LoseBackground') // Gana jugador 2
         }
         this.setOrigin(0) // Establece el origen en la esquina superior izquierda
         .setDisplaySize(this.sys.game.config.width, this.sys.game.config.height); // Ajusta al tamaño del canvas
@@ -56,6 +53,7 @@ class FinalScene extends Phaser.Scene {
             .on('pointerdown', () => this._exitGame()); // Llamar a la función para salir del juego
     }
 
+    
     // Función que maneja la salida del juego
     _exitGame() {
         this.scene.start('MenuScene');
