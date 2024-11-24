@@ -40,6 +40,7 @@ class GameScene extends Phaser.Scene {
         this._setupGround(); // Crear el escenario
         this._createPresentExplosionAnimation(); // Crear la animación del regalo
         this._createConejoAnimation(); // Crear la animación del regalo
+        this._createOsoAnimation(); // Crear la animación del regalo
         this._createPresentAnimationSprite(); // Crear el sprite para la animación
         this._setupCollisions(); // Configurar colisiones
         this.backgroundMusic = this.sound.add('backgroundMusic', { volume: 0.3, loop: true });
@@ -86,16 +87,50 @@ class GameScene extends Phaser.Scene {
     
     // Cargar los recursos necesarios
     _loadAssets() {
-        this.load.spritesheet("regaloSprite", "assets/ASSTES/spritesheet.png", {
+        this.load.spritesheet("regaloSprite", "./assets/ASSTES/spritesheet.png", {
             frameWidth: 192,
             frameHeight: 192,
         });
 
-        this.load.spritesheet("conejoSprite", "assets/ASSTES/SPRITESCONEJO.png", {
+        this.load.spritesheet("conejoSprite", "./assets/ASSTES/walkConejo.png", {
             frameWidth: 64,
             frameHeight: 64,
         });
 
+        this.load.spritesheet("conejoSpriteFrente", "./assets/ASSTES/walkConejoFrente.png", {
+            frameWidth: 64,
+            frameHeight: 64,
+        });
+
+        this.load.spritesheet("conejoSpriteAtras", "./assets/ASSTES/walkConejoAtras.png", {
+            frameWidth: 64,
+            frameHeight: 64,
+        });
+        this.load.spritesheet("osoSpriteAtras", "./assets/ASSTES/walkOsoAtras.png", {
+            frameWidth: 64,
+            frameHeight: 64,
+        });
+
+        this.load.spritesheet("osoSpriteDelante", "./assets/ASSTES/walkOsoDelante.png", {
+            frameWidth: 64,
+            frameHeight: 64,
+        });
+
+        this.load.spritesheet("osoSpriteDerecha", "./assets/ASSTES/walkOsoDerecha.png", {
+            frameWidth: 64,
+            frameHeight: 64,
+        });
+
+        this.load.spritesheet("conejo", "./assets/ASSTES/idleConejo.png", {
+            frameWidth: 64,
+            frameHeight: 64,
+        });
+
+        this.load.spritesheet("oso", "./assets/ASSTES/idleOso.png", {
+            frameWidth: 64,
+            frameHeight: 64,
+        });
+        
     }
 
     // Configurar las entradas del teclado
@@ -240,14 +275,71 @@ class GameScene extends Phaser.Scene {
             repeat: 0 // No se repite
         })
         
+        
+        
     }
     _createConejoAnimation(){
         this.anims.create({
-            key: "conejo_anim",
-            frames:this.anims.generateFrameNumbers("conejoSprite" ,{start:494 , end: 502}),
-            frameRate: 30,
-            repeat: 1// No se repite
-        })
+            key: "conejo_anim_derecha",
+            frames: this.anims.generateFrameNumbers("conejoSprite", { start: 0, end: 7 }),
+            frameRate: 10,
+            repeat: -1, // Asegúrate de usar -1 si deseas que la animación se repita indefinidamente
+        });
+        this.anims.create({
+            key: "conejo_anim_frente",
+            frames: this.anims.generateFrameNumbers("conejoSpriteFrente", { start: 0, end: 7 }),
+            frameRate: 10,
+            repeat: -1, // Asegúrate de usar -1 si deseas que la animación se repita indefinidamente
+        });
+
+        this.anims.create({
+            key: "conejo_anim_atras",
+            frames: this.anims.generateFrameNumbers("conejoSpriteAtras", { start: 0, end: 7 }),
+            frameRate: 10,
+            repeat: -1, // Asegúrate de usar -1 si deseas que la animación se repita indefinidamente
+        });
+
+        this.anims.create({
+            key: "conejo_idle",
+            frames: this.anims.generateFrameNumbers("conejo", { start: 0, end: 0 }), // Ajusta los frames según tu spritesheet
+            frameRate: 8, // Velocidad de animación
+            repeat: -1,   // Repetir indefinidamente
+        });
+
+        
+        
+        
+    }
+
+    _createOsoAnimation(){
+        this.anims.create({
+            key: "oso_anim_derecha",
+            frames: this.anims.generateFrameNumbers("osoSpriteDerecha", { start: 0, end: 7 }),
+            frameRate: 10,
+            repeat: -1, // Asegúrate de usar -1 si deseas que la animación se repita indefinidamente
+        });
+        this.anims.create({
+            key: "oso_anim_frente",
+            frames: this.anims.generateFrameNumbers("osoSpriteDelante", { start: 0, end: 7 }),
+            frameRate: 10,
+            repeat: -1, // Asegúrate de usar -1 si deseas que la animación se repita indefinidamente
+        });
+
+        this.anims.create({
+            key: "oso_anim_atras",
+            frames: this.anims.generateFrameNumbers("osoSpriteAtras", { start: 0, end: 7 }),
+            frameRate: 10,
+            repeat: -1, // Asegúrate de usar -1 si deseas que la animación se repita indefinidamente
+        });
+
+        this.anims.create({
+            key: "oso_idle",
+            frames: this.anims.generateFrameNumbers("oso", { start: 0, end: 0 }), // Ajusta los frames según tu spritesheet
+            frameRate: 8, // Velocidad de animación
+            repeat: -1,   // Repetir indefinidamente
+        });
+
+
     }
     
 

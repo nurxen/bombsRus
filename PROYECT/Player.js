@@ -43,10 +43,58 @@ class Player {
     }
 
     update(time, delta) {
-        if (!this._isAlive) {
-            this._stopMovement(); // Detener movimiento si está muerto
-            return;
+        if (this._isAlive) {
+            // Determina la dirección basándote en la velocidad o algún control
+            const directionX = this.body.velocity.x; // Velocidad en el eje X
+            const directionY = this.body.velocity.y; // Velocidad en el eje X
+            if (this.id=== 1){
+                if (directionX > 0) {
+                    // Movimiento hacia la derecha
+                    this.gameObject.setFlipX(false); // No invierte la animación
+                    this.gameObject.anims.play("conejo_anim_derecha", true);
+                } else if (directionX < 0) {
+                    // Movimiento hacia la izquierda
+                    this.gameObject.setFlipX(true); // Invierte la animación
+                    this.gameObject.anims.play("conejo_anim_derecha", true);
+                }  else if (directionY > 0) {
+                    // Movimiento hacia arriba
+                    this.gameObject.setFlipX(false); // No se invierte para movimiento vertical
+                    this.gameObject.anims.play("conejo_anim_frente", true);
+                } else if (directionY < 0) {
+                    // Movimiento hacia arriba
+                    this.gameObject.setFlipX(false); // No se invierte para movimiento vertical
+                    this.gameObject.anims.play("conejo_anim_atras", true);
+                } else {
+                    // Si no hay movimiento, reproducir animación idle en vez de detenerla
+                    this.gameObject.anims.play("conejo_idle", true);
+                }
+            }
+            else if (this.id === 2){
+                if (directionX > 0) {
+                    // Movimiento hacia la derecha
+                    this.gameObject.setFlipX(false); // No invierte la animación
+                    this.gameObject.anims.play("oso_anim_derecha", true);
+                } else if (directionX < 0) {
+                    // Movimiento hacia la izquierda
+                    this.gameObject.setFlipX(true); // Invierte la animación
+                    this.gameObject.anims.play("oso_anim_derecha", true);
+                }  else if (directionY > 0) {
+                    // Movimiento hacia arriba
+                    this.gameObject.setFlipX(false); // No se invierte para movimiento vertical
+                    this.gameObject.anims.play("oso_anim_frente", true);
+                } else if (directionY < 0) {
+                    // Movimiento hacia arriba
+                    this.gameObject.setFlipX(false); // No se invierte para movimiento vertical
+                    this.gameObject.anims.play("oso_anim_atras", true);
+                }  else {
+                    // Si no hay movimiento, reproducir animación idle en vez de detenerla
+                    this.gameObject.anims.play("oso_idle", true);
+                }
+            }
         }
+        //if (this._shouldUpdateAnimations) {
+        //    this.gameObject.anims.play("conejo_anim_derecha", true);
+        //}
         this._move(delta);
         this._disparar(delta);
         //reseteo para el sigueinte frame
@@ -60,11 +108,31 @@ class Player {
     }
 
     // Crear el sprite del jugador
+    // Crear el sprite del jugador
     _createPlayerSprite(position) {
-        this.gameObject = this._scene.physics.add.sprite(position.x, position.y, "pato");
+        let spriteKey; // Variable para almacenar el spritesheet correspondiente
+
+        // Determinar el spritesheet según el id
+        if (this.id === 1) {
+            spriteKey = "conejo";
+        } else if (this.id === 2) {
+            spriteKey = "oso";
+        } else {
+            console.warn(`ID desconocido: ${this.id}. Usando sprite por defecto.`);
+            spriteKey = "conejo"; // Usar conejo por defecto si el id es desconocido
+        }
+
+        // Crear el sprite del jugador con el spritesheet correspondiente
+        this.gameObject = this._scene.physics.add.sprite(position.x, position.y, spriteKey);
         this.gameObject.setOrigin(0.5, 0.5);
+
+        // Reproducir animación inicial
+        this.gameObject.anims.play(`${spriteKey}_idle`); // Animación idle para conejo u oso
+
+        // Asigna el cuerpo físico al objeto
         this.body = this.gameObject.body;
     }
+
 
     // Detener el movimiento del jugador 
     _stopMovement() {
