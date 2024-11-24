@@ -157,13 +157,13 @@ class GameScene extends Phaser.Scene {
     _createLifes() {
         // Vidas del jugador 1
         for (let i = 0; i < 3; i+=1.25) {
-            const life = this.add.image(35 + i * 40, 30, "Life").setScale(0.2);
+            const life = this.add.image(35 + i * 40, 30, "Life").setScale(0.8);
             this.player1Lifes.push(life);
         }
 
         // Vidas del jugador 2
         for (let i = 0; i < 3; i+=1.25) {
-            const life = this.add.image(1216 - i * 40, 730, "Life").setScale(0.2);
+            const life = this.add.image(1216 - i * 40, 730, "Life").setScale(0.8);
             this.player2Lifes.push(life);
         }
     }
