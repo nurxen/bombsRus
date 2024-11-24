@@ -31,8 +31,12 @@ class FinalScene extends Phaser.Scene {
             this.loseBackground = this.add.image(0, 0, 'WinPlayerTwoBackground') // Gana el jugador 2
                 .setOrigin(0)
                 .setDisplaySize(this.sys.game.config.width, this.sys.game.config.height);
-        } else {
+        } else if (this.loser === 2){
             this.loseBackground = this.add.image(0, 0, 'WinPlayerOneBackground') // Gana el jugador 1
+                .setOrigin(0)
+                .setDisplaySize(this.sys.game.config.width, this.sys.game.config.height);
+        }else if (this.loser === 3){
+            this.loseBackground = this.add.image(0, 0, 'DrawBackground') // Empate
                 .setOrigin(0)
                 .setDisplaySize(this.sys.game.config.width, this.sys.game.config.height);
         }

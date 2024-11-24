@@ -3,11 +3,6 @@
 class Player {
 
     // Variables públicas
-    /*characterSprite = ""; // Referencia al sprite del bomberman
-    horizontalInput = 0; // Input horizontal: -1 (izquierda), 0 (quieto), 1 (derecha)
-    verticalInput = 0; // Input vertical: -1 (arriba), 0 (quieto), 1 (abajo)
-    bombInput = 0; // Input de disparar: 0, 1
-    bombDirection = new Phaser.Math.Vector2(); // Dirección para colocar la bomba*/
     direction = new Phaser.Math.Vector2(); // Dirección (para disparar)
     xInput = 0; // Input horizontal : -1, 0, 1
     yInput = 0; // Input vertical : -1, 0, 1
@@ -16,15 +11,6 @@ class Player {
     bool;
 
     // Variables privadas
-    /*_animationKeys = {
-        idle: "idle",   // Animación de estar quieto
-        walk: "walk",   // Animación de caminar
-        die: "die",     // Animación de morir (explosión)
-    };
-    _bombCooldown = 0.5; // Tiempo a esperar entre colocar bombas
-    _isBombOnCooldown = false; // Control para el cooldown de la bombas
-    _hitCallbacks = []; // Array para guardar los callbacks cuando el bomberman reciba daño
-    _deathCallbacks = []; // Lo mismo que _hitCallbacks pero cuando el bomberman muere*/
     _healthPoints = 3; // Salud del bomberman
     _currentAnimationKey = ""; // Animación actual
     _moveSpeed = 200; // Velocidad de movimiento (horizontal y vertical)

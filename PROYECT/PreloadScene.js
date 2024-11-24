@@ -24,6 +24,7 @@ class PreloadScene extends Phaser.Scene {
         //Sonido
         this.load.audio('explosionSound', "./assets/SONIDOS/explosion.mp3");
         this.load.audio('backgroundMusic', "./assets/SONIDOS/loop.mp3");
+        this.load.audio('menuBackgroundMusic', "./assets/SONIDOS/menuBackground.wav");
         
         // Animacion de Cuddles
         this.load.image("CuddlesIdleLeft", "./assets/tile.png");
@@ -65,8 +66,9 @@ class PreloadScene extends Phaser.Scene {
         // Interfaces
         this.load.image("MainMenuBackground", "./assets/ESCENARIOS/MainMenuBackground.png");
         // this.load.image("PauseBackground", "./assets/ESCENARIOS/LoseBackground.png");
-        this.load.image("WinPlayerOneBackground", "./assets/ESCENARIOS/pinkBackground.png");
-        this.load.image("WinPlayerTwoBackground", "./assets/ESCENARIOS/blueBackground.png");
+        this.load.image("WinPlayerOneBackground", "./assets/ESCENARIOS/WinPlayerOneBackground.png");
+        this.load.image("WinPlayerTwoBackground", "./assets/ESCENARIOS/WinPlayerTwoBackground.png");
+        this.load.image("DrawBackground", "./assets/ESCENARIOS/DrawBackground.png");
         this.load.image("SettingsBackground", "./assets/ESCENARIOS/pinkBackground.png");
         this.load.image("OptionsBackground", "./assets/ESCENARIOS/blueBackground.png");
         this.load.image("GameBackground", "./assets/ESCENARIOS/GameBackground.png");

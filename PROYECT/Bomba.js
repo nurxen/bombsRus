@@ -62,8 +62,6 @@
     _playExplosion() {
         // Crear el sprite de explosión en la posición actual de la bomba
         const explosion = this.scene.add.sprite(this.x, this.y, "regaloSprite");
-        
-        
         explosion.play("regaloSprite_anim"); // Reproducir la animación
 
         // Agregar la imagen de "ColiderPresentExplosion" en la misma posición

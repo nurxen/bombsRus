@@ -58,15 +58,17 @@ class GameScene extends Phaser.Scene {
     // ===========================
     // Métodos Públicos
     // ===========================
-    
+
     // Obtiene el jugador perdedor
     getLoser() {
 
         // Verificar si el jugador 1 ha perdido
-        if (this.player1.isLoser()) {
-            return 1; // Devuelve 1 si el jugador 1 ha perdido
+        if (this.player1.isLoser() && this.player2.isLoser()) {
+            return 3; // Devuelve 3 si hay empate
         } else if (this.player2.isLoser()) {
             return 2; // Devuelve 2 si el jugador 2 ha perdido
+        } else if (this.player1.isLoser()){
+            return 1; // Devuelve 1 si el jugador 1 ha perdido
         }
 
     }
@@ -76,7 +78,9 @@ class GameScene extends Phaser.Scene {
         // Verificar si el regalo ha colisionado con los jugadores
         if (this.physics.overlap(explosionImage, this.player1.gameObject)) {
             this._playerHit(this.player1); // El jugador 1 ha sido golpeado
-        } else if (this.physics.overlap(explosionImage, this.player2.gameObject)) {
+        }
+        
+        if (this.physics.overlap(explosionImage, this.player2.gameObject)) {
             this._playerHit(this.player2); // El jugador 2 ha sido golpeado
         }
     }
@@ -275,8 +279,6 @@ class GameScene extends Phaser.Scene {
             repeat: 0 // No se repite
         })
         
-        
-        
     }
     _createConejoAnimation(){
         this.anims.create({
@@ -306,9 +308,6 @@ class GameScene extends Phaser.Scene {
             repeat: -1,   // Repetir indefinidamente
         });
 
-        
-        
-        
     }
 
     _createOsoAnimation(){
@@ -406,11 +405,12 @@ class GameScene extends Phaser.Scene {
             lifesArray.pop().destroy();
         }
     }
-    
+
     // Método corregido para pasar el perdedor a la escena FinalScene
     _checkGameOver() {
         if (this.player1.isLoser() || this.player2.isLoser()) {
             const loser = this.getLoser();  // Obtienes el perdedor
+            this.backgroundMusic.stop();
             this.scene.start('FinalScene', { loser: loser }); // Pasas el perdedor como parámetro
         }
     }
