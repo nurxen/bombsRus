@@ -23,10 +23,17 @@ class MenuScene extends Phaser.Scene {
     
     // Crear el fondo de la escena
     _createBackground() {
+        // Verificar si la música ya está activa
+        if (!this.sound.get('menuBackgroundMusic') || !this.sound.get('menuBackgroundMusic').isPlaying) {
+            this.backgroundMusic = this.sound.add('menuBackgroundMusic', { volume: 5, loop: true });
+            this.backgroundMusic.play();
+        }
+
         this.loseBackground = this.add.image(0, 0, 'MainMenuBackground')
             .setOrigin(0) // Establece el origen en la esquina superior izquierda
             .setDisplaySize(this.sys.game.config.width, this.sys.game.config.height); // Ajusta al tamaño del canvas
     }
+
 
     // Crear el botón de "Start Game"
     _createStartButton() {
@@ -45,6 +52,7 @@ class MenuScene extends Phaser.Scene {
     // Función que inicia el juego
     _startGame() {
         this.scene.start('GameScene'); // Cambiar a la escena del juego
+        this.backgroundMusic.stop();
     }
 
     // Crear el botón de "Settings"
@@ -65,6 +73,7 @@ class MenuScene extends Phaser.Scene {
     _settingsScene() {
         this.scene.start('SettingsScene'); // Cambiar a la escena del juego
         console.log("Ajustes"); // Aquí se puede agregar la lógica para salir del juego, por ejemplo, cerrando la ventana o redirigiendo
+        
     }
 
     // Crear el botón de "Settings"

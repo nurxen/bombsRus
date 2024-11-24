@@ -1,17 +1,20 @@
 ﻿class OptionsScene extends Phaser.Scene {
     // Variables públicas
-    settingsBackground; // Fondo de la escena de pérdida
+    settingsBackground; // Fondo de la escena
     exitButton; // Botón de salida
-    settingsText; // Texto del botón de salida
+    musicSlider; // Slider para música
+    effectsSlider; // Slider para efectos de sonido
+    musicText; // Texto del slider de música
+    effectsText; // Texto del slider de efectos de sonido
 
     constructor() {
         super({ key: 'OptionsScene' });
     }
 
-    // Metodo que llamamos cuando creamos la escena
     create() {
         this._createBackground(); // Crear fondo
-        this._createSettingsText(); // Crear botón de salida
+        this._createSettingsText(); // Crear texto de ajustes
+        this._createSliders(); // Crear sliders de volumen
         this._createExitButton(); // Crear botón de salida
         this._addButtonAnimations(); // Agregar animaciones a los botones
     }
@@ -21,78 +24,117 @@
     // Crear el fondo de la escena
     _createBackground() {
         this.settingsBackground = this.add.image(0, 0, 'OptionsBackground')
-            .setOrigin(0) // Establece el origen en la esquina superior izquierda
-            .setDisplaySize(this.sys.game.config.width, this.sys.game.config.height); // Ajusta al tamaño del canvas
+            .setOrigin(0)
+            .setDisplaySize(this.sys.game.config.width, this.sys.game.config.height);
     }
 
-    // Crear el botón de "Settings"
+    // Crear el texto principal de ajustes
+    _createSettingsText() {
+        this.add.text(400, 200, 'Opciones', {
+            font: '48px Arial',
+            fill: '#ffffff',
+            align: 'center'
+        }).setOrigin(0.5, 0.5);
+
+        this.musicText = this.add.text(300, 275, 'Music:', {
+            font: '32px Arial',
+            fill: '#ffffff',
+            align: 'left'
+        });
+
+        this.effectsText = this.add.text(300, 375, 'VFX:', {
+            font: '32px Arial',
+            fill: '#ffffff',
+            align: 'left'
+        });
+    }
+
+    // Crear los sliders para la música y los efectos de sonido
+    _createSliders() {
+        // Slider para la música
+        this.musicSlider = this._createSlider(500, 300, globalSettings.musicVolume, (value) => {
+            globalSettings.musicVolume = value;
+            this._updateMusicVolume();
+        });
+
+        // Slider para los efectos de sonido
+        this.effectsSlider = this._createSlider(500, 400, globalSettings.effectsVolume, (value) => {
+            globalSettings.effectsVolume = value;
+            this._updateEffectsVolume();
+        });
+    }
+
+    // Crear un slider genérico
+    _createSlider(x, y, initialValue, onChangeCallback) {
+        const sliderWidth = 200;
+
+        // Fondo del slider
+        const sliderTrack = this.add.rectangle(x, y, sliderWidth, 10, 0x555555).setOrigin(0.5, 0.5);
+
+        // Marcador del slider
+        const sliderHandle = this.add.rectangle(x - sliderWidth / 2 + sliderWidth * initialValue, y, 20, 20, 0xffffff).setOrigin(0.5, 0.5).setInteractive();
+
+        // Hacer que el sliderHandle sea arrastrable
+        this.input.setDraggable(sliderHandle);
+
+        // Lógica para arrastrar el slider
+        this.input.on('drag', (pointer, gameObject, dragX, dragY) => {
+            if (gameObject === sliderHandle) {
+                // Restringir el movimiento dentro de los límites del slider
+                const clampedX = Phaser.Math.Clamp(dragX, x - sliderWidth / 2, x + sliderWidth / 2);
+                gameObject.x = clampedX;
+
+                // Calcular el valor del slider (0.0 a 1.0)
+                const sliderValue = (clampedX - (x - sliderWidth / 2)) / sliderWidth;
+                onChangeCallback(sliderValue); // Llamar al callback
+            }
+        });
+
+        return sliderHandle;
+    }
+
+    // Actualizar el volumen de la música
+    _updateMusicVolume() {
+        // Aquí puedes actualizar el volumen de la música del menu
+        if (this.sound.get('menuBackgroundMusic')) {
+            this.sound.get('menuBackgroundMusic').setVolume(globalSettings.musicVolume);
+        }
+        
+        // Aquí puedes actualizar el volumen de la música en tu juego
+        if (this.sound.get('backgroundMusic')) {
+            this.sound.get('backgroundMusic').setVolume(globalSettings.musicVolume);
+        }
+    }
+
+    // Actualizar el volumen de los efectos de sonido
+    _updateEffectsVolume() {
+        if (this.sound.get('explosionSound')) {
+            this.sound.get('explosionSound').setVolume(globalSettings.musicVolume);
+        }
+    }
+
+    // Crear el botón de salida
     _createExitButton() {
         this.exitButton = this.add.image(1125, 650, 'MainMenuButton')
             .setScale(0.15)
             .setOrigin(0.5, 0.5)
-            .setInteractive() // Hacer el botón interactivo
-            .on('pointerdown', () => this._menuScene()); // Llamar a la función para salir del juego
+            .setInteractive()
+            .on('pointerdown', () => this._menuScene());
     }
 
-    _createSettingsText() {
-        // Primera columna: Controles
-        this.controlsText = this.add.text(350, 390, this._ControlsText(), {
-            font: '26px Arial',
-            fill: '#ffffff',
-            align: 'left', // Alineado a la izquierda
-            lineSpacing: 10
-        }).setOrigin(0.5, 0.5);
-
-        // Segunda columna: Créditos
-        this.creditsText = this.add.text(900, 390, this._CreditsText(), {
-            font: '26px Arial',
-            fill: '#ffffff',
-            align: 'left', // Alineado a la izquierda
-            lineSpacing: 10
-        }).setOrigin(0.5, 0.5);
-    }
-
-    _ControlsText() {
-        return (
-            '=== CONTROLES ===\n\n' +
-            'Jugador 1:\n' +
-            'Movimiento: W, A, S, D\n' +
-            'Colocar bombas: ESPACIO\n\n' +
-            'Jugador 2:\n' +
-            'Movimiento: Flechas de dirección\n' +
-            'Colocar bombas: ENTER'
-        );
-    }
-
-    _CreditsText() {
-        return (
-            '=== CRÉDITOS ===\n\n' +
-            'Nuria Serrano Martín\n' +
-            'Raúl Delgado Alcázar\n' +
-            'Hugo Camuñas González\n' +
-            'Lucía García Pérez'
-        );
-    }
-
-    // Función que maneja la ajustes del juego
     _menuScene() {
-        this.scene.start('MenuScene'); // Cambiar a la escena del juego
+        this.scene.start('MenuScene'); // Cambiar a la escena del menú
+        
     }
 
-    // Agregar animaciones o efectos a los botones
     _addButtonAnimations() {
-        // Agregar eventos para el botón de ajustes
-        this.exitButton.on('pointerover', () => this._onSettingsButtonHover());
-        this.exitButton.on('pointerout', () => this._onSettingsButtonOut());
-    }
-
-    // Animación de cuando el puntero pasa por encima del botón "Settings"
-    _onSettingsButtonHover() {
-        this.exitButton.setScale(0.2); // Cambiar a una escala mayor
-    }
-
-    // Animación de cuando el puntero sale del botón "Settings"
-    _onSettingsButtonOut() {
-        this.exitButton.setScale(0.15); // Volver a la escala original
+        this.exitButton.on('pointerover', () => this.exitButton.setScale(0.2));
+        this.exitButton.on('pointerout', () => this.exitButton.setScale(0.15));
     }
 }
+
+// Variables globales para almacenar los volúmenes
+const globalSettings = {
+    musicVolume: 0.5, // Volumen inicial de la música (0.0 a 1.0)
+    effectsVolume: 0.5 // Volumen inicial de los efectos de sonido (0.0 a 1.0)
+};
