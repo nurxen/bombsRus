@@ -76,7 +76,7 @@ class PreloadScene extends Phaser.Scene {
         this.load.image("OptionsButton", "./assets/BOTONES/OptionsButton.png");
         this.load.image("RetryButton", "./assets/BOTONES/RetryButton.png");
         this.load.image("MainMenuButton", "./assets/BOTONES/MainMenuButton.png");
-        this.load.image("Life", "./assets/ASSTES/corazon.png");
+        this.load.image("Life", "./assets/ASSTES/heart.png");
         this.load.image("OptionsText", "./assets/BOTONES/OptionsText.png");
         this.load.image("MusicText", "./assets/BOTONES/MusicText.png");
         this.load.image("VFXText", "./assets/BOTONES/VFXText.png");
