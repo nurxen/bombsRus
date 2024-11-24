@@ -3,8 +3,8 @@ class MenuScene extends Phaser.Scene {
     loseBackground; // Fondo de la escena de pérdida
     startButton; // Botón de inicio
     startText; // Texto del botón de inicio
-    exitButton; // Botón de salida
-    exitText; // Texto del botón de salida
+    settingsButton; // Botón de salida
+    settingsText; // Texto del botón de salida
 
     constructor() {
         super({ key: 'MenuScene' });
@@ -14,7 +14,7 @@ class MenuScene extends Phaser.Scene {
     create() {
         this._createBackground(); // Crear fondo
         this._createStartButton(); // Crear botón de inicio
-        this._createExitButton(); // Crear botón de salida
+        this._createSettingsButton(); // Crear botón de salida
         this._addButtonAnimations(); // Agregar animaciones a los botones
     }
 
@@ -46,40 +46,54 @@ class MenuScene extends Phaser.Scene {
         this.scene.start('GameScene'); // Cambiar a la escena del juego
     }
 
-    // Crear el botón de "Exit"
-    _createExitButton() {
-        this.exitButton = this.add.image(640, 500, 'RetryButton')
-            .setScale(0.2)
+    // Crear el botón de "Settings"
+    _createSettingsButton() {
+        this.settingsButton = this.add.image(1200, 70, 'SettingsButton')
+            .setScale(1.2)
             .setOrigin(0.5, 0.5)
             .setInteractive() // Hacer el botón interactivo
-            .on('pointerdown', () => this._exitGame()); // Llamar a la función para salir del juego
+            .on('pointerdown', () => this._settingsScene()); // Llamar a la función para salir del juego
 
-        this.exitText = this.add.text(640, 500, '', {
+        this.settingsText = this.add.text(640, 500, '', {
             font: '32px Arial',
             fill: '#fff'
         }).setOrigin(0.5, 0.5);
     }
 
-    // Función que maneja la salida del juego
-    _exitGame() {
-        console.log("Salir del juego"); // Aquí se puede agregar la lógica para salir del juego, por ejemplo, cerrando la ventana o redirigiendo
+    // Función que maneja la ajustes del juego
+    _settingsScene() {
+        this.scene.start('SettingsScene'); // Cambiar a la escena del juego
+        console.log("Ajustes"); // Aquí se puede agregar la lógica para salir del juego, por ejemplo, cerrando la ventana o redirigiendo
     }
 
     // Agregar animaciones o efectos a los botones
     _addButtonAnimations() {
-        [this.startButton, this.exitButton].forEach(button => {
-            button.on('pointerover', () => this._onButtonHover(button)); // Aumentar el tamaño
-            button.on('pointerout', () => this._onButtonOut(button)); // Volver al tamaño original
-        });
+        // Agregar eventos para el botón de start
+        this.startButton.on('pointerover', () => this._onStartButtonHover());
+        this.startButton.on('pointerout', () => this._onStartButtonOut());
+
+        // Agregar eventos para el botón de ajustes
+        this.settingsButton.on('pointerover', () => this._onSettingsButtonHover());
+        this.settingsButton.on('pointerout', () => this._onSettingsButtonOut());
     }
 
-    // Animación de cuando el puntero pasa por encima de un botón
-    _onButtonHover(button) {
-        button.setScale(0.21); // Aumentar el tamaño del botón
+    // Animación de cuando el puntero pasa por encima del botón "Start"
+    _onStartButtonHover() {
+        this.startButton.setScale(0.25); // Cambiar a una escala mayor
     }
 
-    // Animación de cuando el puntero sale de un botón
-    _onButtonOut(button) {
-        button.setScale(0.2); // Volver al tamaño original del botón
+    // Animación de cuando el puntero sale del botón "Start"
+    _onStartButtonOut() {
+        this.startButton.setScale(0.2); // Volver a la escala original
+    }
+
+    // Animación de cuando el puntero pasa por encima del botón "Settings"
+    _onSettingsButtonHover() {
+        this.settingsButton.setScale(1.4); // Cambiar a una escala mayor
+    }
+
+    // Animación de cuando el puntero sale del botón "Settings"
+    _onSettingsButtonOut() {
+        this.settingsButton.setScale(1.2); // Volver a la escala original
     }
 }
