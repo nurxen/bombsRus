@@ -13,6 +13,7 @@ class Player {
     yInput = 0; // Input vertical : -1, 0, 1
     dispararInput = 0; //input de disparar: 0, 1
     isLoserPlayer = false; //Comprueba si el jugador ha ganado o perdido
+    bool;
 
     // Variables privadas
     /*_animationKeys = {
@@ -154,8 +155,8 @@ class Player {
     // Ejecutar la lógica cuando el jugador muere
     _die() {
         this._isAlive = false;
-        this._stopMovement(); // Detiene el movimiento
         this.isLoserPlayer = true;
+        this._stopMovement(); // Detiene el movimiento
     }
 
     // Registrar un callback cuando el jugador recibe daño
@@ -165,6 +166,7 @@ class Player {
 
         if (this._healthPoints <= 0) {
             this._die(); // Si la vida es 0 o menos, el jugador muere
+            console.log("player die");
         }
 
     }

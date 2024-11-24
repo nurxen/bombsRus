@@ -1,11 +1,11 @@
-﻿class SettingsScene extends Phaser.Scene {
+﻿class OptionsScene extends Phaser.Scene {
     // Variables públicas
     settingsBackground; // Fondo de la escena de pérdida
     exitButton; // Botón de salida
     settingsText; // Texto del botón de salida
 
     constructor() {
-        super({ key: 'SettingsScene' });
+        super({ key: 'OptionsScene' });
     }
 
     // Metodo que llamamos cuando creamos la escena
@@ -20,7 +20,7 @@
 
     // Crear el fondo de la escena
     _createBackground() {
-        this.settingsBackground = this.add.image(0, 0, 'SettingsBackground')
+        this.settingsBackground = this.add.image(0, 0, 'OptionsBackground')
             .setOrigin(0) // Establece el origen en la esquina superior izquierda
             .setDisplaySize(this.sys.game.config.width, this.sys.game.config.height); // Ajusta al tamaño del canvas
     }
@@ -73,7 +73,7 @@
             'Lucía García Pérez'
         );
     }
-    
+
     // Función que maneja la ajustes del juego
     _menuScene() {
         this.scene.start('MenuScene'); // Cambiar a la escena del juego

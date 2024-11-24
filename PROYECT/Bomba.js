@@ -23,7 +23,6 @@
         console.log(this.direction);
     }
 
-
     // Método update de la bomba para detenerla correctamente
     update(time, delta) {
         super.update(time, delta);
@@ -36,17 +35,25 @@
                 this.x,
                 this.y
             );
+            
+            if(this.body.velocity.x == 0 && this.body.velocity.y == 0) {
+                this._cont++;
+                if(this._cont >= 200){
+                    this._playExplosion();
+                }
+            }
 
-            // Detener la bomba cuando se haya movido la distancia máxima
-            if (distanceTravelled >= this._maxDistance || (this.body.velocity.x === 0 && this.body.velocity.y === 0)) {
+            if (distanceTravelled >= this._maxDistance) {
+                console.log(distanceTravelled)
                 this.body.setVelocity(0); // Detener el movimiento
-                this._hasStopped = true; // Marcar que la bomba se ha detenido
-                this._playExplosion(); // Reproducir la animación de explosión
+                this._disableCollision(); // Desactivar colisión
+                this._hasStopped = true;
+                // Reproducir la animación de explosión
+                this._playExplosion();
             }
         }
     }
-
-
+    
     _disableCollision() {
         // Desactivar la colisión para esta bomba
         this.body.checkCollision.none = true; // Desactiva todas las colisiones
@@ -71,8 +78,6 @@
 
         // Destruir la bomba después de la explosión
         this.destroy();
-
-        
     }
 
     _onCollision() {
