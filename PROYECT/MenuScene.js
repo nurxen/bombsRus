@@ -15,6 +15,7 @@ class MenuScene extends Phaser.Scene {
         this._createBackground(); // Crear fondo
         this._createStartButton(); // Crear botón de inicio
         this._createSettingsButton(); // Crear botón de ajustes
+        this._createOptionsButton(); // Crear botón de opciones
         this._addButtonAnimations(); // Agregar animaciones a los botones
     }
 
@@ -29,13 +30,13 @@ class MenuScene extends Phaser.Scene {
 
     // Crear el botón de "Start Game"
     _createStartButton() {
-        this.startButton = this.add.image(440, 500, 'StartButton')
-            .setScale(0.5)
+        this.startButton = this.add.image(640, 600, 'StartButton')
+            .setScale(1.0)
             .setOrigin(0.5, 0.5)
             .setInteractive() // Hacer el botón interactivo
             .on('pointerdown', () => this._startGame()); // Llamar a la función para iniciar el juego
 
-        this.startText = this.add.text(640, 400, '', {
+        this.startText = this.add.text(640, 600, '', {
             font: '32px Arial',
             fill: '#fff'
         }).setOrigin(0.5, 0.5);
@@ -48,8 +49,8 @@ class MenuScene extends Phaser.Scene {
 
     // Crear el botón de "Settings"
     _createSettingsButton() {
-        this.settingsButton = this.add.image(740, 500, 'HelpButton')
-            .setScale(0.5)
+        this.settingsButton = this.add.image(240, 500, 'HelpButton')
+            .setScale(1.0)
             .setOrigin(0.5, 0.5)
             .setInteractive() // Hacer el botón interactivo
             .on('pointerdown', () => this._settingsScene()); // Llamar a la función para salir del juego
@@ -66,6 +67,26 @@ class MenuScene extends Phaser.Scene {
         console.log("Ajustes"); // Aquí se puede agregar la lógica para salir del juego, por ejemplo, cerrando la ventana o redirigiendo
     }
 
+    // Crear el botón de "Settings"
+    _createOptionsButton() {
+        this.optionsButton = this.add.image(1040, 500, 'OptionsButton')
+            .setScale(1.0)
+            .setOrigin(0.5, 0.5)
+            .setInteractive() // Hacer el botón interactivo
+            .on('pointerdown', () => this._optionsScene()); // Llamar a la función para salir del juego
+
+        this.settingsText = this.add.text(640, 500, '', {
+            font: '32px Arial',
+            fill: '#fff'
+        }).setOrigin(0.5, 0.5);
+    }
+    
+    // Función que maneja la ajustes del juego
+    _optionsScene() {
+        this.scene.start('OptionsScene'); // Cambiar a la escena del juego
+        console.log("Opciones"); // Aquí se puede agregar la lógica para salir del juego, por ejemplo, cerrando la ventana o redirigiendo
+    }
+
     // Agregar animaciones o efectos a los botones
     _addButtonAnimations() {
         // Agregar eventos para el botón de start
@@ -75,25 +96,39 @@ class MenuScene extends Phaser.Scene {
         // Agregar eventos para el botón de ajustes
         this.settingsButton.on('pointerover', () => this._onSettingsButtonHover());
         this.settingsButton.on('pointerout', () => this._onSettingsButtonOut());
+
+        // Agregar eventos para el botón de ajustes
+        this.optionsButton.on('pointerover', () => this._onOptionsButtonHover());
+        this.optionsButton.on('pointerout', () => this._onOptionsButtonOut());
     }
 
     // Animación de cuando el puntero pasa por encima del botón "Start"
     _onStartButtonHover() {
-        this.startButton.setScale(0.55); // Cambiar a una escala mayor
+        this.startButton.setScale(1.05); // Cambiar a una escala mayor
     }
 
     // Animación de cuando el puntero sale del botón "Start"
     _onStartButtonOut() {
-        this.startButton.setScale(0.5); // Volver a la escala original
+        this.startButton.setScale(1.0); // Volver a la escala original
     }
 
     // Animación de cuando el puntero pasa por encima del botón "Settings"
     _onSettingsButtonHover() {
-        this.settingsButton.setScale(0.55); // Cambiar a una escala mayor
+        this.settingsButton.setScale(1.05); // Cambiar a una escala mayor
     }
 
     // Animación de cuando el puntero sale del botón "Settings"
     _onSettingsButtonOut() {
-        this.settingsButton.setScale(0.5); // Volver a la escala original
+        this.settingsButton.setScale(1.0); // Volver a la escala original
+    }
+
+    // Animación de cuando el puntero pasa por encima del botón "Settings"
+    _onOptionsButtonHover() {
+        this.optionsButton.setScale(1.05); // Cambiar a una escala mayor
+    }
+
+    // Animación de cuando el puntero sale del botón "Settings"
+    _onOptionsButtonOut() {
+        this.optionsButton.setScale(1.0); // Volver a la escala original
     }
 }

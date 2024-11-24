@@ -63,9 +63,11 @@ class PreloadScene extends Phaser.Scene {
         this.load.image("WinPlayerOneBackground", "./assets/ESCENARIOS/pinkBackground.png");
         this.load.image("WinPlayerTwoBackground", "./assets/ESCENARIOS/blueBackground.png");
         this.load.image("SettingsBackground", "./assets/ESCENARIOS/pinkBackground.png");
+        this.load.image("OptionsBackground", "./assets/ESCENARIOS/blueBackground.png");
         this.load.image("GameBackground", "./assets/ESCENARIOS/GameBackground.png");
         this.load.image("StartButton", "./assets/BOTONES/StartButton.png");
         this.load.image("HelpButton", "./assets/BOTONES/HelpButton.png");
+        this.load.image("OptionsButton", "./assets/BOTONES/OptionsButton.png");
         //this.load.image("PauseButton", "./assets/BOTONES/MainMenuButton.png");
         this.load.image("RetryButton", "./assets/BOTONES/RetryButton.png");
         this.load.image("MainMenuButton", "./assets/BOTONES/MainMenuButton.png");
