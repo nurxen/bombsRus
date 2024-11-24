@@ -3,14 +3,16 @@ class FinalScene extends Phaser.Scene {
     loseBackground; // Fondo de la escena de pérdida
     retryButton; // Botón de volver a jugar
     exitButton; // Botón de salida
-
+    gameScene = new GameScene();
+    loser; // Jugador perdedor
     constructor() {
         super({ key: 'FinalScene' });
         
     }
 
     // Metodo que llamamos cuando creamos la escena
-    create() {
+    create(data) {
+        this.loser = data.loser;  // Recibes el parámetro loser desde GameScene
         this._createBackground(); // Crear fondo
         this._createRetryButton(); // Crear botón de inicio
         this._createExitButton(); // Crear botón de salida
@@ -21,17 +23,22 @@ class FinalScene extends Phaser.Scene {
 
     // Crear el fondo de la escena
     _createBackground() {
-        if (this.scene.getLoser == 1){
-        this.loseBackground = this.add.image(0, 0, 'WinPlayerOneBackground') // Gana jugador 1
-            .setOrigin(0) // Establece el origen en la esquina superior izquierda
-            .setDisplaySize(this.sys.game.config.width, this.sys.game.config.height); // Ajusta al tamaño del canvas
+        // Obtener los datos del perdedor desde el parámetro pasado
+        this.loser = this.game.scene.getScene('GameScene').getLoser();  // Obtener el 'loser' desde los datos de la escena
+
+        // Cambiar el fondo dependiendo de quién haya perdido
+        if (this.loser === 1) {
+            this.loseBackground = this.add.image(0, 0, 'WinPlayerTwoBackground') // Gana el jugador 2
+                .setOrigin(0)
+                .setDisplaySize(this.sys.game.config.width, this.sys.game.config.height);
         } else {
-            this.loseBackground = this.add.image(0, 0, 'WinPlayerTwoBackground') // Gana jugador 2
-                .setOrigin(0) // Establece el origen en la esquina superior izquierda
-                .setDisplaySize(this.sys.game.config.width, this.sys.game.config.height); // Ajusta al tamaño del canvas
+            this.loseBackground = this.add.image(0, 0, 'WinPlayerOneBackground') // Gana el jugador 1
+                .setOrigin(0)
+                .setDisplaySize(this.sys.game.config.width, this.sys.game.config.height);
         }
-        
     }
+
+
 
     // Crear el botón de "Retry"
     _createRetryButton() {
@@ -46,9 +53,7 @@ class FinalScene extends Phaser.Scene {
     _startGame() {
         this.scene.start('GameScene'); // Cambiar a la escena del juego
     }
-
     
-
     // Crear el botón de "Exit"
     _createExitButton() {
         this.exitButton = this.add.image(640, 500, 'MainMenuButton')
@@ -57,7 +62,6 @@ class FinalScene extends Phaser.Scene {
             .setInteractive() // Hacer el botón interactivo
             .on('pointerdown', () => this._exitGame()); // Llamar a la función para salir del juego
     }
-
     
     // Función que maneja la salida del juego
     _exitGame() {

@@ -11,7 +11,7 @@ class GameScene extends Phaser.Scene {
     player1; // Instancia del jugador 1
     player2; // Instancia del jugador 2
     bombas;
-    position = new Phaser.Math.Vector2(1300, 800); // Posición inicial del jugador 1
+    position = new Phaser.Math.Vector2(64, 70); // Posición inicial del jugador 1
     position2 = new Phaser.Math.Vector2(1300, 1000); // Posición inicial del jugador 2
     player1Lifes = []; // Array de vidas del jugador 1
     player2Lifes = []; // Array de vidas del jugador 2
@@ -54,14 +54,19 @@ class GameScene extends Phaser.Scene {
     // ===========================
     // Métodos Públicos
     // ===========================
+    
+    // Obtiene el jugador perdedor
     getLoser() {
-        return this.player1.isLoser() ? 1 : 2;
-    }
 
-    endGame() {
-        this.scene.start('FinalScene'); // Cambiar a la escena final
-    }
+        // Verificar si el jugador 1 ha perdido
+        if (this.player1.isLoser()) {
+            return 1; // Devuelve 1 si el jugador 1 ha perdido
+        } else if (this.player2.isLoser()) {
+            return 2; // Devuelve 2 si el jugador 2 ha perdido
+        }
 
+    }
+    
     // Metodo para comprobar la colisión con los jugadores después de la animación
     checkCollisionWithPlayers(explosionImage) {
         // Verificar si el regalo ha colisionado con los jugadores
@@ -119,6 +124,9 @@ class GameScene extends Phaser.Scene {
     _initPlayers() {
         this.player1 = new Player(this, 1, this.position, 1);
         this.player2 = new Player(this, 2, this.position2, -1);
+
+        console.log(this.player1); // Añadir para depurar
+        console.log(this.player2); // Añadir para depurar
     }
 
     // Configurar las bombas
@@ -285,15 +293,16 @@ class GameScene extends Phaser.Scene {
 
         if (lifesArray.length > 0) {
             lifesArray.pop().destroy();
-        } else {
-            this.endGame();
+        }
+    }
+    
+    // Método corregido para pasar el perdedor a la escena FinalScene
+    _checkGameOver() {
+        if (this.player1.isLoser() || this.player2.isLoser()) {
+            const loser = this.getLoser();  // Obtienes el perdedor
+            this.scene.start('FinalScene', { loser: loser }); // Pasas el perdedor como parámetro
         }
     }
 
-    // Comprobar si el juego ha terminado
-    _checkGameOver() {
-        if (this.player1.isLoser() || this.player2.isLoser()) {
-            this.scene.start('FinalScene');
-        }
-    }
+
 }

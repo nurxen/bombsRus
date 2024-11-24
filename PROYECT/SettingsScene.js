@@ -31,7 +31,7 @@
             .setScale(0.15)
             .setOrigin(0.5, 0.5)
             .setInteractive() // Hacer el botón interactivo
-            .on('pointerdown', () => this._mainMenuScene()); // Llamar a la función para salir del juego
+            .on('pointerdown', () => this._menuScene()); // Llamar a la función para salir del juego
     }
 
     _createSettingsText() {
@@ -73,12 +73,9 @@
             'Lucía García Pérez'
         );
     }
-
-
-
-
+    
     // Función que maneja la ajustes del juego
-    _mainMenuScene() {
+    _menuScene() {
         this.scene.start('MenuScene'); // Cambiar a la escena del juego
     }
 
