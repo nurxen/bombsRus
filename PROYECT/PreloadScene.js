@@ -65,21 +65,21 @@ class PreloadScene extends Phaser.Scene {
 
         // Interfaces
         this.load.image("MainMenuBackground", "./assets/ESCENARIOS/MainMenuBackground.png");
-        // this.load.image("PauseBackground", "./assets/ESCENARIOS/LoseBackground.png");
         this.load.image("WinPlayerOneBackground", "./assets/ESCENARIOS/WinPlayerOneBackground.png");
         this.load.image("WinPlayerTwoBackground", "./assets/ESCENARIOS/WinPlayerTwoBackground.png");
         this.load.image("DrawBackground", "./assets/ESCENARIOS/DrawBackground.png");
-        this.load.image("SettingsBackground", "./assets/ESCENARIOS/pinkBackground.png");
-        this.load.image("OptionsBackground", "./assets/ESCENARIOS/blueBackground.png");
+        this.load.image("SettingsBackground", "./assets/ESCENARIOS/SettingsBackground.png");
+        this.load.image("OptionsBackground", "./assets/ESCENARIOS/OptionsBackground.png");
         this.load.image("GameBackground", "./assets/ESCENARIOS/GameBackground.png");
         this.load.image("StartButton", "./assets/BOTONES/StartButton.png");
         this.load.image("HelpButton", "./assets/BOTONES/HelpButton.png");
         this.load.image("OptionsButton", "./assets/BOTONES/OptionsButton.png");
-        //this.load.image("PauseButton", "./assets/BOTONES/MainMenuButton.png");
         this.load.image("RetryButton", "./assets/BOTONES/RetryButton.png");
         this.load.image("MainMenuButton", "./assets/BOTONES/MainMenuButton.png");
-        // this.load.image("SettingsButton", "./assets/BOTONES/SettingsButton.png");
         this.load.image("Life", "./assets/ASSTES/corazon.png");
+        this.load.image("OptionsText", "./assets/BOTONES/OptionsText.png");
+        this.load.image("MusicText", "./assets/BOTONES/MusicText.png");
+        this.load.image("VFXText", "./assets/BOTONES/VFXText.png");
 
         //pruebas
         this.load.image("pato", "./assets/pato.png");

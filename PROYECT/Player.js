@@ -37,44 +37,54 @@ class Player {
                 if (directionX > 0) {
                     // Movimiento hacia la derecha
                     this.gameObject.setFlipX(false); // No invierte la animación
-                    this.gameObject.anims.play("conejo_anim_derecha", true);
+                    this.gameObject.anims.play("conejo_anim_derecha", true)
+                        .setScale(1.05);
                 } else if (directionX < 0) {
                     // Movimiento hacia la izquierda
                     this.gameObject.setFlipX(true); // Invierte la animación
-                    this.gameObject.anims.play("conejo_anim_derecha", true);
+                    this.gameObject.anims.play("conejo_anim_derecha", true)
+                        .setScale(1.05);
                 }  else if (directionY > 0) {
                     // Movimiento hacia arriba
                     this.gameObject.setFlipX(false); // No se invierte para movimiento vertical
-                    this.gameObject.anims.play("conejo_anim_frente", true);
+                    this.gameObject.anims.play("conejo_anim_frente", true)
+                        .setScale(1.05);
                 } else if (directionY < 0) {
                     // Movimiento hacia arriba
                     this.gameObject.setFlipX(false); // No se invierte para movimiento vertical
-                    this.gameObject.anims.play("conejo_anim_atras", true);
+                    this.gameObject.anims.play("conejo_anim_atras", true)
+                        .setScale(1.05);
                 } else {
                     // Si no hay movimiento, reproducir animación idle en vez de detenerla
-                    this.gameObject.anims.play("conejo_idle", true);
+                    this.gameObject.anims.play("conejo_idle", true)
+                        .setScale(1.05);
                 }
             }
             else if (this.id === 2){
                 if (directionX > 0) {
                     // Movimiento hacia la derecha
                     this.gameObject.setFlipX(false); // No invierte la animación
-                    this.gameObject.anims.play("oso_anim_derecha", true);
+                    this.gameObject.anims.play("oso_anim_derecha", true)
+                        .setScale(1.05);
                 } else if (directionX < 0) {
                     // Movimiento hacia la izquierda
                     this.gameObject.setFlipX(true); // Invierte la animación
-                    this.gameObject.anims.play("oso_anim_derecha", true);
+                    this.gameObject.anims.play("oso_anim_derecha", true)
+                        .setScale(1.05);
                 }  else if (directionY > 0) {
                     // Movimiento hacia arriba
                     this.gameObject.setFlipX(false); // No se invierte para movimiento vertical
-                    this.gameObject.anims.play("oso_anim_frente", true);
+                    this.gameObject.anims.play("oso_anim_frente", true)
+                        .setScale(1.05);
                 } else if (directionY < 0) {
                     // Movimiento hacia arriba
                     this.gameObject.setFlipX(false); // No se invierte para movimiento vertical
-                    this.gameObject.anims.play("oso_anim_atras", true);
+                    this.gameObject.anims.play("oso_anim_atras", true)
+                        .setScale(1.05);
                 }  else {
                     // Si no hay movimiento, reproducir animación idle en vez de detenerla
-                    this.gameObject.anims.play("oso_idle", true);
+                    this.gameObject.anims.play("oso_idle", true)
+                        .setScale(1.05);
                 }
             }
         }

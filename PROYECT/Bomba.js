@@ -65,7 +65,7 @@
         explosion.play("regaloSprite_anim"); // Reproducir la animación
 
         // Agregar la imagen de "ColiderPresentExplosion" en la misma posición
-        const explosionImage = this.scene.physics.add.sprite(this.x, this.y, "ColiderPresentExplosion");
+        const explosionImage = this.scene.physics.add.sprite(this.x, this.y, "ColiderPresentExplosion").setScale(0.8);
 
         // Llamar para verificar si hay colisión con los jugadores
         this.scene.checkCollisionWithPlayers(explosionImage); // Verificar colisión con los jugadores

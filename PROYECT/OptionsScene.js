@@ -30,35 +30,26 @@
 
     // Crear el texto principal de ajustes
     _createSettingsText() {
-        this.add.text(400, 200, 'Opciones', {
-            font: '48px Arial',
-            fill: '#ffffff',
-            align: 'center'
-        }).setOrigin(0.5, 0.5);
+        this.optionsText = this.add.image(600, 300, 'OptionsText')
+            .setScale(1)
 
-        this.musicText = this.add.text(300, 275, 'Music:', {
-            font: '32px Arial',
-            fill: '#ffffff',
-            align: 'left'
-        });
+        this.musicText = this.add.image(600, 320, 'MusicText')
+            .setScale(1)
 
-        this.effectsText = this.add.text(300, 375, 'VFX:', {
-            font: '32px Arial',
-            fill: '#ffffff',
-            align: 'left'
-        });
+        this.VFXText = this.add.image(600, 350, 'VFXText')
+            .setScale(1)
     }
 
     // Crear los sliders para la música y los efectos de sonido
     _createSliders() {
         // Slider para la música
-        this.musicSlider = this._createSlider(500, 300, globalSettings.musicVolume, (value) => {
+        this.musicSlider = this._createSlider(750, 310, globalSettings.musicVolume, (value) => {
             globalSettings.musicVolume = value;
             this._updateMusicVolume();
         });
 
         // Slider para los efectos de sonido
-        this.effectsSlider = this._createSlider(500, 400, globalSettings.effectsVolume, (value) => {
+        this.effectsSlider = this._createSlider(750, 430, globalSettings.effectsVolume, (value) => {
             globalSettings.effectsVolume = value;
             this._updateEffectsVolume();
         });
@@ -66,7 +57,7 @@
 
     // Crear un slider genérico
     _createSlider(x, y, initialValue, onChangeCallback) {
-        const sliderWidth = 200;
+        const sliderWidth = 500;
 
         // Fondo del slider
         const sliderTrack = this.add.rectangle(x, y, sliderWidth, 10, 0x555555).setOrigin(0.5, 0.5);
@@ -124,7 +115,6 @@
 
     _menuScene() {
         this.scene.start('MenuScene'); // Cambiar a la escena del menú
-        
     }
 
     _addButtonAnimations() {

@@ -36,7 +36,7 @@
 
     _createSettingsText() {
         // Primera columna: Controles
-        this.controlsText = this.add.text(350, 390, this._ControlsText(), {
+        this.controlsText = this.add.text(350, 390, '', {
             font: '26px Arial',
             fill: '#ffffff',
             align: 'left', // Alineado a la izquierda
@@ -44,34 +44,12 @@
         }).setOrigin(0.5, 0.5);
 
         // Segunda columna: Créditos
-        this.creditsText = this.add.text(900, 390, this._CreditsText(), {
+        this.creditsText = this.add.text(900, 390, '', {
             font: '26px Arial',
             fill: '#ffffff',
             align: 'left', // Alineado a la izquierda
             lineSpacing: 10
         }).setOrigin(0.5, 0.5);
-    }
-
-    _ControlsText() {
-        return (
-            '=== CONTROLES ===\n\n' +
-            'Jugador 1:\n' +
-            'Movimiento: W, A, S, D\n' +
-            'Colocar bombas: ESPACIO\n\n' +
-            'Jugador 2:\n' +
-            'Movimiento: Flechas de dirección\n' +
-            'Colocar bombas: ENTER'
-        );
-    }
-
-    _CreditsText() {
-        return (
-            '=== CRÉDITOS ===\n\n' +
-            'Nuria Serrano Martín\n' +
-            'Raúl Delgado Alcázar\n' +
-            'Hugo Camuñas González\n' +
-            'Lucía García Pérez'
-        );
     }
     
     // Función que maneja la ajustes del juego
