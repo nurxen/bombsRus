@@ -14,15 +14,13 @@ const config = {
             debug:true
         }
     },
-    scene: [PreloadScene, MenuScene, GameScene, PauseScene, FinalScene] // Orden de las escenas
+    scene: [PreloadScene, MenuScene, SettingsScene, GameScene, FinalScene] // Orden de las escenas
 };
 
 // Creación de una nueva instancia del juego con la configuración especificada
 const game = new Phaser.Game(config);
 
 // Métodos para gestionar escenas
-
-
 function removeScene(key) {
     game.scene.remove(key);
 }

@@ -20,8 +20,6 @@ class GameScene extends Phaser.Scene {
     _bk; // Fondo de la escena
     _presentAnimation; // Sprite para la animación de los regalos
     _frames; // Frames de la animación
-    _framesRate = 10; // Velocidad de la animación
-    _animInput = 0;
 
     constructor() {
         super({ key: 'GameScene' });
@@ -43,7 +41,6 @@ class GameScene extends Phaser.Scene {
         this._createPresentExplosionAnimation(); // Crear la animación del regalo
         this._createPresentAnimationSprite(); // Crear el sprite para la animación
         this._setupCollisions(); // Configurar colisiones
-        
     }
 
     // Update: Actualizar cada cuadro
@@ -64,8 +61,6 @@ class GameScene extends Phaser.Scene {
     endGame() {
         this.scene.start('FinalScene'); // Cambiar a la escena final
     }
-
-    
 
     // Metodo para comprobar la colisión con los jugadores después de la animación
     checkCollisionWithPlayers(explosionImage) {
@@ -108,13 +103,13 @@ class GameScene extends Phaser.Scene {
     // Crear las vidas de los jugadores
     _createLifes() {
         // Vidas del jugador 1
-        for (let i = 0; i < 3; i++) {
+        for (let i = 0; i < 3; i+=1.25) {
             const life = this.add.image(35 + i * 40, 30, "Life").setScale(0.2);
             this.player1Lifes.push(life);
         }
 
         // Vidas del jugador 2
-        for (let i = 0; i < 3; i++) {
+        for (let i = 0; i < 3; i+=1.25) {
             const life = this.add.image(1216 - i * 40, 730, "Life").setScale(0.2);
             this.player2Lifes.push(life);
         }
@@ -281,15 +276,20 @@ class GameScene extends Phaser.Scene {
 
     // Actualizar las vidas del jugador
     _updatePlayerLives(player) {
-        const lifesArray = player.id === 1 ? this.player1Lifes : this.player2Lifes;
+        let lifesArray;
+        if (player.id === 1) {
+            lifesArray = this.player1Lifes;
+        } else {
+            lifesArray = this.player2Lifes;
+        }
+
         if (lifesArray.length > 0) {
             lifesArray.pop().destroy();
         } else {
             this.endGame();
-            player.isLoserPlayer = true;
         }
     }
-    
+
     // Comprobar si el juego ha terminado
     _checkGameOver() {
         if (this.player1.isLoser() || this.player2.isLoser()) {

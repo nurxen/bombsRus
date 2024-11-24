@@ -155,7 +155,7 @@ class Player {
     _die() {
         this._isAlive = false;
         this._stopMovement(); // Detiene el movimiento
-        this.isWinnerPlayer = false;
+        this.isLoserPlayer = true;
     }
 
     // Registrar un callback cuando el jugador recibe daño
@@ -167,9 +167,5 @@ class Player {
             this._die(); // Si la vida es 0 o menos, el jugador muere
         }
 
-    }
-    
-    getLifes(){
-        return _healthPoints;
     }
 }

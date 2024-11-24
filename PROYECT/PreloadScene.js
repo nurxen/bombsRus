@@ -46,7 +46,7 @@ class PreloadScene extends Phaser.Scene {
         this.load.image("Present64", "./assets/ASSTES/Present.png");
         this.load.image("CoveyorBeltExtremo", "./assets/ASSTES/CoveyorBeltExtremo.png"); // cinta transpoirtadora
         this.load.image("CoveyorBeltMedio1", "./assets/ASSTES/CoveyorBeltMedio1.png");
-        this.load.image("CoveyorBeltMedio2", "./assets/ASSTES/regalos.png");
+        this.load.image("CoveyorBeltMedio2", "./assets/ASSTES/Present.png");
 
         // Assets de decoracion
         this.load.image("LegoDecoration", "./assets/DECORACION/LegoDecoration.png");
@@ -58,52 +58,23 @@ class PreloadScene extends Phaser.Scene {
         this.load.image("YellowDuckDecoration", "./assets/DECORACION/YellowDuckDecoration.png");
 
         // Interfaces
-        this.load.image("MainMenuBackground", "./assets/ESCENARIOS/LoseBackground.png");
-        this.load.image("PauseBackground", "./assets/ESCENARIOS/regalos.png");
+        this.load.image("MainMenuBackground", "./assets/ESCENARIOS/MainMenuBackground.png");
+        this.load.image("PauseBackground", "./assets/ESCENARIOS/LoseBackground.png");
         this.load.image("WinPlayerOneBackground", "./assets/ESCENARIOS/LoseBackground.png");
         this.load.image("WinPlayerTwoBackground", "./assets/ESCENARIOS/LoseBackground.png");
+        this.load.image("SettingsBackground", "./assets/ESCENARIOS/blueBackground.png");
         this.load.image("GameBackground", "./assets/ESCENARIOS/GameBackground.png");
         this.load.image("StartButton", "./assets/BOTONES/MainMenuButton.png");
-        this.load.image("CreditsButton", "./assets/BOTONES/regalos.png");
-        this.load.image("PauseButton", "./assets/BOTONES/regalos.png");
+        this.load.image("CreditsButton", "./assets/BOTONES/MainMenuButton.png");
+        this.load.image("PauseButton", "./assets/BOTONES/MainMenuButton.png");
         this.load.image("RetryButton", "./assets/BOTONES/RetryButton.png");
         this.load.image("MainMenuButton", "./assets/BOTONES/MainMenuButton.png");
-        this.load.image("PauseButton", "./assets/BOTONES/regalos.png");
+        this.load.image("PauseButton", "./assets/BOTONES/MainMenuButton.png");
         this.load.image("SettingsButton", "./assets/BOTONES/SettingsButton.png");
         this.load.image("Life", "./assets/ASSTES/corazon.png");
 
-        // Cargar imágenes de explosión de regalo
-        this.load.image("Present64", "./assets/present64.png");
-        this.load.image("PresentExplosion1", "./assets/EXPLOSION_REGALO_1/PRESENT1_5_21.png");
-        this.load.image("PresentExplosion2", "./assets/EXPLOSION_REGALO_1/PRESENT2_4_22.png");
-        this.load.image("PresentExplosion3", "./assets/EXPLOSION_REGALO_1/PRESENT3_23.png");
-        this.load.image("PresentExplosion4", "./assets/EXPLOSION_REGALO_1/PRESENT2_4_22.png");
-        this.load.image("PresentExplosion5", "./assets/EXPLOSION_REGALO_1/PRESENT1_5_21.png");
-        this.load.image("PresentExplosion6", "./assets/EXPLOSION_REGALO_1/PRESENT6_20.png");
-        this.load.image("PresentExplosion7", "./assets/EXPLOSION_REGALO_1/PRESENT7_19.png");
-        this.load.image("PresentExplosion8", "./assets/EXPLOSION_REGALO_1/PRESENT8_18.png");
-        this.load.image("PresentExplosion9", "./assets/EXPLOSION_REGALO_1/PRESENT9_17.png");
-        this.load.image("PresentExplosion10", "./assets/EXPLOSION_REGALO_1/PRESENT10_16.png");
-        this.load.image("PresentExplosion11", "./assets/EXPLOSION_REGALO_1/PRESENT11_15.png");
-        this.load.image("PresentExplosion12", "./assets/EXPLOSION_REGALO_1/PRESENT12_14.png");
-        this.load.image("PresentExplosion13", "./assets/EXPLOSION_REGALO_1/PRESENT13.png");
-        this.load.image("PresentExplosion14", "./assets/EXPLOSION_REGALO_1/PRESENT12_14.png");
-        this.load.image("PresentExplosion15", "./assets/EXPLOSION_REGALO_1/PRESENT11_15.png");
-        this.load.image("PresentExplosion16", "./assets/EXPLOSION_REGALO_1/PRESENT10_16.png");
-        this.load.image("PresentExplosion17", "./assets/EXPLOSION_REGALO_1/PRESENT9_17.png");
-        this.load.image("PresentExplosion18", "./assets/EXPLOSION_REGALO_1/PRESENT8_18.png");
-        this.load.image("PresentExplosion19", "./assets/EXPLOSION_REGALO_1/PRESENT7_19.png");
-        this.load.image("PresentExplosion20", "./assets/EXPLOSION_REGALO_1/PRESENT6_20.png");
-        this.load.image("PresentExplosion21", "./assets/EXPLOSION_REGALO_1/PRESENT1_5_21.png");
-        this.load.image("PresentExplosion22", "./assets/EXPLOSION_REGALO_1/PRESENT2_4_22.png");
-        this.load.image("PresentExplosion23", "./assets/EXPLOSION_REGALO_1/PRESENT3_23.png");
-        this.load.image("PresentExplosion24", "./assets/EXPLOSION_REGALO_1/PRESENT24.png");
-        this.load.image("PresentExplosion25", "./assets/EXPLOSION_REGALO_1/PRESENT25.png");
-        this.load.image("PresentExplosion26", "./assets/EXPLOSION_REGALO_1/PRESENT26.png");
-
         //pruebas
         this.load.image("pato", "./assets/pato.png");
-        this.load.image("bk", "./assets/backgroundDef.png");
 
         //load json
         this.load.atlas('regalo', './assets/ASSTES/spritesheet.png', './assets/ASSTES/regalo.json');
@@ -135,3 +106,34 @@ class PreloadScene extends Phaser.Scene {
 
 
 }
+
+// BORRAR PERO SE MANTIENE POR SI ACASO
+
+// Cargar imágenes de explosión de regalo
+/*this.load.image("Present64", "./assets/present64.png");
+this.load.image("PresentExplosion1", "./assets/EXPLOSION_REGALO_1/PRESENT1_5_21.png");
+this.load.image("PresentExplosion2", "./assets/EXPLOSION_REGALO_1/PRESENT2_4_22.png");
+this.load.image("PresentExplosion3", "./assets/EXPLOSION_REGALO_1/PRESENT3_23.png");
+this.load.image("PresentExplosion4", "./assets/EXPLOSION_REGALO_1/PRESENT2_4_22.png");
+this.load.image("PresentExplosion5", "./assets/EXPLOSION_REGALO_1/PRESENT1_5_21.png");
+this.load.image("PresentExplosion6", "./assets/EXPLOSION_REGALO_1/PRESENT6_20.png");
+this.load.image("PresentExplosion7", "./assets/EXPLOSION_REGALO_1/PRESENT7_19.png");
+this.load.image("PresentExplosion8", "./assets/EXPLOSION_REGALO_1/PRESENT8_18.png");
+this.load.image("PresentExplosion9", "./assets/EXPLOSION_REGALO_1/PRESENT9_17.png");
+this.load.image("PresentExplosion10", "./assets/EXPLOSION_REGALO_1/PRESENT10_16.png");
+this.load.image("PresentExplosion11", "./assets/EXPLOSION_REGALO_1/PRESENT11_15.png");
+this.load.image("PresentExplosion12", "./assets/EXPLOSION_REGALO_1/PRESENT12_14.png");
+this.load.image("PresentExplosion13", "./assets/EXPLOSION_REGALO_1/PRESENT13.png");
+this.load.image("PresentExplosion14", "./assets/EXPLOSION_REGALO_1/PRESENT12_14.png");
+this.load.image("PresentExplosion15", "./assets/EXPLOSION_REGALO_1/PRESENT11_15.png");
+this.load.image("PresentExplosion16", "./assets/EXPLOSION_REGALO_1/PRESENT10_16.png");
+this.load.image("PresentExplosion17", "./assets/EXPLOSION_REGALO_1/PRESENT9_17.png");
+this.load.image("PresentExplosion18", "./assets/EXPLOSION_REGALO_1/PRESENT8_18.png");
+this.load.image("PresentExplosion19", "./assets/EXPLOSION_REGALO_1/PRESENT7_19.png");
+this.load.image("PresentExplosion20", "./assets/EXPLOSION_REGALO_1/PRESENT6_20.png");
+this.load.image("PresentExplosion21", "./assets/EXPLOSION_REGALO_1/PRESENT1_5_21.png");
+this.load.image("PresentExplosion22", "./assets/EXPLOSION_REGALO_1/PRESENT2_4_22.png");
+this.load.image("PresentExplosion23", "./assets/EXPLOSION_REGALO_1/PRESENT3_23.png");
+this.load.image("PresentExplosion24", "./assets/EXPLOSION_REGALO_1/PRESENT24.png");
+this.load.image("PresentExplosion25", "./assets/EXPLOSION_REGALO_1/PRESENT25.png");
+this.load.image("PresentExplosion26", "./assets/EXPLOSION_REGALO_1/PRESENT26.png");*/
