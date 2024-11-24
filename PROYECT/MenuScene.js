@@ -25,7 +25,7 @@ class MenuScene extends Phaser.Scene {
     _createBackground() {
         // Verificar si la música ya está activa
         if (!this.sound.get('menuBackgroundMusic') || !this.sound.get('menuBackgroundMusic').isPlaying) {
-            this.backgroundMusic = this.sound.add('menuBackgroundMusic', { volume: 5, loop: true });
+            this.backgroundMusic = this.sound.add('menuBackgroundMusic', { volume: 3, loop: true });
             this.backgroundMusic.play();
         }
 

@@ -11,7 +11,7 @@ const config = {
         default: 'arcade',
         arcade: {
             gravity: { y: 0 },  // Gravedad en el eje Y
-            debug:true
+            debug:false
         }
     },
     scene: [PreloadScene, MenuScene, SettingsScene, OptionsScene, GameScene, FinalScene] // Orden de las escenas
