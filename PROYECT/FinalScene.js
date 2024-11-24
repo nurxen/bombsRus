@@ -46,7 +46,7 @@ class FinalScene extends Phaser.Scene {
 
     // Crear el botón de "Retry"
     _createRetryButton() {
-        this.retryButton = this.add.image(640, 400, 'RetryButton')
+        this.retryButton = this.add.image(640, 460, 'RetryButton')
             .setScale(0.2)
             .setOrigin(0.5, 0.5)
             .setInteractive() // Hacer el botón interactivo
@@ -60,7 +60,7 @@ class FinalScene extends Phaser.Scene {
     
     // Crear el botón de "Exit"
     _createExitButton() {
-        this.exitButton = this.add.image(640, 500, 'MainMenuButton')
+        this.exitButton = this.add.image(640, 610, 'MainMenuButton')
             .setScale(0.2)
             .setOrigin(0.5, 0.5)
             .setInteractive() // Hacer el botón interactivo
