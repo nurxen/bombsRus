@@ -39,8 +39,11 @@ class GameScene extends Phaser.Scene {
         this._setupBombas(); // Configurar las bombas
         this._setupGround(); // Crear el escenario
         this._createPresentExplosionAnimation(); // Crear la animación del regalo
+        this._createConejoAnimation(); // Crear la animación del regalo
         this._createPresentAnimationSprite(); // Crear el sprite para la animación
         this._setupCollisions(); // Configurar colisiones
+        this.backgroundMusic = this.sound.add('backgroundMusic', { volume: 0.3, loop: true });
+        this.backgroundMusic.play();
     }
 
     // Update: Actualizar cada cuadro
@@ -87,6 +90,12 @@ class GameScene extends Phaser.Scene {
             frameWidth: 192,
             frameHeight: 192,
         });
+
+        this.load.spritesheet("conejoSprite", "assets/ASSTES/SPRITESCONEJO.png", {
+            frameWidth: 64,
+            frameHeight: 64,
+        });
+
     }
 
     // Configurar las entradas del teclado
@@ -230,7 +239,17 @@ class GameScene extends Phaser.Scene {
             frameRate: 30,
             repeat: 0 // No se repite
         })
+        
     }
+    _createConejoAnimation(){
+        this.anims.create({
+            key: "conejo_anim",
+            frames:this.anims.generateFrameNumbers("conejoSprite" ,{start:494 , end: 502}),
+            frameRate: 30,
+            repeat: 1// No se repite
+        })
+    }
+    
 
     // Crear el sprite de la animación
     _createPresentAnimationSprite() {

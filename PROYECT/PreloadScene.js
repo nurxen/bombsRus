@@ -5,6 +5,7 @@ class PreloadScene extends Phaser.Scene {
     }
 
     preload() {
+        
         // Dimensiones de la barra de progreso
         const progressBarWidth = 400;
         const progressBarHeight = 25;
@@ -20,6 +21,10 @@ class PreloadScene extends Phaser.Scene {
         const progressBarFill = this.add.graphics();
 
         // Accedemos a los assets
+        //Sonido
+        this.load.audio('explosionSound', "./assets/SONIDOS/explosion.mp3");
+        this.load.audio('backgroundMusic', "./assets/SONIDOS/loop.mp3");
+        
         // Animacion de Cuddles
         this.load.image("CuddlesIdleLeft", "./assets/tile.png");
         this.load.image("CuddlesMoveLeft", "./assets/tile.png");

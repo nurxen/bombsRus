@@ -62,6 +62,8 @@
     _playExplosion() {
         // Crear el sprite de explosión en la posición actual de la bomba
         const explosion = this.scene.add.sprite(this.x, this.y, "regaloSprite");
+        
+        
         explosion.play("regaloSprite_anim"); // Reproducir la animación
 
         // Agregar la imagen de "ColiderPresentExplosion" en la misma posición
@@ -70,6 +72,8 @@
         // Llamar para verificar si hay colisión con los jugadores
         this.scene.checkCollisionWithPlayers(explosionImage); // Verificar colisión con los jugadores
         
+        //Reproducir sonido
+        this.scene.sound.play('explosionSound');
         // Eliminar el sprite de explosión al finalizar la animación
         explosion.on("animationcomplete", () => {
             explosion.destroy();
