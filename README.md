@@ -153,7 +153,8 @@ El diagrama de flujo de la interfaz del juego sigue una estructura simple entre 
 - **Pantalla de juego**: Después de seleccionar la opción de comenzar la partida, el jugador es llevado directamente al tablero de juego donde se desarrolla la acción.
 - **Pantalla de victoria/derrota**: Al finalizar la partida, dependiendo del resultado (ganador o perdedor), el jugador es redirigido a una pantalla que muestra el resultado de la partida y les ofrece la opción de volver al menú principal.
 
-![Diagramas](IMAGENES_README/diagramaDeFlujo.png)
+![Diagramas](IMAGENES_README/diagramaDeFlujo2.png)
+![Personaje](IMAGENES_README/diagramaDeImagenes.jpg)
 
 ### 4.3 Créditos
 En la interfaz de "HELP", se muestra a los desarrolladores del juego:
@@ -203,7 +204,7 @@ Las principales influencias visuales para este proyecto provienen de títulos co
 - **Bomba en cruz:**  
 - **Bomba en área:**
 ![Personaje](IMAGENES_README/PRESENT-13.png)
-![Personaje](IMAGENES_README/PRESENTTWO11.png)
+![Personaje](IMAGENES_README/explosionregalo2.png)
   - **Regalos explosión final:**
 
 - **Escenarios:** El tablero representará una **fábrica de juguetes** y detalles industriales.
@@ -222,6 +223,7 @@ Las principales influencias visuales para este proyecto provienen de títulos co
 ![Escenario](IMAGENES_README/PinkDuckDecoration.png)
 ![Escenario](IMAGENES_README/tiles.png)
 ![Escenario](IMAGENES_README/SettingsButton.png)
+![Personaje](IMAGENES_README/menuImagen.png)
 
 ### 5.4 UI/UX
 La interfaz de usuario será ** clara y visualmente atractiva**, diseñada para no distraer al jugador de la acción principal.
