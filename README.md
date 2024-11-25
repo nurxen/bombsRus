@@ -202,13 +202,21 @@ Las principales influencias visuales para este proyecto provienen de títulos co
 ![Regalos](IMAGENES_README/regalos.jpg)
 - **Bomba en cruz:**  
 - **Bomba en área:**
-  ![Personaje](IMAGENES_README/Present.png)
- ![Personaje](IMAGENES_README/PRESENTTWO1_5_16.png)
+![Personaje](IMAGENES_README/Present.png)
+![Personaje](IMAGENES_README/PRESENTTWO1_5_16.png)
   - **Regalos explosión final:**
 
-**Escenarios:** El tablero representará una **fábrica de juguetes** y detalles industriales.
+- **Escenarios:** El tablero representará una **fábrica de juguetes** y detalles industriales.
 
-![Escenario](IMAGENES_README/escenario.png)
+![Escenario](IMAGENES_README/escenario.jpg)
+- **Decoración/obstáculos:**
+![Escenario](IMAGENES_README/BallDecoration.png)
+![Escenario](IMAGENES_README/CarDecoration.png)
+![Escenario](IMAGENES_README/CubeDecoration.png)
+![Escenario](IMAGENES_README/LegoDecoration.png)
+![Escenario](IMAGENES_README/Towerdecoration.png)
+![Escenario](IMAGENES_README/YellowDuckDecoration.png)
+![Escenario](IMAGENES_README/heart.png)
 
 ### 5.4 UI/UX
 La interfaz de usuario será ** clara y visualmente atractiva**, diseñada para no distraer al jugador de la acción principal.
@@ -224,10 +232,10 @@ La interfaz de usuario será ** clara y visualmente atractiva**, diseñada para 
 
 ![Interfaces](IMAGENES_README/pantallaDerrota.png)
 - **Interfaces finales**
-![Personaje](IMAGENES_README/Player1WinsImagen.png)
-![Personaje](IMAGENES_README/Player2WinsImagen.png)
-![Personaje](IMAGENES_README/GameImagen.png)
-![Personaje](IMAGENES_README/EmpateImagen.png)
+![Personaje](IMAGENES_README/Player1WinsImagen.jpg)
+![Personaje](IMAGENES_README/Player2WinsImagen.jpg)
+![Personaje](IMAGENES_README/GameImagen.jpg)
+![Personaje](IMAGENES_README/EmpateImagen.jpg)
 ### 5.5 Logo del juego
 ![Logo](IMAGENES_README/logo.png)
 
