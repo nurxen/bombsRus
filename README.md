@@ -154,7 +154,7 @@ El diagrama de flujo de la interfaz del juego sigue una estructura simple entre 
 - **Pantalla de victoria/derrota**: Al finalizar la partida, dependiendo del resultado (ganador o perdedor), el jugador es redirigido a una pantalla que muestra el resultado de la partida y les ofrece la opción de volver al menú principal.
 
 ![Diagramas](IMAGENES_README/diagramaDeFlujo2.jpg)
-![Personaje](IMAGENES_README/diagramaDeImagenes.jpg)
+
 
 ### 4.3 Créditos
 En la interfaz de "HELP", se muestra a los desarrolladores del juego:
@@ -239,12 +239,21 @@ La interfaz de usuario será ** clara y visualmente atractiva**, diseñada para 
 ![Interfaces](IMAGENES_README/pantallaDerrota.png)
 - **Interfaces finales**
 ![Personaje](IMAGENES_README/menuImagen.png)
+Esta es la primera escena, a partir de ella se podra acceder a la escena de ayuda, opciones y pantalla de juego.
 ![Personaje](IMAGENES_README/Player1WinsImagen.jpg)
+Esta escena solo aparecerá en caso de que el jugador 1 gane la partida. A partir de ella se podrá volver al menu principal o reiniciar la partida.
 ![Personaje](IMAGENES_README/Player2WinsImagen.jpg)
+Esta escena solo aparecerá en caso de que el jugador 2 gane la partida. A partir de ella se podrá volver al menu principal o reiniciar la partida.
 ![Escenario](IMAGENES_README/EmpateImage.jpg)
+Esta escena solo aparecerá en caso de quedar empate. A partir de ella se podrá volver al menu principal o reiniciar la partida.
 ![Personaje](IMAGENES_README/HelpImagen.jpg)
-![Personaje](IMAGENES_README/GameImagen.jpg)
+A esta escena solo se accede desde el menu principal, aquí se encontrarán tanto los créditos como los controles. De ella se podrá volver de nuevo al menu principal.
 ![Personaje](IMAGENES_README/ControlImagen.jpg)
+A esta escena solo se accede desde el menu principal, aquí se encontrarán los recursos para adaptar el juego tanto en volumen como en VFX. De ella se podrá volver de nuevo al menu principal.
+![Personaje](IMAGENES_README/GameImagen.jpg)
+A la pantalla de juego solo se podrá acceder desde el menú principal y no se podrá salir de ellla hasta finalizar la partida.
+**Diagrama de Imágenes:**
+![Personaje](IMAGENES_README/diagramaDeImagenes.jpg)
 ### 5.5 Logo del juego
 ![Logo](IMAGENES_README/logo.png)
 
