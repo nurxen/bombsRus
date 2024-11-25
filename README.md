@@ -244,7 +244,7 @@ Esta es la primera escena, a partir de ella se podra acceder a la escena de ayud
 Esta escena solo aparecerá en caso de que el jugador 1 gane la partida. A partir de ella se podrá volver al menu principal o reiniciar la partida.
 ![Personaje](IMAGENES_README/Player2WinsImagen.jpg)
 Esta escena solo aparecerá en caso de que el jugador 2 gane la partida. A partir de ella se podrá volver al menu principal o reiniciar la partida.
-![Escenario](IMAGENES_README/EmpateImage.jpg)
+![Escenario](IMAGENES_README/EmpateImagen.jpg)
 Esta escena solo aparecerá en caso de quedar empate. A partir de ella se podrá volver al menu principal o reiniciar la partida.
 ![Personaje](IMAGENES_README/HelpImagen.jpg)
 A esta escena solo se accede desde el menu principal, aquí se encontrarán tanto los créditos como los controles. De ella se podrá volver de nuevo al menu principal.
