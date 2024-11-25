@@ -192,31 +192,42 @@ Las principales influencias visuales para este proyecto provienen de títulos co
 
 ![Personaje](IMAGENES_README/cuddles.jpg)
 - **Cuddles:** Un oso marrón con un lazo rojo.
+
+![Personaje](IMAGENES_README/idleConejo.png)
+
+![Personaje](IMAGENES_README/idleOso.png)
 -  **Spritesheet personajes**
-![Personaje](IMAGENES_README/cuddles.jpg)
 **Regalos (bombas):**  
 
 ![Regalos](IMAGENES_README/regalos.jpg)
 - **Bomba en cruz:**  
 - **Bomba en área:**
-  ![Personaje](IMAGENES_README/cuddles.jpg)
+  ![Personaje](IMAGENES_README/Present.png)
+ ![Personaje](IMAGENES_README/PRESENTTWO1_5_16.png)
+  - **Regalos explosión final:**
 
 **Escenarios:** El tablero representará una **fábrica de juguetes** y detalles industriales.
 
 ![Escenario](IMAGENES_README/escenario.png)
 
 ### 5.4 UI/UX
-La interfaz de usuario será **simple, clara y minimalista**, diseñada para no distraer al jugador de la acción principal.
+La interfaz de usuario será ** clara y visualmente atractiva**, diseñada para no distraer al jugador de la acción principal.
 
-- **Menús:** Los menús serán fáciles de navegar, con texto en PixelArt y botones grandes.
-- **Indicadores visuales:** Las bombas, power-ups y otros elementos interactivos estarán bien diferenciados con colores llamativos y claros, asegurando que los jugadores puedan identificarlos rápidamente.
+- **Menús:** Los menús serán fáciles de navegar, con botones grandes.
+- **Indicadores visuales:** La decoración estará bien diferenciada con colores llamativos y claros, asegurando que los jugadores puedan identificar los objetos rápidamente.
+
+- **Interfaces iniciales**
 
 ![Interfaces](IMAGENES_README/pantallaInicio.png)
 
 ![Interfaces](IMAGENES_README/pantallaVictoria.png)
 
 ![Interfaces](IMAGENES_README/pantallaDerrota.png)
-
+- **Interfaces finales**
+![Personaje](IMAGENES_README/Player1WinsImagen.png)
+![Personaje](IMAGENES_README/Player2WinsImagen.png)
+![Personaje](IMAGENES_README/GameImagen.png)
+![Personaje](IMAGENES_README/EmpateImagen.png)
 ### 5.5 Logo del juego
 ![Logo](IMAGENES_README/logo.png)
 
@@ -225,11 +236,11 @@ La interfaz de usuario será **simple, clara y minimalista**, diseñada para no 
 ## 6. Audio
 
 ### 6.1 Estilo musical
-La música será **enérgica**, adaptándose a la acción del juego para mantener a los jugadores comprometidos y entretenidos durante las partidas.
+La música es **enérgica**, adaptándose a la acción del juego para mantener a los jugadores comprometidos y entretenidos durante las partidas.
 
 ### 6.2 Efectos de sonido
-- **Ambiente:** Sonido de fábrica, incluyendo el ruido de las cintas transportadoras en movimiento.
-- **Bombas:** Sonido similar a un globo siendo colocado cuando se posicionan en el tablero.
+- **Ambiente:** Sonido de fábrica, incluyendo el ruido de las cintas transportadoras en movimiento (POR IMPLEMENTAR).
+- **Bombas:** Sonido similar a un globo siendo colocado cuando se posicionan en el tablero (POR IMPLEMENTAR).
 - **Explosiones:** Efectos de sonido de confeti estallando para acompañar las explosiones de las bombas sorpresa.
 
 ---
