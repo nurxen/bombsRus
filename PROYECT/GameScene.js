@@ -337,11 +337,8 @@ class GameScene extends Phaser.Scene {
             frameRate: 8, // Velocidad de animación
             repeat: -1,   // Repetir indefinidamente
         });
-
-
     }
     
-
     // Crear el sprite de la animación
     _createPresentAnimationSprite() {
         this._presentAnimation = this.add.sprite(1000, 1000, "PresentExplosion1") // Posición inicial del sprite
@@ -406,7 +403,7 @@ class GameScene extends Phaser.Scene {
         }
     }
 
-    // Método corregido para pasar el perdedor a la escena FinalScene
+    // Método para pasar el perdedor a la escena FinalScene
     _checkGameOver() {
         if (this.player1.isLoser() || this.player2.isLoser()) {
             const loser = this.getLoser();  // Obtienes el perdedor
@@ -414,6 +411,5 @@ class GameScene extends Phaser.Scene {
             this.scene.start('FinalScene', { loser: loser }); // Pasas el perdedor como parámetro
         }
     }
-
 
 }

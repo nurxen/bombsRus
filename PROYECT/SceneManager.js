@@ -20,18 +20,3 @@ const config = {
 // Creación de una nueva instancia del juego con la configuración especificada
 const game = new Phaser.Game(config);
 
-// Métodos para gestionar escenas
-function removeScene(key) {
-    game.scene.remove(key);
-}
-
-function moveSceneUp(key) {
-    game.scene.moveUp(key);
-}
-
-function transitionToScene(key) {
-    game.scene.transition({
-        target: key,
-        duration: 1000
-    });
-}

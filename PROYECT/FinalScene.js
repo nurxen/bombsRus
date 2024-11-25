@@ -41,9 +41,7 @@ class FinalScene extends Phaser.Scene {
                 .setDisplaySize(this.sys.game.config.width, this.sys.game.config.height);
         }
     }
-
-
-
+    
     // Crear el botón de "Retry"
     _createRetryButton() {
         this.retryButton = this.add.image(640, 460, 'RetryButton')

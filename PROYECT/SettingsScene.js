@@ -2,7 +2,6 @@
     // Variables públicas
     settingsBackground; // Fondo de la escena de pérdida
     exitButton; // Botón de salida
-    settingsText; // Texto del botón de salida
 
     constructor() {
         super({ key: 'SettingsScene' });

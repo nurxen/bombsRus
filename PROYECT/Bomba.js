@@ -7,7 +7,7 @@
     _startPosition = new Phaser.Math.Vector2();
     _hasStopped = false;
     
-    //commit
+    // Constructor de la bomba
     constructor(scene, id, x, y, direction) {
         super(scene, x, y, "Present64");
         this.id = id;

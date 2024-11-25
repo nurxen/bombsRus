@@ -34,7 +34,6 @@ class MenuScene extends Phaser.Scene {
             .setDisplaySize(this.sys.game.config.width, this.sys.game.config.height); // Ajusta al tamaño del canvas
     }
 
-
     // Crear el botón de "Start Game"
     _createStartButton() {
         this.startButton = this.add.image(640, 600, 'StartButton')

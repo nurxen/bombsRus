@@ -8,7 +8,6 @@ class Player {
     yInput = 0; // Input vertical : -1, 0, 1
     dispararInput = 0; //input de disparar: 0, 1
     isLoserPlayer = false; //Comprueba si el jugador ha ganado o perdido
-    bool;
 
     // Variables privadas
     _healthPoints = 3; // Salud del bomberman
@@ -88,9 +87,6 @@ class Player {
                 }
             }
         }
-        //if (this._shouldUpdateAnimations) {
-        //    this.gameObject.anims.play("conejo_anim_derecha", true);
-        //}
         this._move(delta);
         this._disparar(delta);
         //reseteo para el sigueinte frame
@@ -103,7 +99,6 @@ class Player {
         return this.isLoserPlayer;
     }
 
-    // Crear el sprite del jugador
     // Crear el sprite del jugador
     _createPlayerSprite(position) {
         let spriteKey; // Variable para almacenar el spritesheet correspondiente
@@ -174,7 +169,6 @@ class Player {
         this.direction.set(this.xInput, this.yInput);
     }
 
-
     _disparar(delta) {
         if(!this._isOnCooldown)
         {
@@ -199,7 +193,6 @@ class Player {
         this.xInput = 0;
         this.yInput = 0;
     }
-
 
     // Actualizar las animaciones (por ahora vacío, pero puede ser implementado)
     _updateAnimations() {
