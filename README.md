@@ -208,7 +208,7 @@ Las principales influencias visuales para este proyecto provienen de títulos co
 
 - **Escenarios:** El tablero representará una **fábrica de juguetes** y detalles industriales.
 
-![Escenario](IMAGENES_README/escenario.jpg)
+![Personaje](IMAGENES_README/GameImagen.jpg)
 - **Decoración/obstáculos:**
 ![Escenario](IMAGENES_README/BallDecoration.png)
 ![Escenario](IMAGENES_README/CarDecoracion.png)
@@ -221,6 +221,7 @@ Las principales influencias visuales para este proyecto provienen de títulos co
 ![Escenario](IMAGENES_README/EmpatelImage.jpg)
 ![Escenario](IMAGENES_README/PinkDuckDecoration.png)
 ![Escenario](IMAGENES_README/tiles.png)
+![Escenario](IMAGENES_README/SettingsButton.png)
 
 ### 5.4 UI/UX
 La interfaz de usuario será ** clara y visualmente atractiva**, diseñada para no distraer al jugador de la acción principal.
@@ -238,8 +239,9 @@ La interfaz de usuario será ** clara y visualmente atractiva**, diseñada para 
 - **Interfaces finales**
 ![Personaje](IMAGENES_README/Player1WinsImagen.jpg)
 ![Personaje](IMAGENES_README/Player2WinsImagen.jpg)
+![Personaje](IMAGENES_README/HelpImagen.jpg)
 ![Personaje](IMAGENES_README/GameImagen.jpg)
-![Personaje](IMAGENES_README/EmpateImagen.jpg)
+![Personaje](IMAGENES_README/ControlImagen.jpg)
 ### 5.5 Logo del juego
 ![Logo](IMAGENES_README/logo.png)
 
