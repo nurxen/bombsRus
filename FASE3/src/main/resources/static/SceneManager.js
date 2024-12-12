@@ -14,7 +14,7 @@ const config = {
             debug:false
         }
     },
-    scene: [PreloadScene, RegisterScene, MenuScene, SettingsScene, OptionsScene, GameScene, FinalScene] // Orden de las escenas
+    scene: [PreloadScene, RegisterScene, MenuScene, SettingsScene, OptionsScene, GameScene, FinalScene, MenuOnlineScene] // Orden de las escenas
 };
 
 // Creación de una nueva instancia del juego con la configuración especificada

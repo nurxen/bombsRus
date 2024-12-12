@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bombs R Us</title>
+    <!-- Carga de la biblioteca Phaser -->
+    <script src="phaser.min.js"></script>
+    <!-- Carga de las escenas del juego -->
+    <script src="PreloadScene.js"></script>
+	<script src="RegisterScene.js"></script>
+    <script src="MenuScene.js"></script>
+    <script src="GameScene.js"></script>
+    <script src="SettingsScene.js"></script>
+    <script src="OptionsScene.js"></script>
+    <script src="FinalScene.js"></script>
+    <script src="Player.js"></script>
+    <script src="Bomba.js"></script>
+    <!-- Carga del archivo principal del juego -->
+    <script src="SceneManager.js"></script>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #445e65; /* Color de fondo */
+            overflow: hidden; /* Evitar barras de scroll */
+        }
+        #game-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            
+        }
+    </style>
+</head>
+<body>
+<div id="game-container"></div> <!-- Contenedor del juego -->
+</body>
+</html>

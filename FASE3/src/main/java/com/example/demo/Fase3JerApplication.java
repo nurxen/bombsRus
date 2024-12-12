@@ -6,8 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.*;
 import java.nio.file.*;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @SpringBootApplication
@@ -58,8 +57,32 @@ public class Fase3JerApplication {
     // DELETE: Borrar usuario
     @DeleteMapping("/usuario")
     public String borrarUsuario(@RequestParam String usuario) {
-        if (users.remove(usuario) != null) {
-            return "Usuario eliminado correctamente.";
+        // Leer todo el contenido del archivo
+        List<String> lines;
+        try {
+            lines = Files.readAllLines(Paths.get("usuarios.txt"));
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "Error al leer el archivo.";
+        }
+
+        // Filtrar las líneas para eliminar al usuario
+        List<String> updatedLines = lines.stream()
+            .filter(line -> !line.startsWith(usuario + ":"))
+            .collect(Collectors.toList());
+
+        // Si el archivo ha cambiado, lo reescribimos
+        if (lines.size() != updatedLines.size()) {
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter("usuarios.txt"))) {
+                for (String line : updatedLines) {
+                    writer.write(line);
+                    writer.newLine();
+                }
+                return "Usuario eliminado correctamente.";
+            } catch (IOException e) {
+                e.printStackTrace();
+                return "Error al escribir en el archivo.";
+            }
         }
         return "El usuario no existe.";
     }
@@ -67,23 +90,43 @@ public class Fase3JerApplication {
     // PUT: Cambiar la contraseña
     @PutMapping("/usuario")
     public String cambiarContrasena(@RequestParam String usuario, @RequestParam String nuevaContrasena) {
-        if (users.containsKey(usuario)) {
-            users.put(usuario, nuevaContrasena);
-            return "Contraseña actualizada correctamente.";
+        // Leer el archivo
+        List<String> lines;
+        try {
+            lines = Files.readAllLines(Paths.get("usuarios.txt"));
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "Error al leer el archivo.";
         }
+
+        // Buscar el usuario y actualizar la contraseña
+        boolean userFound = false;
+        List<String> updatedLines = new ArrayList<>();
+        for (String line : lines) {
+            String[] parts = line.split(":");
+            if (parts[0].equals(usuario)) {
+                updatedLines.add(usuario + ":" + nuevaContrasena); // Cambiar la contraseña
+                userFound = true;
+            } else {
+                updatedLines.add(line); // Mantener las demás líneas igual
+            }
+        }
+
+        if (userFound) {
+            // Reescribir el archivo con las líneas actualizadas
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter("usuarios.txt"))) {
+                for (String line : updatedLines) {
+                    writer.write(line);
+                    writer.newLine();
+                }
+                return "Contraseña actualizada correctamente.";
+            } catch (IOException e) {
+                e.printStackTrace();
+                return "Error al escribir en el archivo.";
+            }
+        }
+
         return "El usuario no existe.";
     }
 
-    // GET: Obtener ajustes modificados (por ejemplo, volumen)
-    @GetMapping("/opciones/volumen")
-    public String obtenerVolumen() {
-        return "El volumen actual es: " + opcionesVolumen;
-    }
-
-    // PUT: Modificar ajustes del volumen
-    @PutMapping("/opciones/volumen")
-    public String modificarVolumen(@RequestParam String nuevoVolumen) {
-        this.opcionesVolumen = nuevoVolumen;
-        return "Volumen actualizado a: " + nuevoVolumen;
-    }
 }
