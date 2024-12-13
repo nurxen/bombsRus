@@ -53,7 +53,7 @@ class MenuOnlineScene extends Phaser.Scene {
     // Función que inicia el juego
     _startGame() {
         this.scene.start('GameScene'); // Cambiar a la escena del juego
-        this.backgroundMusic.stop();
+        //this.backgroundMusic.stop();
     }
 
     // Crear el botón de "Settings"
@@ -191,8 +191,6 @@ class MenuOnlineScene extends Phaser.Scene {
 	    }
 	}
 
-
-	// Eliminar usuario
 	// Eliminar usuario
 	_deleteAccount() {
 	    const currentUser = localStorage.getItem('currentUser');

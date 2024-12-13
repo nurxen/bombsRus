@@ -18,6 +18,10 @@ public class Fase3JerApplication {
     private Map<String, String> users = new HashMap<>();
     private String opcionesVolumen = "50"; // Ajustes iniciales del volumen
 
+    // Archivos de usuario y rankings
+    private final String usuariosFile = "usuarios.txt";
+    private final String rankingsFile = "rankings.txt";
+
     public static void main(String[] args) {
         SpringApplication.run(Fase3JerApplication.class, args);
     }
@@ -31,7 +35,7 @@ public class Fase3JerApplication {
         users.put(usuario, contrasena);
 
         // Guardar en archivo .txt
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("usuarios.txt", true))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(usuariosFile, true))) {
             writer.write(usuario + ":" + contrasena);
             writer.newLine();
         } catch (IOException e) {
@@ -45,7 +49,7 @@ public class Fase3JerApplication {
     @GetMapping("/usuario")
     public Map<String, String> obtenerUsuarios() {
         try {
-            return Files.lines(Paths.get("usuarios.txt"))
+            return Files.lines(Paths.get(usuariosFile))
                 .map(line -> line.split(":"))
                 .collect(Collectors.toMap(parts -> parts[0], parts -> parts[1]));
         } catch (IOException e) {
@@ -60,7 +64,7 @@ public class Fase3JerApplication {
         // Leer todo el contenido del archivo
         List<String> lines;
         try {
-            lines = Files.readAllLines(Paths.get("usuarios.txt"));
+            lines = Files.readAllLines(Paths.get(usuariosFile));
         } catch (IOException e) {
             e.printStackTrace();
             return "Error al leer el archivo.";
@@ -73,7 +77,7 @@ public class Fase3JerApplication {
 
         // Si el archivo ha cambiado, lo reescribimos
         if (lines.size() != updatedLines.size()) {
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter("usuarios.txt"))) {
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(usuariosFile))) {
                 for (String line : updatedLines) {
                     writer.write(line);
                     writer.newLine();
@@ -93,7 +97,7 @@ public class Fase3JerApplication {
         // Leer el archivo
         List<String> lines;
         try {
-            lines = Files.readAllLines(Paths.get("usuarios.txt"));
+            lines = Files.readAllLines(Paths.get(usuariosFile));
         } catch (IOException e) {
             e.printStackTrace();
             return "Error al leer el archivo.";
@@ -114,7 +118,7 @@ public class Fase3JerApplication {
 
         if (userFound) {
             // Reescribir el archivo con las líneas actualizadas
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter("usuarios.txt"))) {
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(usuariosFile))) {
                 for (String line : updatedLines) {
                     writer.write(line);
                     writer.newLine();
@@ -129,4 +133,56 @@ public class Fase3JerApplication {
         return "El usuario no existe.";
     }
 
+    // GET: Obtener rankings de jugadores
+    @GetMapping("/rankings")
+    public Map<String, Integer> obtenerRankings() {
+        try {
+            List<String> lines = Files.readAllLines(Paths.get(rankingsFile));
+            Map<String, Integer> rankings = new HashMap<>();
+
+            for (String line : lines) {
+                String[] parts = line.split(":");
+                if (parts.length == 2) {
+                    rankings.put(parts[0], Integer.parseInt(parts[1]));
+                }
+            }
+            return rankings;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new HashMap<>();
+        }
+    }
+
+    // POST: Actualizar las victorias de los jugadores
+    @PostMapping("/rankings")
+    public String actualizarRanking(@RequestParam String usuario) {
+        try {
+            List<String> lines = Files.readAllLines(Paths.get(rankingsFile));
+            Map<String, Integer> rankings = new HashMap<>();
+
+            // Leer rankings existentes y actualizarlos
+            for (String line : lines) {
+                String[] parts = line.split(":");
+                if (parts.length == 2) {
+                    rankings.put(parts[0], Integer.parseInt(parts[1]));
+                }
+            }
+
+            // Actualizar las victorias del jugador
+            rankings.put(usuario, rankings.getOrDefault(usuario, 0) + 1);
+
+            // Guardar los rankings actualizados en el archivo
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(rankingsFile, true))) {
+                for (Map.Entry<String, Integer> entry : rankings.entrySet()) {
+                    writer.write(entry.getKey() + ":" + entry.getValue());
+                    writer.newLine();
+                }
+            }
+
+            return "Ranking actualizado correctamente.";
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "Error al actualizar el ranking.";
+        }
+    }
 }
