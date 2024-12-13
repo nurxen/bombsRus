@@ -72,6 +72,7 @@ class PreloadScene extends Phaser.Scene {
         this.load.image("OptionsBackground", "./assets/ESCENARIOS/OptionsBackground.png");
         this.load.image("GameBackground", "./assets/ESCENARIOS/GameBackground.png");
 		this.load.image("PauseBackground", "./assets/ESCENARIOS/MainMenuBackground.png");
+		this.load.image("RankingBackground", "./assets/ESCENARIOS/MainMenuBackground.png");
 		
 		//Botones
         this.load.image("StartButton", "./assets/BOTONES/StartButton.png");
@@ -81,6 +82,7 @@ class PreloadScene extends Phaser.Scene {
         this.load.image("OptionsButton", "./assets/BOTONES/OptionsButton.png");
         this.load.image("RetryButton", "./assets/BOTONES/RetryButton.png");
         this.load.image("MainMenuButton", "./assets/BOTONES/MainMenuButton.png");
+		this.load.image("RankingButton", "./assets/BOTONES/StartButton.png");
         this.load.image("Life", "./assets/ASSTES/heart.png");
         this.load.image("OptionsText", "./assets/BOTONES/OptionsText.png");
         this.load.image("MusicText", "./assets/BOTONES/MusicText.png");

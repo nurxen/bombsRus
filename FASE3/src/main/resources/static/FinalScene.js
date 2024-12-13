@@ -1,92 +1,152 @@
 class FinalScene extends Phaser.Scene {
-    // Variables públicas
     loseBackground; // Fondo de la escena de pérdida
     retryButton; // Botón de volver a jugar
     exitButton; // Botón de salida
     gameScene = new GameScene();
     loser; // Jugador perdedor
+    winner; // Jugador ganador
+    rankingsFile = '/api/rankings'; // Ruta de la API de rankings
+	username;
+	rankings;
+	
     constructor() {
         super({ key: 'FinalScene' });
-        
     }
 
-    // Metodo que llamamos cuando creamos la escena
     create(data) {
+		
         this.loser = data.loser;  // Recibes el parámetro loser desde GameScene
+        this.winner = data.winner;  // Recibes el parámetro winner desde GameScene
         this._createBackground(); // Crear fondo
         this._createRetryButton(); // Crear botón de inicio
         this._createExitButton(); // Crear botón de salida
         this._addButtonAnimations(); // Agregar animaciones a los botones
+
+        // Actualizar el archivo de rankings
+		
+        this._updateRankings();
+		
+		
     }
 
-    // Métodos privados
-
-    // Crear el fondo de la escena
     _createBackground() {
-        // Obtener los datos del perdedor desde el parámetro pasado
-        this.loser = this.game.scene.getScene('GameScene').getLoser();  // Obtener el 'loser' desde los datos de la escena
-
         // Cambiar el fondo dependiendo de quién haya perdido
         if (this.loser === 1) {
             this.loseBackground = this.add.image(0, 0, 'WinPlayerTwoBackground') // Gana el jugador 2
                 .setOrigin(0)
                 .setDisplaySize(this.sys.game.config.width, this.sys.game.config.height);
-        } else if (this.loser === 2){
+        } else if (this.loser === 2) {
             this.loseBackground = this.add.image(0, 0, 'WinPlayerOneBackground') // Gana el jugador 1
                 .setOrigin(0)
                 .setDisplaySize(this.sys.game.config.width, this.sys.game.config.height);
-        }else if (this.loser === 3){
+        } else if (this.loser === 3) {
             this.loseBackground = this.add.image(0, 0, 'DrawBackground') // Empate
                 .setOrigin(0)
                 .setDisplaySize(this.sys.game.config.width, this.sys.game.config.height);
         }
     }
 
-
-
-    // Crear el botón de "Retry"
     _createRetryButton() {
         this.retryButton = this.add.image(640, 460, 'RetryButton')
             .setScale(0.2)
             .setOrigin(0.5, 0.5)
-            .setInteractive() // Hacer el botón interactivo
-            .on('pointerdown', () => this._startGame()); // Llamar a la función para iniciar el juego
+            .setInteractive()
+            .on('pointerdown', () => this._startGame());
     }
 
-    // Función que inicia el juego
     _startGame() {
-        this.scene.start('GameScene'); // Cambiar a la escena del juego
+        this.scene.start('GameScene');
     }
-    
-    // Crear el botón de "Exit"
+
     _createExitButton() {
         this.exitButton = this.add.image(640, 610, 'MainMenuButton')
             .setScale(0.2)
             .setOrigin(0.5, 0.5)
-            .setInteractive() // Hacer el botón interactivo
-            .on('pointerdown', () => this._exitGame()); // Llamar a la función para salir del juego
+            .setInteractive()
+            .on('pointerdown', () => this._exitGame());
     }
-    
-    // Función que maneja la salida del juego
+
     _exitGame() {
         this.scene.start('MenuScene');
     }
 
-    // Agregar animaciones o efectos a los botones
     _addButtonAnimations() {
         [this.retryButton, this.exitButton].forEach(button => {
-            button.on('pointerover', () => this._onButtonHover(button)); // Aumentar el tamaño
-            button.on('pointerout', () => this._onButtonOut(button)); // Volver al tamaño original
+            button.on('pointerover', () => this._onButtonHover(button));
+            button.on('pointerout', () => this._onButtonOut(button));
         });
     }
 
-    // Animación de cuando el puntero pasa por encima de un botón
     _onButtonHover(button) {
-        button.setScale(0.21); // Aumentar el tamaño del botón
+        button.setScale(0.21);
     }
 
-    // Animación de cuando el puntero sale de un botón
     _onButtonOut(button) {
-        button.setScale(0.2); // Volver al tamaño original del botón
+        button.setScale(0.2);
+    }
+
+    // Método que actualiza el archivo de rankings
+    async _updateRankings() {
+		
+		//this.username = localStorage.getItem('currentUser');
+		this.username = 'aa';
+		
+        try {
+			
+			$.ajax({
+				method: "POST",
+				url: "http://127.0.0.1:8080/api/usuario",
+				data: JSON.stringify(this.username),
+				headers: 
+				{
+				 "Content-type":"application/json"
+				}
+			})
+			
+			$.ajax({
+				method: "GET",
+				url: "http://127.0.0.1:8080/api/usuario",
+				headers: 
+				{
+					"Content-type":"application/json"
+				}
+			}).done((data, textStatus, jqXHR) => 
+			    {
+			       console.log(textStatus+" "+ jqXHR.status);
+			       console.log(data);
+			       console.log(jqXHR.statusCode())
+
+			       // Borra los datos globales
+			       this.rankings = data;
+
+			 })
+
+            // Actualizar las victorias de los jugadores
+            if (this.winner === 1) {
+                this.rankings.playerOneWins += 1;
+            } else if (this.winner === 2) {
+                this.rankings.playerTwoWins += 1;
+            }
+
+            // Mostrar el ranking en el fondo
+            this._showRankings(this.rankings);
+        } catch (error) {
+            console.error('Error updating rankings:', error);
+        }
+    }
+
+    _showRankings(rankings) {
+        if (this.rankingsText) {
+            this.rankingsText.destroy();
+        }
+
+        let rankingText = `Player 1 Wins: ${rankings}\nPlayer 2 Wins: ${rankings.playerTwoWins}`;
+        this.rankingsText = this.add.text(
+            this.sys.game.config.width / 2, 
+            50, 
+            rankingText, 
+            { font: '32px Arial', fill: '#ffffff', align: 'center' }
+        );
+        this.rankingsText.setOrigin(0.5, 0);
     }
 }
