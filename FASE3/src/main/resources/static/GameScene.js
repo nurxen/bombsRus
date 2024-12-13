@@ -20,6 +20,8 @@ class GameScene extends Phaser.Scene {
     _bk; // Fondo de la escena
     _presentAnimation; // Sprite para la animación de los regalos
     _frames; // Frames de la animación
+	_pauseButton = null; // El botón de pausa
+	_pauseText = null;   // El texto que indica el estado de pausa
 
     constructor() {
         super({ key: 'GameScene' });
@@ -43,6 +45,7 @@ class GameScene extends Phaser.Scene {
         this._createOsoAnimation(); // Crear la animación del regalo
         this._createPresentAnimationSprite(); // Crear el sprite para la animación
         this._setupCollisions(); // Configurar colisiones
+		this._createPauseButton(); // Crear botón de salida
         this.backgroundMusic = this.sound.add('backgroundMusic', { volume: 0.3, loop: true });
         this.backgroundMusic.play();
     }
@@ -414,6 +417,43 @@ class GameScene extends Phaser.Scene {
             this.scene.start('FinalScene', { loser: loser }); // Pasas el perdedor como parámetro
         }
     }
+	
+	// Crear el botón de "Pause"
+	_createPauseButton() {
+	    this.pauseButton = this.add.image(1200, 30, 'PauseButton')
+	        .setScale(1.0)
+	        .setOrigin(0.5, 0.5)
+	        .setInteractive() // Hacer el botón interactivo
+	        .on('pointerdown', () => this._togglePause()); // Llamar a la función para pausar o reanudar el juego
 
+	    this.pauseText = this.add.text(640, 600, '', {
+	        font: '32px Arial',
+	        fill: '#fff'
+	    }).setOrigin(0.5, 0.5);
+	}
+
+	// Función que alterna el estado de pausa
+	_togglePause() {
+		this.scene.pause('GameScene'); // Pausar el juego
+	   	this.scene.launch('PauseScene'); // Pausar el juego
+	    
+	}
+
+	// Agregar animaciones o efectos al botón de pausa
+	_addButtonAnimations() {
+	    // Agregar eventos para el botón de pausa
+	    this._pauseButton.on('pointerover', () => this._onPauseButtonHover());
+	    this._pauseButton.on('pointerout', () => this._onPauseButtonOut());
+	}
+
+	// Animación de cuando el puntero pasa por encima del botón "Pause"
+	_onPauseButtonHover() {
+	    this._pauseButton.setScale(1.05); // Cambiar a una escala mayor
+	}
+
+	// Animación de cuando el puntero sale del botón "Pause"
+	_onPauseButtonOut() {
+	    this._pauseButton.setScale(1.0); // Volver a la escala original
+	}
 
 }
