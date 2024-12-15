@@ -30,7 +30,7 @@ public class Fase3JerApplication {
     @PostMapping("/usuario")
     public String crearUsuario(@RequestParam String usuario, @RequestParam String contrasena) {
         if (users.containsKey(usuario)) {
-            return "El usuario ya existe.";
+            return "THE USER ALREADY EXISTS.";
         }
         users.put(usuario, contrasena);
 
@@ -40,9 +40,9 @@ public class Fase3JerApplication {
             writer.newLine();
         } catch (IOException e) {
             e.printStackTrace();
-            return "Error al guardar el usuario.";
+            return "ERROR SAVING USER.";
         }
-        return "Usuario creado correctamente.";
+        return "USER CREATED SUSCCESSFULLY.";
     }
 
     // GET: Obtener usuarios desde el archivo
@@ -60,14 +60,14 @@ public class Fase3JerApplication {
 
     // DELETE: Borrar usuario
     @DeleteMapping("/usuario")
-    public String borrarUsuario(@RequestBody String usuario) {
+    public String borrarUsuario(@RequestParam String usuario) {
         // Leer todo el contenido del archivo
         List<String> lines;
         try {
             lines = Files.readAllLines(Paths.get(usuariosFile));
         } catch (IOException e) {
             e.printStackTrace();
-            return "Error al leer el archivo.";
+            return "ERROR READING FILE.";
         }
 
         // Filtrar las líneas para eliminar al usuario
@@ -82,25 +82,25 @@ public class Fase3JerApplication {
                     writer.write(line);
                     writer.newLine();
                 }
-                return "Usuario eliminado correctamente.";
+                return "USER DELETED SUCCESSFULLY.";
             } catch (IOException e) {
                 e.printStackTrace();
                 return "Error al escribir en el archivo.";
             }
         }
-        return "El usuario no existe.";
+        return "USER DOESN´T EXIST.";
     }
 
     // PUT: Cambiar la contraseña
     @PutMapping("/usuario")
-    public String cambiarContrasena(@RequestBody String usuario, @RequestBody String nuevaContrasena) {
+    public String cambiarContrasena(@RequestParam String usuario, @RequestParam String nuevaContrasena) {
         // Leer el archivo
         List<String> lines;
         try {
             lines = Files.readAllLines(Paths.get(usuariosFile));
         } catch (IOException e) {
             e.printStackTrace();
-            return "Error al leer el archivo.";
+            return "ERROR READING FILE.";
         }
 
         // Buscar el usuario y actualizar la contraseña
@@ -123,14 +123,14 @@ public class Fase3JerApplication {
                     writer.write(line);
                     writer.newLine();
                 }
-                return "Contraseña actualizada correctamente.";
+                return "PASSWORD UPDATED SUCCESSFULLY.";
             } catch (IOException e) {
                 e.printStackTrace();
-                return "Error al escribir en el archivo.";
+                return "ERROR WRITING FILE.";
             }
         }
 
-        return "El usuario no existe.";
+        return "USER DOESN´T EXIST.";
     }
 
     @GetMapping("/rankings")
@@ -142,14 +142,14 @@ public class Fase3JerApplication {
             for (String line : lines) {
                 String[] parts = line.split(":");
                 if (parts.length == 2 && parts[0].equals(usuario)) {
-                    return usuario + " tiene " + parts[1] + " victorias.";
+                    return usuario + " HAS " + parts[1] + " VICTORIES.";
                 }
             }
 
-            return "El usuario '" + usuario + "' no tiene victorias registradas.";
+            return "THE USER '" + usuario + "' HAS NO RECORDED VICTORIES.";
         } catch (IOException e) {
             e.printStackTrace();
-            return "Error al obtener las victorias del usuario.";
+            return "ERROR GETTING USER WINS.";
         }
     }
 
@@ -185,10 +185,10 @@ public class Fase3JerApplication {
                 }
             }
 
-            return "Ranking actualizado correctamente.";
+            return "RANKING UPDATED SUCCESSFULLY.";
         } catch (IOException e) {
             e.printStackTrace();
-            return "Error al actualizar el ranking.";
+            return "ERROR UPDATING RANKING.";
         }
     }
 

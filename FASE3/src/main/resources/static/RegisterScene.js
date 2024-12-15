@@ -23,7 +23,7 @@ class RegisterScene extends Phaser.Scene {
     _createBackground() {
         // Verificar si la música ya está activa
         if (!this.sound.get('menuBackgroundMusic') || !this.sound.get('menuBackgroundMusic').isPlaying) {
-            this.backgroundMusic = this.sound.add('menuBackgroundMusic', { volume: 3, loop: true });
+            this.backgroundMusic = this.sound.add('menuBackgroundMusic', { volume: 0.2, loop: true });
             this.backgroundMusic.play();
         }
 
@@ -34,7 +34,7 @@ class RegisterScene extends Phaser.Scene {
 
     // Crear el botón de "Start Game" local
     _createStartButtonLocal() {
-        this.startButton = this.add.image(240, 600, 'StartButton')
+        this.startButton = this.add.image(240, 600, 'LocalButton')
             .setScale(1.0)
             .setOrigin(0.5, 0.5)
             .setInteractive() // Hacer el botón interactivo
@@ -48,7 +48,7 @@ class RegisterScene extends Phaser.Scene {
 
     // Crear el botón de "Start Game" online
     _createStartButtonOnline() {
-        this.startButtonO = this.add.image(1040, 600, 'StartButton')
+        this.startButtonO = this.add.image(1040, 600, 'OnlineButton')
             .setScale(1.0)
             .setOrigin(0.5, 0.5)
             .setInteractive() // Hacer el botón interactivo
@@ -118,7 +118,8 @@ class RegisterScene extends Phaser.Scene {
         formContainer.style.width = '400px';
 
         formContainer.innerHTML = `
-            <h2 style="margin-bottom: 20px; font-size: 28px; background: white; -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+            <h2 style="margin-bottom: 20px; font-size: 28px; background: white; -webkit-background-clip: 
+			         text; -webkit-text-fill-color: transparent;">
                 REGISTER / LOG IN
             </h2>
             <div id="tab-buttons" style="display: flex; justify-content: space-around; margin-bottom: 15px;">
@@ -130,7 +131,9 @@ class RegisterScene extends Phaser.Scene {
                 </button>
             </div>
             <div id="form-section">
+			
                 <!-- Registro -->
+				
                 <div id="registerForm">
                     <input id="usernameRegister" type="text" placeholder="Username" style="margin-bottom: 10px; padding: 10px; width: 90%; border: 1px solid #ccc; border-radius: 15px;"/><br/>
                     <input id="passwordRegister" type="password" placeholder="Password" style="margin-bottom: 10px; padding: 10px; width: 90%; border: 1px solid #ccc; border-radius: 15px;"/><br/>
@@ -138,7 +141,9 @@ class RegisterScene extends Phaser.Scene {
                         Register
                     </button>
                 </div>
+				
                 <!-- Inicio de Sesión -->
+				
                 <div id="loginForm" style="display: none;">
                     <input id="usernameLogin" type="text" placeholder="Username" style="margin-bottom: 10px; padding: 10px; width: 90%; border: 1px solid #ccc; border-radius: 15px;"/><br/>
                     <input id="passwordLogin" type="password" placeholder="Password" style="margin-bottom: 10px; padding: 10px; width: 90%; border: 1px solid #ccc; border-radius: 15px;"/><br/>
@@ -184,7 +189,7 @@ class RegisterScene extends Phaser.Scene {
 		        });
 
 		        const result = await response.text();
-		        if (result.includes('creado correctamente')) {
+		        if (result.includes('user registered')) {
 		            localStorage.setItem('currentUser', username); // Establece el usuario como actual
 					console.log('Usuario activo:', localStorage.getItem('currentUser'));
 		            alert(result);
@@ -204,7 +209,7 @@ class RegisterScene extends Phaser.Scene {
 		    const password = document.getElementById('passwordLogin').value;
 
 		    if (!username || !password) {
-		        alert('Please complete both fields.');
+		        alert('PLEASE COMPLETE BOTH FIELDS.');
 		        return;
 		    }
 
@@ -217,8 +222,8 @@ class RegisterScene extends Phaser.Scene {
 		        const users = await response.json();
 		        if (users[username] === password) {
 		            localStorage.setItem('currentUser', username); // Guarda el usuario actual
-					console.log('Usuario activo:', localStorage.getItem('currentUser'));
-		            alert('Login successful.');
+					console.log('ACTIVE USER:', localStorage.getItem('currentUser'));
+		            alert('LOGIN SUCCESSFUL.');
 					
 					// Eliminar el formulario antes de cambiar de escena
 		            const formContainer = document.getElementById('registro');
@@ -229,11 +234,11 @@ class RegisterScene extends Phaser.Scene {
 		            this.scene.start('MenuOnlineScene', {"username" : username}); // Cambia a la escena principal
 					
 		        } else {
-		            alert('Invalid username or password.');
+		            alert('INVALID USERNAME OR PASSWORD.');
 		        }
 		    } catch (error) {
 		        console.error(error);
-		        alert('Error logging in.');
+		        alert('ERROR LOGGING IN.');
 		    }
 		});
 		

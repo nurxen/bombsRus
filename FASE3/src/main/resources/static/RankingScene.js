@@ -3,6 +3,8 @@ class RankingScene extends Phaser.Scene {
     settingsBackground; // Fondo de la escena de pérdida
     exitButton; // Botón de salida
     settingsText; // Texto del botón de salida
+	username;
+	usernameText;
 
     constructor() {
         super({ key: 'RankingScene' });
@@ -12,9 +14,13 @@ class RankingScene extends Phaser.Scene {
     create() {
         this._createBackground(); // Crear fondo
         this._createExitButton(); // Crear botón de salida
+		this._createUsernameText(); 
         this._addButtonAnimations(); // Agregar animaciones a los botones
     }
 
+	init(data) { 
+					this.username = data.username;
+				}
     // Métodos privados
 
     // Crear el fondo de la escena
@@ -32,10 +38,35 @@ class RankingScene extends Phaser.Scene {
             .setInteractive() // Hacer el botón interactivo
             .on('pointerdown', () => this._menuScene()); // Llamar a la función para salir del juego
     }
+	
+	// Crear y mostrar el texto del username en la esquina superior izquierda
+		_createUsernameText() {
+		    // Crear el texto del username primero, para obtener sus dimensiones
+		    this.usernameText = this.add.text(30, 30, `👤 ${this.username.toUpperCase()}`, {
+		        fontFamily: 'Verdana, Geneva, sans-serif', // Fuente moderna
+		        fontSize: '26px', // Tamaño del texto
+		        fontStyle: 'bold', // Negrita
+		        color: '#FFFFFF', // Texto blanco
+		        align: 'center' // Alineación
+		    }); // Esquina superior izquierda
+
+		    // Obtener el tamaño del texto
+		    const textWidth = this.usernameText.width;
+		    const textHeight = this.usernameText.height;
+
+		    // Crear un fondo redondeado detrás del texto usando gráficos
+		    const background = this.add.graphics();
+		    background
+		        .fillStyle(0x000000, 0.5) // Fondo negro translúcido
+		        .fillRoundedRect(20, 20, textWidth + 20, textHeight + 20, 10); // Ajustar al tamaño del texto (+ márgenes)
+
+		    // Asegurar que el texto esté por encima del fondo
+		    this.usernameText.setDepth(1);
+		}
     
     // Función que maneja la ajustes del juego
     _menuScene() {
-        this.scene.start('MenuScene'); // Cambiar a la escena del juego
+        this.scene.start('MenuOnlineScene'); // Cambiar a la escena del juego
     }
 
     // Agregar animaciones o efectos a los botones

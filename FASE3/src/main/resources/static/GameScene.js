@@ -33,7 +33,7 @@ class GameScene extends Phaser.Scene {
 	
     // Preload: Cargar todos los recursos
     preload() {
-        console.log("Cargando GameScene...");
+        console.log("Loading GameScene...");
         this._loadAssets();
     }
 
@@ -50,7 +50,7 @@ class GameScene extends Phaser.Scene {
         this._createPresentAnimationSprite(); // Crear el sprite para la animación
         this._setupCollisions(); // Configurar colisiones
 		this._createPauseButton(); // Crear botón de salida
-        this.backgroundMusic = this.sound.add('backgroundMusic', { volume: 0.3, loop: true });
+        this.backgroundMusic = this.sound.add('backgroundMusic', { volume: 0.1, loop: true });
         this.backgroundMusic.play();
     }
 

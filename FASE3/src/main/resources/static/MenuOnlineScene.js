@@ -9,6 +9,7 @@ class MenuOnlineScene extends Phaser.Scene {
     accountButton; // Botón de cuenta
     accountFormContainer; // Contenedor del formulario para cambiar la contraseña o borrar cuenta
 	username;
+	usernameText;
 	
     constructor() {
         super({ key: 'MenuOnlineScene' });
@@ -28,14 +29,16 @@ class MenuOnlineScene extends Phaser.Scene {
         this._createSettingsButton(); // Crear botón de ajustes
         this._createOptionsButton(); // Crear botón de opciones
 		this._createRankingButton(); // Crear botón de puntuaciones
+		this._createBackButton(); // Crear botón de volver atrás
         this._createAccountButton(); // Crear botón para cambiar cuenta
+		this._createUsernameText();
         this._addButtonAnimations(); // Agregar animaciones a los botones
     }
 
     // Crear el fondo de la escena
     _createBackground() {
         if (!this.sound.get('menuBackgroundMusic') || !this.sound.get('menuBackgroundMusic').isPlaying) {
-            this.backgroundMusic = this.sound.add('menuBackgroundMusic', { volume: 3, loop: true });
+            this.backgroundMusic = this.sound.add('menuBackgroundMusic', { volume: 0.2, loop: true });
             this.backgroundMusic.play();
         }
 
@@ -43,6 +46,32 @@ class MenuOnlineScene extends Phaser.Scene {
             .setOrigin(0) // Establece el origen en la esquina superior izquierda
             .setDisplaySize(this.sys.game.config.width, this.sys.game.config.height); // Ajusta al tamaño del canvas
     }
+	
+	// Crear y mostrar el texto del username en la esquina superior izquierda
+	_createUsernameText() {
+	    // Crear el texto del username primero, para obtener sus dimensiones
+	    this.usernameText = this.add.text(30, 30, `👤 ${this.username.toUpperCase()}`, {
+	        fontFamily: 'Verdana, Geneva, sans-serif', // Fuente moderna
+	        fontSize: '26px', // Tamaño del texto
+	        fontStyle: 'bold', // Negrita
+	        color: '#FFFFFF', // Texto blanco
+	        align: 'center' // Alineación
+	    }); // Esquina superior izquierda
+
+	    // Obtener el tamaño del texto
+	    const textWidth = this.usernameText.width;
+	    const textHeight = this.usernameText.height;
+
+	    // Crear un fondo redondeado detrás del texto usando gráficos
+	    const background = this.add.graphics();
+	    background
+	        .fillStyle(0x000000, 0.5) // Fondo negro translúcido
+	        .fillRoundedRect(20, 20, textWidth + 20, textHeight + 20, 10); // Ajustar al tamaño del texto (+ márgenes)
+
+	    // Asegurar que el texto esté por encima del fondo
+	    this.usernameText.setDepth(1);
+	}
+
 
     // Crear el botón de "Start Game"
     _createStartButton() {
@@ -60,8 +89,10 @@ class MenuOnlineScene extends Phaser.Scene {
 
     // Función que inicia el juego
     _startGame() {
+		
         this.scene.start('GameScene', {"username" : this.username}); // Cambiar a la escena del juego
-        //this.backgroundMusic.stop();
+		this.backgroundMusic.stop();
+        
     }
 
     // Crear el botón de "Settings"
@@ -77,12 +108,33 @@ class MenuOnlineScene extends Phaser.Scene {
             fill: '#fff'
         }).setOrigin(0.5, 0.5);
     }
+	
+	// Función que maneja la ajustes del juego
+	_settingsScene() {
+	    this.scene.start('SettingsOnlineScene'); // Cambiar a la escena del juego
+	    console.log("Ajustes"); // Aquí se puede agregar la lógica para salir del juego, por ejemplo, cerrando la ventana o redirigiendo
+	    
+	}
+	
+	// Crear el botón de "Back"
+		    _createBackButton() {
+		        this.BackButton = this.add.image(1175, 725, 'MainMenuButton')
+		            .setScale(0.13)
+		            .setOrigin(0.5, 0.5)
+		            .setInteractive() // Hacer el botón interactivo
+		            .on('pointerdown', () => this._back()); // Llamar a la función para iniciar el juego
 
-    // Función que maneja los ajustes del juego
-    _settingsScene() {
-        this.scene.start('SettingsOnlineScene'); // Cambiar a la escena de ajustes
-        console.log("Ajustes");
-    }
+		        this.backText = this.add.text(640, 600, '', {
+		            font: '32px Arial',
+		            fill: '#fff'
+		        }).setOrigin(0.5, 0.5);
+		    }
+
+		    // Función que te devuelve al menu de registro
+		    _back() {
+		        this.scene.start('RegisterScene'); // Cambiar a la escena de registro
+		        
+		    }
 
     // Crear el botón de "Options"
     _createOptionsButton() {
@@ -138,15 +190,15 @@ class MenuOnlineScene extends Phaser.Scene {
         this.accountFormContainer.style.width = '400px';
 
         this.accountFormContainer.innerHTML = `
-            <h2 style="margin-bottom: 20px;">Cuenta</h2>
+            <h2 style="margin-bottom: 20px;">ACCOUNT</h2>
             <button id="changePasswordBtn" style="padding: 10px; width: 100%; margin-bottom: 10px; background: orange; color: white; border: none; border-radius: 20px;">
-                Cambiar Contraseña
+                Update password
             </button>
             <button id="deleteAccountBtn" style="padding: 10px; width: 100%; background: red; color: white; border: none; border-radius: 20px;">
-                Borrar Cuenta
+                Delete account
             </button>
             <button id="closeAccountFormBtn" style="padding: 10px; width: 100%; margin-top: 15px; background: #c0392b; color: white; border: none; border-radius: 20px;">
-                Cerrar
+                Close
             </button>
         `;
 
@@ -167,11 +219,11 @@ class MenuOnlineScene extends Phaser.Scene {
 	_changePassword() {
 	    const currentUser = localStorage.getItem('currentUser');
 	    if (!currentUser) {
-	        alert('No hay usuario activo.');
+	        alert('NO ACTIVE USER.');
 	        return;
 	    }
 
-	    const newPassword = prompt('Ingresa tu nueva contraseña:');
+	    const newPassword = prompt('NEW PASSWORD:');
 	    if (newPassword) {
 	        const url = `/api/usuario?usuario=${encodeURIComponent(currentUser)}&nuevaContrasena=${encodeURIComponent(newPassword)}`;
 	        fetch(url, {
@@ -193,9 +245,9 @@ class MenuOnlineScene extends Phaser.Scene {
 	            }
 				
 	            // Redirigir al MenuOnlineScene después de cambiar la contraseña
-	            this.scene.start('RegisterScene'); // Cambiar a la escena principal
+	            this.scene.start('MenuOnlineScene'); // Cambiar a la escena principal
 	        })
-	        .catch(error => alert(`Error al cambiar la contraseña: ${error.message}`));
+	        .catch(error => alert(`ERROR UPDATING PASSWORD: ${error.message}`));
 	    }
 	}
 
@@ -203,11 +255,11 @@ class MenuOnlineScene extends Phaser.Scene {
 	_deleteAccount() {
 	    const currentUser = localStorage.getItem('currentUser');
 	    if (!currentUser) {
-	        alert('No hay usuario activo.');
+	        alert('NO ACTIVE USER.');
 	        return;
 	    }
 
-	    const confirmDelete = confirm('¿Estás seguro de que quieres eliminar tu cuenta?');
+	    const confirmDelete = confirm('ARE YOU SURE YOU WANT TO DELETE YOUR ACCOUNT?');
 	    if (confirmDelete) {
 	        const url = `/api/usuario?usuario=${encodeURIComponent(currentUser)}`;
 	        fetch(url, {
@@ -232,11 +284,11 @@ class MenuOnlineScene extends Phaser.Scene {
 	            // Redirigir al RegisterScene después de eliminar la cuenta
 	            this.scene.start('RegisterScene'); // Cambiar a la escena de registro
 	        })
-	        .catch(error => alert(`Error al eliminar la cuenta: ${error.message}`));
+	        .catch(error => alert(`ERROR DELETING ACCOUNT: ${error.message}`));
 	    }
 	}
 	
-	// Crear el botón de "Start Game"
+	// Crear el botón de "Ranking"
 		    _createRankingButton() {
 		        this.rankingButton = this.add.image(340, 300, 'RankingButton')
 		            .setScale(1.0)
@@ -250,7 +302,7 @@ class MenuOnlineScene extends Phaser.Scene {
 		        }).setOrigin(0.5, 0.5);
 		    }
 
-		    // Función que inicia el juego
+		    // Función que inicia el ranking
 		    _rankingScene() {
 		        this.scene.start('RankingScene'); // Cambiar a la escena del juego
 		        //this.backgroundMusic.stop();
@@ -273,6 +325,9 @@ class MenuOnlineScene extends Phaser.Scene {
 			// Agregar eventos para el botón de ajustes
 			this.rankingButton.on('pointerover', () => this._onButtonHover(this.rankingButton));
 			this.rankingButton.on('pointerout', () => this._onButtonOut(this.rankingButton));
+			
+			this.BackButton.on('pointerover', () => this._onButtonHoverBack(this.BackButton));
+			this.BackButton.on('pointerout', () => this._onButtonOutBack(this.BackButton));
 	    }
 
 	    // Animación de cuando el puntero pasa por encima del botón "Start"
@@ -284,4 +339,14 @@ class MenuOnlineScene extends Phaser.Scene {
 	    _onButtonOut(button) {
 	        button.setScale(1.0); // Volver a la escala original
 	    }
+		
+		// Animación de cuando el puntero pasa por encima del botón "Start"
+		_onButtonHoverBack(button) {
+		    button.setScale(0.14); // Cambiar a una escala mayor
+		}
+
+		// Animación de cuando el puntero sale del botón "Start"
+		_onButtonOutBack(button) {
+		    button.setScale(0.13); // Volver a la escala original
+		}
 }
