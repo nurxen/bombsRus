@@ -6,6 +6,12 @@
     effectsSlider; // Slider para efectos de sonido
     musicText; // Texto del slider de música
     effectsText; // Texto del slider de efectos de sonido
+	
+	//cambiar volumen dpendiendo de cuenta
+	musicVolume =  0.5; // Volumen inicial de la música (0.0 a 1.0)
+	effectsVolume = 0.5; // Volumen inicial de los efectos de sonido (0.0 a 1.0)
+	
+
 
     constructor() {
         super({ key: 'OptionsOnlineScene' });
@@ -123,8 +129,3 @@
     }
 }
 
-// Variables globales para almacenar los volúmenes
-const globalSettings = {
-    musicVolume: 0.5, // Volumen inicial de la música (0.0 a 1.0)
-    effectsVolume: 0.5 // Volumen inicial de los efectos de sonido (0.0 a 1.0)
-};

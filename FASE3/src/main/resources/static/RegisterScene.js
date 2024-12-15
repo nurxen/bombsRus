@@ -7,7 +7,7 @@ class RegisterScene extends Phaser.Scene {
     startText; // Texto del botón de inicio
     settingsButton; // Botón de salida
     settingsText; // Texto del botón de salida
-
+	
     constructor() {
         super({ key: 'RegisterScene' });
     }
@@ -226,7 +226,8 @@ class RegisterScene extends Phaser.Scene {
 		                document.body.removeChild(formContainer);
 		            }
 								
-		            this.scene.start('MenuOnlineScene'); // Cambia a la escena principal
+		            this.scene.start('MenuOnlineScene', {"username" : username}); // Cambia a la escena principal
+					
 		        } else {
 		            alert('Invalid username or password.');
 		        }

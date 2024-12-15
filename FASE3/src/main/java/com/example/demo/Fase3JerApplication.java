@@ -60,7 +60,7 @@ public class Fase3JerApplication {
 
     // DELETE: Borrar usuario
     @DeleteMapping("/usuario")
-    public String borrarUsuario(@RequestParam String usuario) {
+    public String borrarUsuario(@RequestBody String usuario) {
         // Leer todo el contenido del archivo
         List<String> lines;
         try {
@@ -93,7 +93,7 @@ public class Fase3JerApplication {
 
     // PUT: Cambiar la contraseña
     @PutMapping("/usuario")
-    public String cambiarContrasena(@RequestParam String usuario, @RequestParam String nuevaContrasena) {
+    public String cambiarContrasena(@RequestBody String usuario, @RequestBody String nuevaContrasena) {
         // Leer el archivo
         List<String> lines;
         try {
@@ -133,48 +133,54 @@ public class Fase3JerApplication {
         return "El usuario no existe.";
     }
 
-    // GET: Obtener rankings de jugadores
     @GetMapping("/rankings")
-    public Map<String, Integer> obtenerRankings() {
+    public String obtenerVictorias(@RequestParam String usuario) {
         try {
+            // Leer todas las líneas del archivo
             List<String> lines = Files.readAllLines(Paths.get(rankingsFile));
-            Map<String, Integer> rankings = new HashMap<>();
 
             for (String line : lines) {
                 String[] parts = line.split(":");
-                if (parts.length == 2) {
-                    rankings.put(parts[0], Integer.parseInt(parts[1]));
+                if (parts.length == 2 && parts[0].equals(usuario)) {
+                    return usuario + " tiene " + parts[1] + " victorias.";
                 }
             }
-            return rankings;
+
+            return "El usuario '" + usuario + "' no tiene victorias registradas.";
         } catch (IOException e) {
             e.printStackTrace();
-            return new HashMap<>();
+            return "Error al obtener las victorias del usuario.";
         }
     }
 
-    // POST: Actualizar las victorias de los jugadores
+    // POST: Escribir rankings de jugadores
     @PostMapping("/rankings")
     public String actualizarRanking(@RequestParam String usuario) {
         try {
+            // Leer todas las líneas del archivo
             List<String> lines = Files.readAllLines(Paths.get(rankingsFile));
-            Map<String, Integer> rankings = new HashMap<>();
+            boolean usuarioEncontrado = false;
 
-            // Leer rankings existentes y actualizarlos
-            for (String line : lines) {
-                String[] parts = line.split(":");
-                if (parts.length == 2) {
-                    rankings.put(parts[0], Integer.parseInt(parts[1]));
+            // Crear un escritor temporal para guardar los nuevos datos
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(rankingsFile))) {
+                for (String line : lines) {
+                    String[] parts = line.split(":");
+                    if (parts.length == 2 && parts[0].equals(usuario)) {
+                        // Si el usuario ya existe, incrementa su puntaje
+                        int victorias = Integer.parseInt(parts[1]) + 1;
+                        writer.write(usuario + ":" + victorias);
+                        writer.newLine();
+                        usuarioEncontrado = true;
+                    } else {
+                        // Reescribe las líneas existentes sin cambios
+                        writer.write(line);
+                        writer.newLine();
+                    }
                 }
-            }
 
-            // Actualizar las victorias del jugador
-            rankings.put(usuario, rankings.getOrDefault(usuario, 0) + 1);
-
-            // Guardar los rankings actualizados en el archivo
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter(rankingsFile, true))) {
-                for (Map.Entry<String, Integer> entry : rankings.entrySet()) {
-                    writer.write(entry.getKey() + ":" + entry.getValue());
+                // Si el usuario no fue encontrado, agregarlo con 1 victoria
+                if (!usuarioEncontrado) {
+                    writer.write(usuario + ":1");
                     writer.newLine();
                 }
             }
@@ -185,4 +191,6 @@ public class Fase3JerApplication {
             return "Error al actualizar el ranking.";
         }
     }
+
+
 }

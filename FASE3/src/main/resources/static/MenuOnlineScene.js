@@ -8,18 +8,26 @@ class MenuOnlineScene extends Phaser.Scene {
     optionsButton; // Botón de opciones
     accountButton; // Botón de cuenta
     accountFormContainer; // Contenedor del formulario para cambiar la contraseña o borrar cuenta
-
+	username;
+	
     constructor() {
         super({ key: 'MenuOnlineScene' });
     }
 
+	init(data) { 
+				this.username = data.username;
+			}
+						
     // Método que llamamos cuando creamos la escena
     create() {
+		
+		
 			
         this._createBackground(); // Crear fondo
         this._createStartButton(); // Crear botón de inicio
         this._createSettingsButton(); // Crear botón de ajustes
         this._createOptionsButton(); // Crear botón de opciones
+		this._createRankingButton(); // Crear botón de puntuaciones
         this._createAccountButton(); // Crear botón para cambiar cuenta
         this._addButtonAnimations(); // Agregar animaciones a los botones
     }
@@ -52,7 +60,7 @@ class MenuOnlineScene extends Phaser.Scene {
 
     // Función que inicia el juego
     _startGame() {
-        this.scene.start('GameScene'); // Cambiar a la escena del juego
+        this.scene.start('GameScene', {"username" : this.username}); // Cambiar a la escena del juego
         //this.backgroundMusic.stop();
     }
 
@@ -72,7 +80,7 @@ class MenuOnlineScene extends Phaser.Scene {
 
     // Función que maneja los ajustes del juego
     _settingsScene() {
-        this.scene.start('SettingsScene'); // Cambiar a la escena de ajustes
+        this.scene.start('SettingsOnlineScene'); // Cambiar a la escena de ajustes
         console.log("Ajustes");
     }
 
@@ -227,51 +235,53 @@ class MenuOnlineScene extends Phaser.Scene {
 	        .catch(error => alert(`Error al eliminar la cuenta: ${error.message}`));
 	    }
 	}
+	
+	// Crear el botón de "Start Game"
+		    _createRankingButton() {
+		        this.rankingButton = this.add.image(340, 300, 'RankingButton')
+		            .setScale(1.0)
+		            .setOrigin(0.5, 0.5)
+		            .setInteractive() // Hacer el botón interactivo
+		            .on('pointerdown', () => this._rankingScene()); // Llamar a la función para iniciar el juego
 
+		        this.rankingText = this.add.text(640, 600, '', {
+		            font: '32px Arial',
+		            fill: '#fff'
+		        }).setOrigin(0.5, 0.5);
+		    }
 
+		    // Función que inicia el juego
+		    _rankingScene() {
+		        this.scene.start('RankingScene'); // Cambiar a la escena del juego
+		        //this.backgroundMusic.stop();
+		    }
+			
+	// Agregar animaciones o efectos a los botones
+	    _addButtonAnimations() {
+	        // Agregar eventos para el botón de start
+	        this.startButton.on('pointerover', () => this._onButtonHover(this.startButton));
+	        this.startButton.on('pointerout', () => this._onButtonOut(this.startButton));
 
-    // Agregar animaciones o efectos a los botones
-    _addButtonAnimations() {
-        // Agregar eventos para el botón de start
-        this.startButton.on('pointerover', () => this._onStartButtonHover());
-        this.startButton.on('pointerout', () => this._onStartButtonOut());
+	        // Agregar eventos para el botón de ajustes
+	        this.settingsButton.on('pointerover', () => this._onButtonHover(this.settingsButton));
+	        this.settingsButton.on('pointerout', () => this._onButtonOut(this.settingsButton));
 
-        // Agregar eventos para el botón de ajustes
-        this.settingsButton.on('pointerover', () => this._onSettingsButtonHover());
-        this.settingsButton.on('pointerout', () => this._onSettingsButtonOut());
+	        // Agregar eventos para el botón de ajustes
+	        this.optionsButton.on('pointerover', () => this._onButtonHover(this.optionsButton));
+	        this.optionsButton.on('pointerout', () => this._onButtonOut(this.optionsButton));
+			
+			// Agregar eventos para el botón de ajustes
+			this.rankingButton.on('pointerover', () => this._onButtonHover(this.rankingButton));
+			this.rankingButton.on('pointerout', () => this._onButtonOut(this.rankingButton));
+	    }
 
-        // Agregar eventos para el botón de opciones
-        this.optionsButton.on('pointerover', () => this._onOptionsButtonHover());
-        this.optionsButton.on('pointerout', () => this._onOptionsButtonOut());
-    }
+	    // Animación de cuando el puntero pasa por encima del botón "Start"
+	    _onButtonHover(button) {
+	        button.setScale(1.05); // Cambiar a una escala mayor
+	    }
 
-    // Animación de cuando el puntero pasa por encima del botón "Start"
-    _onStartButtonHover() {
-        this.startButton.setScale(1.05);
-    }
-
-    // Animación de cuando el puntero sale del botón "Start"
-    _onStartButtonOut() {
-        this.startButton.setScale(1.0);
-    }
-
-    // Animación de cuando el puntero pasa por encima del botón "Settings"
-    _onSettingsButtonHover() {
-        this.settingsButton.setScale(1.05);
-    }
-
-    // Animación de cuando el puntero sale del botón "Settings"
-    _onSettingsButtonOut() {
-        this.settingsButton.setScale(1.0);
-    }
-
-    // Animación de cuando el puntero pasa por encima del botón "Options"
-    _onOptionsButtonHover() {
-        this.optionsButton.setScale(1.05);
-    }
-
-    // Animación de cuando el puntero sale del botón "Options"
-    _onOptionsButtonOut() {
-        this.optionsButton.setScale(1.0);
-    }
+	    // Animación de cuando el puntero sale del botón "Start"
+	    _onButtonOut(button) {
+	        button.setScale(1.0); // Volver a la escala original
+	    }
 }

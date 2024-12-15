@@ -13,18 +13,22 @@ class FinalScene extends Phaser.Scene {
         super({ key: 'FinalScene' });
     }
 
+	init(data) { 
+				this.username = data.username;
+				this.loser = data.loser; 
+	}
+		
     create(data) {
 		
-        this.loser = data.loser;  // Recibes el parámetro loser desde GameScene
-        this.winner = data.winner;  // Recibes el parámetro winner desde GameScene
+         // Recibes el parámetro loser desde GameScene
+        //this.winner = data.winner;  // Recibes el parámetro winner desde GameScene
         this._createBackground(); // Crear fondo
         this._createRetryButton(); // Crear botón de inicio
         this._createExitButton(); // Crear botón de salida
         this._addButtonAnimations(); // Agregar animaciones a los botones
 
         // Actualizar el archivo de rankings
-		
-        this._updateRankings();
+		this._updateRankings();
 		
 		
     }
@@ -88,65 +92,51 @@ class FinalScene extends Phaser.Scene {
     // Método que actualiza el archivo de rankings
     async _updateRankings() {
 		
-		//this.username = localStorage.getItem('currentUser');
-		this.username = 'aa';
-		
         try {
 			
-			$.ajax({
-				method: "POST",
-				url: "http://127.0.0.1:8080/api/usuario",
-				data: JSON.stringify(this.username),
-				headers: 
-				{
-				 "Content-type":"application/json"
-				}
-			})
+				
+			console.log(this.username);
 			
 			$.ajax({
-				method: "GET",
-				url: "http://127.0.0.1:8080/api/usuario",
-				headers: 
-				{
-					"Content-type":"application/json"
-				}
-			}).done((data, textStatus, jqXHR) => 
-			    {
-			       console.log(textStatus+" "+ jqXHR.status);
-			       console.log(data);
-			       console.log(jqXHR.statusCode())
-
-			       // Borra los datos globales
-			       this.rankings = data;
-
-			 })
-
-            // Actualizar las victorias de los jugadores
-            if (this.winner === 1) {
-                this.rankings.playerOneWins += 1;
-            } else if (this.winner === 2) {
-                this.rankings.playerTwoWins += 1;
-            }
-
-            // Mostrar el ranking en el fondo
-            this._showRankings(this.rankings);
+			    method: "POST",
+			    url: "http://localhost:8080/api/rankings?usuario=" + encodeURIComponent(this.username),
+			    headers: {
+			        "Content-type": "application/json"
+			    }
+			});
+			
+			// Mostrar el ranking en el fondo
+			this._showRankings();
         } catch (error) {
             console.error('Error updating rankings:', error);
         }
     }
 
-    _showRankings(rankings) {
-        if (this.rankingsText) {
-            this.rankingsText.destroy();
-        }
+	_showRankings() {
+	    $.ajax({
+	        method: "GET",
+	        url: `http://localhost:8080/api/rankings?usuario=${encodeURIComponent(this.username)}`,
+	        headers: {
+	            "Content-type": "application/json"
+	        }
+	    }).done((data, textStatus, jqXHR) => {
+	        console.log(data);  // Verificar los datos recibidos
+	        this.rankings = data;  // Asignar los datos al objeto 'rankings'
 
-        let rankingText = `Player 1 Wins: ${rankings}\nPlayer 2 Wins: ${rankings.playerTwoWins}`;
-        this.rankingsText = this.add.text(
-            this.sys.game.config.width / 2, 
-            50, 
-            rankingText, 
-            { font: '32px Arial', fill: '#ffffff', align: 'center' }
-        );
-        this.rankingsText.setOrigin(0.5, 0);
-    }
+	        console.log(this.rankings);  // Verificar los datos en 'rankings'
+			
+	        // Mostrar el ranking en pantalla
+	        let rankingText = this.rankings;  // Asignamos los datos recibidos a la variable 'rankingText'
+	        this.rankingsText = this.add.text(
+	            this.sys.game.config.width / 2, 
+	            150, 
+	            rankingText, 
+	            { font: '32px Arial', fill: '#ffffff', align: 'center' }
+	        );
+	        this.rankingsText.setOrigin(0.5, 0);  // Centrar el texto
+	    }).fail((jqXHR, textStatus, errorThrown) => {
+	        console.error("Error en la solicitud AJAX:", textStatus, errorThrown);  // Manejar errores de la solicitud
+	    });
+	}
+
 }
