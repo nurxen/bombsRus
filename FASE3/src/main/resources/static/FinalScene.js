@@ -99,7 +99,7 @@ class FinalScene extends Phaser.Scene {
 			
 			$.ajax({
 			    method: "POST",
-			    url: "http://localhost:8080/api/rankings?usuario=" + encodeURIComponent(this.username),
+			    url: ipLocal + "/api/rankings?usuario=" + encodeURIComponent(this.username),
 			    headers: {
 			        "Content-type": "application/json"
 			    }
@@ -115,7 +115,7 @@ class FinalScene extends Phaser.Scene {
 	_showRankings() {
 	    $.ajax({
 	        method: "GET",
-	        url: `http://localhost:8080/api/rankings?usuario=${encodeURIComponent(this.username)}`,
+	        url: ipLocal+ `/api/rankings?usuario=${encodeURIComponent(this.username)}`,
 	        headers: {
 	            "Content-type": "application/json"
 	        }

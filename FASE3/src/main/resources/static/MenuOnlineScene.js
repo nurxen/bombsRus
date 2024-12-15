@@ -158,7 +158,7 @@ class MenuOnlineScene extends Phaser.Scene {
 
     // Crear el botón "Cuenta"
     _createAccountButton() {
-        this.accountButton = this.add.image(this.sys.game.config.width - 40, 40, 'AccountButton')
+        this.accountButton = this.add.image(this.sys.game.config.width - 40, 40, 'OptionsButton')
             .setScale(1.0)
             .setOrigin(1, 0)
             .setInteractive() // Hacer el botón interactivo

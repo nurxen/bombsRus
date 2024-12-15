@@ -2,9 +2,13 @@ package com.example.demo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.*;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.nio.file.*;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -26,10 +30,29 @@ public class Fase3JerApplication {
         SpringApplication.run(Fase3JerApplication.class, args);
     }
 
+    
+    
+    @GetMapping("/getIp")
+    @ResponseBody
+    public String getServerIp() {
+        try {
+            // Obtiene la dirección IP del servidor
+            InetAddress inetAddress = InetAddress.getLocalHost();
+            String serverIp = inetAddress.getHostAddress();
+            System.out.println(serverIp);
+            return serverIp;
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+            return "No se pudo obtener la dirección IP del servidor.";
+        }
+    }
+    
+    
     // POST: Crear usuario y contraseña
     @PostMapping("/usuario")
     public String crearUsuario(@RequestParam String usuario, @RequestParam String contrasena) {
-        if (users.containsKey(usuario)) {
+        
+    	if (users.containsKey(usuario)) {
             return "THE USER ALREADY EXISTS.";
         }
         users.put(usuario, contrasena);
@@ -44,19 +67,28 @@ public class Fase3JerApplication {
         }
         return "USER CREATED SUSCCESSFULLY.";
     }
-
-    // GET: Obtener usuarios desde el archivo
-    @GetMapping("/usuario")
-    public Map<String, String> obtenerUsuarios() {
-        try {
-            return Files.lines(Paths.get(usuariosFile))
-                .map(line -> line.split(":"))
-                .collect(Collectors.toMap(parts -> parts[0], parts -> parts[1]));
-        } catch (IOException e) {
-            e.printStackTrace();
-            return new HashMap<>();
-        }
+    
+    // POST: Cargar usuario y contraseña
+    @PostMapping("/loadusuario")
+    public ResponseEntity<String> cargarUsuario(@RequestBody String usuario, @RequestBody String contrasena) throws IOException {
+    	
+    	List<String> lines = Files.readAllLines(Paths.get(usuariosFile));
+    	System.out.println("u: " + usuario + " c: " + contrasena);
+    	
+    	if (usuario == null || contrasena == null) {
+    		
+    		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    	}
+    	
+    	for(String line : lines){
+    		String[] parts = line.split(":");
+    		if((parts.length == 2 && parts[0].equals(usuario))&&(parts.length == 2 && parts[1].equals(contrasena))){
+    			return new ResponseEntity<>(usuario, HttpStatus.OK);
+    		}
+    	}
+    	return new ResponseEntity<>( HttpStatus.NOT_FOUND);
     }
+
 
     // DELETE: Borrar usuario
     @DeleteMapping("/usuario")

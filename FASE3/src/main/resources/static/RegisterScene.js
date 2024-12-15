@@ -7,6 +7,7 @@ class RegisterScene extends Phaser.Scene {
     startText; // Texto del botón de inicio
     settingsButton; // Botón de salida
     settingsText; // Texto del botón de salida
+	ipLocal;
 	
     constructor() {
         super({ key: 'RegisterScene' });
@@ -18,6 +19,16 @@ class RegisterScene extends Phaser.Scene {
         this._createStartButtonOnline(); // Crear botón de inicio online
         this._addButtonAnimations(); // Agregar animaciones a los botones
     }
+	
+	
+	init(){
+		fetch('/api/getIp')
+		                .then(response => response.text())
+		                .then(data => {
+		                this.ipLocal = "http://"+data+":8080/"
+		                console.log(this.ipLocal); 
+		        });
+	}
 
     // Crear el fondo de la escena
     _createBackground() {
@@ -212,15 +223,18 @@ class RegisterScene extends Phaser.Scene {
 		        alert('PLEASE COMPLETE BOTH FIELDS.');
 		        return;
 		    }
-
+			
+			console.log(username);
+			console.log(password);
 		    try {
-		        const response = await fetch('/api/usuario', {
-		            method: 'GET',
+		        const response = await fetch('/api/loadusuario', {
+		            method: 'POST',
 		            headers: { 'Content-Type': 'application/json' },
+					body: new URLSearchParams({ usuario: username, contrasena: password })
 		        });
 
-		        const users = await response.json();
-		        if (users[username] === password) {
+		        const user = await response.json();
+		        if (user != null) {
 		            localStorage.setItem('currentUser', username); // Guarda el usuario actual
 					console.log('ACTIVE USER:', localStorage.getItem('currentUser'));
 		            alert('LOGIN SUCCESSFUL.');
