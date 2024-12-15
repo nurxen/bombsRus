@@ -1,4 +1,4 @@
-// Configuración del juego en Phaser
+	// Configuración del juego en Phaser
 // noinspection SpellCheckingInspection
 
 const config = {

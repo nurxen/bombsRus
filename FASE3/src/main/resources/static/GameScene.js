@@ -27,6 +27,10 @@ class GameScene extends Phaser.Scene {
         super({ key: 'GameScene' });
     }
 
+	init(data) { 
+			this.username = data.username;
+		}
+	
     // Preload: Cargar todos los recursos
     preload() {
         console.log("Cargando GameScene...");
@@ -414,7 +418,7 @@ class GameScene extends Phaser.Scene {
         if (this.player1.isLoser() || this.player2.isLoser()) {
             const loser = this.getLoser();  // Obtienes el perdedor
             this.backgroundMusic.stop();
-            this.scene.start('FinalScene', { loser: loser }); // Pasas el perdedor como parámetro
+            this.scene.start('FinalScene', { loser: loser, "username" : this.username}); // Pasas el perdedor como parámetro
         }
     }
 	

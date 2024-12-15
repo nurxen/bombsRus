@@ -8,13 +8,20 @@ class MenuOnlineScene extends Phaser.Scene {
     optionsButton; // Botón de opciones
     accountButton; // Botón de cuenta
     accountFormContainer; // Contenedor del formulario para cambiar la contraseña o borrar cuenta
-
+	username;
+	
     constructor() {
         super({ key: 'MenuOnlineScene' });
     }
 
+	init(data) { 
+				this.username = data.username;
+			}
+						
     // Método que llamamos cuando creamos la escena
     create() {
+		
+		
 			
         this._createBackground(); // Crear fondo
         this._createStartButton(); // Crear botón de inicio
@@ -53,7 +60,7 @@ class MenuOnlineScene extends Phaser.Scene {
 
     // Función que inicia el juego
     _startGame() {
-        this.scene.start('GameScene'); // Cambiar a la escena del juego
+        this.scene.start('GameScene', {"username" : this.username}); // Cambiar a la escena del juego
         //this.backgroundMusic.stop();
     }
 
@@ -270,11 +277,11 @@ class MenuOnlineScene extends Phaser.Scene {
 
 	    // Animación de cuando el puntero pasa por encima del botón "Start"
 	    _onButtonHover(button) {
-	        this.button.setScale(1.05); // Cambiar a una escala mayor
+	        button.setScale(1.05); // Cambiar a una escala mayor
 	    }
 
 	    // Animación de cuando el puntero sale del botón "Start"
 	    _onButtonOut(button) {
-	        this.button.setScale(1.0); // Volver a la escala original
+	        button.setScale(1.0); // Volver a la escala original
 	    }
 }
