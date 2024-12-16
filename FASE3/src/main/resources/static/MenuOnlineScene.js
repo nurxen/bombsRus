@@ -139,7 +139,7 @@ class MenuOnlineScene extends Phaser.Scene {
     }
 
     _createRankingButton() {
-        this.rankingButton = this.add.image(this.sys.game.config.width - 40, 300, 'RankingButton')
+        this.rankingButton = this.add.image(this.sys.game.config.width - 40, 400, 'RankingButton')
             .setScale(0.5)
             .setOrigin(0.5, 0.5)
             .setInteractive()
@@ -181,7 +181,7 @@ class MenuOnlineScene extends Phaser.Scene {
 
 	// Crear el botón de "Chat"
 	    _createChatButton() {
-	        this.chatButton = this.add.image(this.sys.game.config.width - 40, 100, 'StartButton')
+	        this.chatButton = this.add.image(this.sys.game.config.width - 35, 600, 'StartButton')
 	            .setScale(0.5)
 	            .setOrigin(1, 0)
 	            .setInteractive()
