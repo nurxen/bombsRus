@@ -30,25 +30,7 @@ public class Fase3JerApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(Fase3JerApplication.class, args);
-    }
-
-    
-    
-    @GetMapping("/getIp")
-    @ResponseBody
-    public String getServerIp() {
-        try {
-            // Obtiene la dirección IP del servidor
-            InetAddress inetAddress = InetAddress.getLocalHost();
-            String serverIp = inetAddress.getHostAddress();
-            System.out.println(serverIp);
-            return serverIp;
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-            return "No se pudo obtener la dirección IP del servidor.";
-        }
-    }
-    
+    }    
     
     // POST: Crear usuario y contraseña
     @PostMapping("/usuario")
