@@ -78,13 +78,14 @@ class PreloadScene extends Phaser.Scene {
         this.load.image("StartButton", "./assets/BOTONES/StartButton.png");
 		this.load.image("OnlineButton", "./assets/BOTONES/OnlineButton.png");
 		this.load.image("LocalButton", "./assets/BOTONES/LocalButton.png");
-		this.load.image("PauseButton", "./assets/BOTONES/StartButton.png");
-		this.load.image("ExitButton", "./assets/BOTONES/StartButton.png");
+		this.load.image("PauseButton", "./assets/BOTONES/PauseButton.png");
+		this.load.image("ExitButton", "./assets/BOTONES/ExitButton.png");
+		this.load.image("UserButton", "./assets/BOTONES/UserButton.png");
         this.load.image("HelpButton", "./assets/BOTONES/HelpButton.png");
         this.load.image("OptionsButton", "./assets/BOTONES/OptionsButton.png");
         this.load.image("RetryButton", "./assets/BOTONES/RetryButton.png");
         this.load.image("MainMenuButton", "./assets/BOTONES/MainMenuButton.png");
-		this.load.image("RankingButton", "./assets/BOTONES/StartButton.png");
+		this.load.image("RankingButton", "./assets/BOTONES/RankingButton.png");
         this.load.image("Life", "./assets/ASSTES/heart.png");
         this.load.image("OptionsText", "./assets/BOTONES/OptionsText.png");
         this.load.image("MusicText", "./assets/BOTONES/MusicText.png");
