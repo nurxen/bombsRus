@@ -147,24 +147,32 @@ public class Fase3JerApplication {
     }
 
     @GetMapping("/rankings")
-    public String obtenerVictorias(@RequestParam String usuario) {
+    public String obtenerVictorias() {
         try {
             // Leer todas las líneas del archivo
             List<String> lines = Files.readAllLines(Paths.get(rankingsFile));
+            StringBuilder response = new StringBuilder();
 
+            // Recorrer todas las líneas y agregar la información de victorias
             for (String line : lines) {
                 String[] parts = line.split(":");
-                if (parts.length == 2 && parts[0].equals(usuario)) {
-                    return usuario + " HAS " + parts[1] + " VICTORIES.";
+                if (parts.length == 2) {
+                    response.append(parts[0] + " HAS " + parts[1] + " VICTORIES.\n");
                 }
             }
 
-            return "THE USER '" + usuario + "' HAS NO RECORDED VICTORIES.";
+            // Si no hay información, devolver un mensaje adecuado
+            if (response.length() == 0) {
+                return "NO USER VICTORIES RECORDED.";
+            }
+
+            return response.toString();
         } catch (IOException e) {
             e.printStackTrace();
             return "ERROR GETTING USER WINS.";
         }
     }
+
 
     // POST: Escribir rankings de jugadores
     @PostMapping("/rankings")

@@ -14,6 +14,9 @@ class RegisterScene extends Phaser.Scene {
     }
 
     create() {
+		// Estilo global para todos los textos
+		    this.sys.game.config.defaultFontFamily = 'Poppins, Montserrat, Arial Rounded MT Bold, sans-serif';
+		    this.sys.game.config.defaultFontSize = '36px';
         this._createBackground(); // Crear fondo
         this._createStartButtonLocal(); // Crear botón de inicio local
         this._createStartButtonOnline(); // Crear botón de inicio online

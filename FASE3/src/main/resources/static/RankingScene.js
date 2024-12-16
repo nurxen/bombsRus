@@ -16,6 +16,7 @@ class RankingScene extends Phaser.Scene {
         this._createExitButton(); // Crear botón de salida
 		this._createUsernameText(); 
         this._addButtonAnimations(); // Agregar animaciones a los botones
+		this._showRankings();
     }
 
 	init(data) { 
@@ -63,6 +64,52 @@ class RankingScene extends Phaser.Scene {
 		    // Asegurar que el texto esté por encima del fondo
 		    this.usernameText.setDepth(1);
 		}
+		
+		_showRankings() {
+		    $.ajax({
+		        method: "GET",
+		        url: `/api/rankings?usuario=${encodeURIComponent(this.username)}`,
+		        headers: { "Content-type": "application/json" }
+		    }).done((data) => {
+		        // Crear un fondo translúcido detrás del texto
+		        const overlay = this.add.graphics()
+		            .fillStyle(0x000000, 0.7)
+		            .fillRoundedRect(
+		                this.sys.game.config.width / 2 - 300, // Posición X centrada (600px ancho / 2)
+		                200, // Posición Y
+		                600, // Ancho
+		                300, // Alto
+		                15 // Bordes redondeados
+		            );
+
+		        // Agregar el texto del ranking encima del overlay
+		        const rankingsText = this.add.text(
+		            this.sys.game.config.width / 2,
+		            220, // Posición Y con padding
+		            data, // Mostrar los datos recibidos directamente
+		            {
+		                fontFamily: 'Arial Rounded MT Bold, Comic Sans MS, sans-serif', // Fuentes redondeadas
+		                fontSize: '36px', // Tamaño del texto más grande
+		                fontStyle: 'bold', // Negrita adicional
+		                color: '#ffffff', // Color blanco
+		                align: 'center',
+		                wordWrap: { width: 560 } // Ajustar ancho de envoltura
+		            }
+		        ).setOrigin(0.5, 0).setAlpha(0); // Centrar texto y empezar invisible
+
+		        // Fade-in del fondo y texto
+		        this.tweens.add({
+		            targets: [overlay, rankingsText],
+		            alpha: 1,
+		            duration: 1000
+		        });
+		    }).fail((jqXHR, textStatus, errorThrown) => {
+		        console.error("Error en la solicitud AJAX:", textStatus, errorThrown);
+		    });
+		}
+
+
+
     
     // Función que maneja la ajustes del juego
     _menuScene() {
