@@ -69,7 +69,7 @@ class FinalOnlineScene extends Phaser.Scene {
     }
 
     _exitGame() {
-        this.scene.start('MenuScene');
+        this.scene.start('MenuOnlineScene');
     }
 
     _addButtonAnimations() {
