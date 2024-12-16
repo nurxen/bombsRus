@@ -145,7 +145,7 @@ class MenuOnlineScene extends Phaser.Scene {
     }
 
     _rankingScene() {
-        this.scene.start('RankingScene');
+		this.scene.start('RankingScene', {"username" : this.username}); // Cambiar a la escena del juego
     }
 
     _addButtonAnimations() {

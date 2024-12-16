@@ -1,40 +1,38 @@
 class FinalScene extends Phaser.Scene {
-    loseBackground; // Fondo de la escena de pérdida
-    retryButton; // Botón de volver a jugar
-    exitButton; // Botón de salida
+    loseBackground;
+    retryButton;
+    exitButton;
     gameScene = new GameScene();
-    loser; // Jugador perdedor
-    winner; // Jugador ganador
-    rankingsFile = '/api/rankings'; // Ruta de la API de rankings
-	username;
-	rankings;
-	
+    loser;
+    playerOneWins = 0; // Contador de victorias para el jugador 1
+    playerTwoWins = 0; // Contador de victorias para el jugador 2
+
     constructor() {
         super({ key: 'FinalScene' });
     }
 
-	init(data) { 
-				this.username = data.username;
-				this.loser = data.loser; 
-	}
-		
+    init(data) { 
+        this.loser = data.loser; 
+    }
+        
     create(data) {
-		
-         // Recibes el parámetro loser desde GameScene
-        //this.winner = data.winner;  // Recibes el parámetro winner desde GameScene
+        
+        // Recibes el parámetro loser desde GameScene
         this._createBackground(); // Crear fondo
         this._createRetryButton(); // Crear botón de inicio
         this._createExitButton(); // Crear botón de salida
         this._addButtonAnimations(); // Agregar animaciones a los botones
 
-        // Actualizar el archivo de rankings
-		this._updateRankings();
-		
-		
+        // Actualizar los contadores de victorias
+        this._updateVictoryCount();
+
+        // Mostrar el ranking en pantalla
+        this._showRankings();
+
+        this.isGameOver = true; // Marcar que el juego ha terminado
     }
 
     _createBackground() {
-        // Cambiar el fondo dependiendo de quién haya perdido
         if (this.loser === 1) {
             this.loseBackground = this.add.image(0, 0, 'WinPlayerTwoBackground') // Gana el jugador 2
                 .setOrigin(0)
@@ -59,7 +57,9 @@ class FinalScene extends Phaser.Scene {
     }
 
     _startGame() {
-        this.scene.start('GameScene');
+        // Evitar bucles infinitos, solo lanzamos la escena si es necesario
+            this.scene.start('GameScene');
+            this.scene.stop(); // Detenemos la escena actual para evitar el bucle infinito
     }
 
     _createExitButton() {
@@ -89,49 +89,27 @@ class FinalScene extends Phaser.Scene {
         button.setScale(0.2);
     }
 
-    // Método que actualiza el archivo de rankings
-    async _updateRankings() {
-		
-        try {
-			$.ajax({
-			    method: "POST",
-			    url: "/api/rankings?usuario=" + encodeURIComponent(this.username),
-			    headers: {
-			        "Content-type": "application/json"
-			    }
-			});
-			
-			// Esperar un pequeño tiempo antes de hacer el GET
-			        setTimeout(() => {
-			            this._showRankings();
-			        }, 150); // 500 ms de espera
-        } catch (error) {
-            console.error('Error updating rankings:', error);
+    _updateVictoryCount() {
+        if (this.loser === 1) {
+            // Jugador 2 gana
+            this.playerTwoWins++;
+        } else if (this.loser === 2) {
+            // Jugador 1 gana
+            this.playerOneWins++;
         }
     }
 
-	_showRankings() {
-	    $.ajax({
-	        method: "GET",
-	        url: `/api/rankings?usuario=${encodeURIComponent(this.username)}`,
-	        headers: {
-	            "Content-type": "application/json"
-	        }
-	    }).done((data, textStatus, jqXHR) => {
-	        this.rankings = data;  // Asignar los datos al objeto 'rankings'
-			
-	        // Mostrar el ranking en pantalla
-	        let rankingText = this.rankings;  // Asignamos los datos recibidos a la variable 'rankingText'
-	        this.rankingsText = this.add.text(
-	            this.sys.game.config.width / 2, 
-	            150, 
-	            rankingText, 
-	            { font: '32px Arial', fill: '#ffffff', align: 'center' }
-	        );
-	        this.rankingsText.setOrigin(0.5, 0);  // Centrar el texto
-	    }).fail((jqXHR, textStatus, errorThrown) => {
-	        console.error("Error en la solicitud AJAX:", textStatus, errorThrown);  // Manejar errores de la solicitud
-	    });
-	}
+    _showRankings() {
+        // Crear el texto del ranking
+        const rankingText = `Ranking:\nJugador 1: ${this.playerOneWins} victorias\nJugador 2: ${this.playerTwoWins} victorias`;
 
+        // Mostrar el ranking en pantalla
+        this.rankingsText = this.add.text(
+            this.sys.game.config.width / 2, 
+            150, 
+            rankingText, 
+            { font: '32px Arial', fill: '#ffffff', align: 'center' }
+        );
+        this.rankingsText.setOrigin(0.5, 0);  // Centrar el texto
+    }
 }

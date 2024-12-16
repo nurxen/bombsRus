@@ -16,7 +16,7 @@ const config = {
     },
     scene: [PreloadScene, RegisterScene, MenuScene, 
 		SettingsScene,  OptionsScene,  GameScene, PauseScene, FinalScene, 
-		MenuOnlineScene, RankingScene, SettingsOnlineScene, OptionsOnlineScene] // Orden de las escenas
+		MenuOnlineScene, RankingScene, SettingsOnlineScene, OptionsOnlineScene, FinalOnlineScene] // Orden de las escenas
 };
 
 // Creación de una nueva instancia del juego con la configuración especificada

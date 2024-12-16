@@ -4,6 +4,7 @@ class PauseScene extends Phaser.Scene {
 	    pauseBackground; // Fondo de la escena de pérdida
 	    retryButton; // Botón de volver a jugar
 	    exitButton; // Botón de salida
+		backButton;
 	    gameScene = new GameScene();
 	    constructor() {
 	        super({ key: 'PauseScene' });
@@ -15,7 +16,9 @@ class PauseScene extends Phaser.Scene {
 	        this.loser = data.loser;  // Recibes el parámetro loser desde GameScene
 	        this._createBackground(); // Crear fondo
 	        this._createExitButton(); // Crear botón de salida
+			this._createBackButton();
 	        this._addButtonAnimations(); // Agregar animaciones a los botones
+			
 	    }
 
 	    // Métodos privados
@@ -34,7 +37,7 @@ class PauseScene extends Phaser.Scene {
 			
 			// Crear el botón de "Start Game"
 			    _createExitButton() {
-			        this.exitButton = this.add.image(1125, 650, 'ExitButton')
+			        this.exitButton = this.add.image(400, 500, 'ExitButton')
 			            .setScale(1.0)
 			            .setOrigin(0.5, 0.5)
 			            .setInteractive() // Hacer el botón interactivo
@@ -52,21 +55,37 @@ class PauseScene extends Phaser.Scene {
 					this.scene.sleep('PauseScene'); // Cambiar a la escena del juego
 			        //this.backgroundMusic.stop();
 			    }
+				
+				_createBackButton() {
+				        this.backButton = this.add.image(700, 500, 'MainMenuButton')
+				            .setScale(0.13)
+				            .setOrigin(0.5, 0.5)
+				            .setInteractive()
+				            .on('pointerdown', () => this._back());
+				    }
+
+				    _back() {
+				        this.scene.start('MenuOnlineScene');
+				    }
 
 				// Agregar animaciones o efectos a los botones
 				    _addButtonAnimations() {
 				        // Agregar eventos para el botón de start
-				        this.exitButton.on('pointerover', () => this._onExitButtonHover());
-				        this.exitButton.on('pointerout', () => this._onExitButtonOut());
+				        this.exitButton.on('pointerover', () => this._onExitButtonHover(this.exitButton));
+				        this.exitButton.on('pointerout', () => this._onExitButtonOut(this.exitButton));
+						
+						// Agregar eventos para el botón de start
+						this.backButton.on('pointerover', () => this._onExitButtonHover(this.backButton));
+						this.backButton.on('pointerout', () => this._onExitButtonOut(this.backButton));
 				    }
 
 				    // Animación de cuando el puntero pasa por encima del botón "Start"
-				    _onExitButtonHover() {
-				        this.exitButton.setScale(1.05); // Cambiar a una escala mayor
+				    _onExitButtonHover(button) {
+				        button.setScale(1.05); // Cambiar a una escala mayor
 				    }
 
 				    // Animación de cuando el puntero sale del botón "Start"
-				    _onExitButtonOut() {
-				        this.exitButton.setScale(1.0); // Volver a la escala original
+				    _onExitButtonOut(button) {
+				        button.setScale(1.0); // Volver a la escala original
 				    }
 }
