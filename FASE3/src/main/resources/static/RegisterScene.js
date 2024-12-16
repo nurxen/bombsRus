@@ -19,16 +19,6 @@ class RegisterScene extends Phaser.Scene {
         this._createStartButtonOnline(); // Crear botón de inicio online
         this._addButtonAnimations(); // Agregar animaciones a los botones
     }
-	
-	
-	init(){
-		fetch('/api/getIp')
-		                .then(response => response.text())
-		                .then(data => {
-		                this.ipLocal = "http://"+data+":8080/"
-		                console.log(this.ipLocal); 
-		        });
-	}
 
     // Crear el fondo de la escena
     _createBackground() {
@@ -134,10 +124,10 @@ class RegisterScene extends Phaser.Scene {
                 REGISTER / LOG IN
             </h2>
             <div id="tab-buttons" style="display: flex; justify-content: space-around; margin-bottom: 15px;">
-                <button id="registerTab" style="flex: 1; padding: 10px; cursor: pointer; background: orange; color: white; border: none; border-radius: 20px; transition: all 0.3s;">
+                <button id="registerTab" style="flex: 1; padding: 10px; cursor: pointer; background: #fd9e18; color: white; border: none; border-radius: 20px; transition: all 0.3s;">
                     Register
                 </button>
-                <button id="loginTab" style="flex: 1; padding: 10px; cursor: pointer; background: #2196f3; color: white; border: none; border-radius: 20px; transition: all 0.3s;">
+                <button id="loginTab" style="flex: 1; padding: 10px; cursor: pointer; background: #19a3d2; color: white; border: none; border-radius: 20px; transition: all 0.3s;">
                     Log in
                 </button>
             </div>
@@ -148,7 +138,7 @@ class RegisterScene extends Phaser.Scene {
                 <div id="registerForm">
                     <input id="usernameRegister" type="text" placeholder="Username" style="margin-bottom: 10px; padding: 10px; width: 90%; border: 1px solid #ccc; border-radius: 15px;"/><br/>
                     <input id="passwordRegister" type="password" placeholder="Password" style="margin-bottom: 10px; padding: 10px; width: 90%; border: 1px solid #ccc; border-radius: 15px;"/><br/>
-                    <button id="submitRegisterBtn" style="padding: 10px; cursor: pointer; width: 100%; background: orange; color: white; border: none; border-radius: 20px; transition: all 0.3s;">
+                    <button id="submitRegisterBtn" style="padding: 10px; cursor: pointer; width: 100%; background: #fd9e18; color: white; border: none; border-radius: 20px; transition: all 0.3s;">
                         Register
                     </button>
                 </div>
@@ -158,12 +148,12 @@ class RegisterScene extends Phaser.Scene {
                 <div id="loginForm" style="display: none;">
                     <input id="usernameLogin" type="text" placeholder="Username" style="margin-bottom: 10px; padding: 10px; width: 90%; border: 1px solid #ccc; border-radius: 15px;"/><br/>
                     <input id="passwordLogin" type="password" placeholder="Password" style="margin-bottom: 10px; padding: 10px; width: 90%; border: 1px solid #ccc; border-radius: 15px;"/><br/>
-                    <button id="submitLoginBtn" style="padding: 10px; cursor: pointer; width: 100%; background: #2196f3; color: white; border: none; border-radius: 20px; transition: all 0.3s;">
+                    <button id="submitLoginBtn" style="padding: 10px; cursor: pointer; width: 100%; background: #19a3d2; color: white; border: none; border-radius: 20px; transition: all 0.3s;">
                         Log in
                     </button>
                 </div>
             </div>
-            <button id="closeBtn" style="padding: 10px; cursor: pointer; width: 100%; margin-top: 15px; background: #e53935; color: white; border: none; border-radius: 20px; transition: all 0.3s;">
+            <button id="closeBtn" style="padding: 10px; cursor: pointer; width: 100%; margin-top: 15px; background: #7d2b55; color: white; border: none; border-radius: 20px; transition: all 0.3s;">
                 Close
             </button>
         `;

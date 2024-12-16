@@ -93,20 +93,18 @@ class FinalScene extends Phaser.Scene {
     async _updateRankings() {
 		
         try {
-			
-				
-			console.log(this.username);
-			
 			$.ajax({
 			    method: "POST",
-			    url: ipLocal + "/api/rankings?usuario=" + encodeURIComponent(this.username),
+			    url: "/api/rankings?usuario=" + encodeURIComponent(this.username),
 			    headers: {
 			        "Content-type": "application/json"
 			    }
 			});
 			
-			// Mostrar el ranking en el fondo
-			this._showRankings();
+			// Esperar un pequeño tiempo antes de hacer el GET
+			        setTimeout(() => {
+			            this._showRankings();
+			        }, 150); // 500 ms de espera
         } catch (error) {
             console.error('Error updating rankings:', error);
         }
@@ -115,15 +113,12 @@ class FinalScene extends Phaser.Scene {
 	_showRankings() {
 	    $.ajax({
 	        method: "GET",
-	        url: ipLocal+ `/api/rankings?usuario=${encodeURIComponent(this.username)}`,
+	        url: `/api/rankings?usuario=${encodeURIComponent(this.username)}`,
 	        headers: {
 	            "Content-type": "application/json"
 	        }
 	    }).done((data, textStatus, jqXHR) => {
-	        console.log(data);  // Verificar los datos recibidos
 	        this.rankings = data;  // Asignar los datos al objeto 'rankings'
-
-	        console.log(this.rankings);  // Verificar los datos en 'rankings'
 			
 	        // Mostrar el ranking en pantalla
 	        let rankingText = this.rankings;  // Asignamos los datos recibidos a la variable 'rankingText'
