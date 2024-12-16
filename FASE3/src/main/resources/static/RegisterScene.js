@@ -216,34 +216,35 @@ class RegisterScene extends Phaser.Scene {
 			
 			console.log(username);
 			console.log(password);
-		    try {
-		        const response = await fetch('/api/loadusuario', {
-		            method: 'POST',
-		            headers: { 'Content-Type': 'application/json' },
-					body: new URLSearchParams({ usuario: username, contrasena: password })
-		        });
+			try {
+			    const response = await fetch('/api/loadusuario', {
+			        method: 'POST',
+			        headers: { 'Content-Type': 'application/json' },
+			        body: JSON.stringify({ username: username, password: password }) // Se envían como JSON
+			    });
 
-		        const user = await response.json();
-		        if (user != null) {
-		            localStorage.setItem('currentUser', username); // Guarda el usuario actual
-					console.log('ACTIVE USER:', localStorage.getItem('currentUser'));
-		            alert('LOGIN SUCCESSFUL.');
-					
-					// Eliminar el formulario antes de cambiar de escena
-		            const formContainer = document.getElementById('registro');
-		            if (formContainer) {
-		                document.body.removeChild(formContainer);
-		            }
-								
-		            this.scene.start('MenuOnlineScene', {"username" : username}); // Cambia a la escena principal
-					
-		        } else {
-		            alert('INVALID USERNAME OR PASSWORD.');
-		        }
-		    } catch (error) {
-		        console.error(error);
-		        alert('ERROR LOGGING IN.');
-		    }
+			    //const user = await response.json();
+			    if (response.ok) { // Verifica si la respuesta es exitosa
+			        localStorage.setItem('currentUser', username); // Guarda el usuario actual
+			        console.log('ACTIVE USER:', localStorage.getItem('currentUser'));
+			        alert('LOGIN SUCCESSFUL.');
+
+			        // Eliminar el formulario antes de cambiar de escena
+			        const formContainer = document.getElementById('registro');
+			        if (formContainer) {
+			            document.body.removeChild(formContainer);
+			        }
+
+			        this.scene.start('MenuOnlineScene', { "username": username }); // Cambia a la escena principal
+
+			    } else {
+			        alert('INVALID USERNAME OR PASSWORD.');
+			    }
+			} catch (error) {
+			    console.error(error);
+			    alert('ERROR LOGGING IN.');
+			}
+
 		});
 		
         // Botón para cerrar el pop-up
