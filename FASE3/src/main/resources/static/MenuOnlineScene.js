@@ -22,8 +22,6 @@ class MenuOnlineScene extends Phaser.Scene {
     // Método que llamamos cuando creamos la escena
     create() {
 		
-		
-			
         this._createBackground(); // Crear fondo
         this._createStartButton(); // Crear botón de inicio
         this._createSettingsButton(); // Crear botón de ajustes
