@@ -101,7 +101,7 @@ class FinalScene extends Phaser.Scene {
 
     _showRankings() {
         // Crear el texto del ranking
-        const rankingText = `Ranking:\nJugador 1: ${this.playerOneWins} victorias\nJugador 2: ${this.playerTwoWins} victorias`;
+        const rankingText = `RANKING:\nCONEJO: ${this.playerOneWins} VICTORIAS\nOSO: ${this.playerTwoWins} VICTORIAS`;
 
         // Mostrar el ranking en pantalla
         this.rankingsText = this.add.text(

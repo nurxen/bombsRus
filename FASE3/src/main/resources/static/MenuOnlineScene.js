@@ -127,8 +127,8 @@ class MenuOnlineScene extends Phaser.Scene {
     }
 
     _createAccountButton() {
-        this.accountButton = this.add.image(this.sys.game.config.width - 40, 40, 'OptionsButton')
-            .setScale(1.0)
+        this.accountButton = this.add.image(this.sys.game.config.width - 40, 40, 'UserButton')
+            .setScale(0.5)
             .setOrigin(1, 0)
             .setInteractive()
             .on('pointerdown', () => this._showAccountOptions());
@@ -139,8 +139,8 @@ class MenuOnlineScene extends Phaser.Scene {
     }
 
     _createRankingButton() {
-        this.rankingButton = this.add.image(340, 300, 'RankingButton')
-            .setScale(1.0)
+        this.rankingButton = this.add.image(this.sys.game.config.width - 40, 300, 'RankingButton')
+            .setScale(0.5)
             .setOrigin(0.5, 0.5)
             .setInteractive()
             .on('pointerdown', () => this._rankingScene());
@@ -181,8 +181,8 @@ class MenuOnlineScene extends Phaser.Scene {
 
 	// Crear el botón de "Chat"
 	    _createChatButton() {
-	        this.chatButton = this.add.image(this.sys.game.config.width - 40, 100, 'ChatButton')
-	            .setScale(1.0)
+	        this.chatButton = this.add.image(this.sys.game.config.width - 40, 100, 'StartButton')
+	            .setScale(0.5)
 	            .setOrigin(1, 0)
 	            .setInteractive()
 	            .on('pointerdown', () => this._toggleChatForm()); // Usar _toggleChatForm en lugar de _openChatForm
