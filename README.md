@@ -21,6 +21,39 @@ Bombs "R" Us es un juego competitivo en el que dos jugadores se enfrentan dentro
   - Correo: [l.garciaper.2022@alumnos.urjc.es](mailto:l.garciaper.2022@alumnos.urjc.es)  
   - GitHub: [lugarpe](https://github.com/lugarpe)
 
+**Instrucciones de instalación (Windows)**  
+A continuación, se proporcionan las indicaciones necesarias para compilar y ejecutar el juego correctamente en una red local.
+
+## **Descargar el código fuente**  
+
+Para obtener el código fuente, hay dos opciones:  
+1. Descarga la última versión disponible del archivo comprimido: ** **, desde la sección de releases del repositorio.  
+2. Clona el repositorio directamente con el siguiente comando:  
+---
+## **Requisitos previos**  
+Antes de proceder, asegúrate de contar con las siguientes dependencias:  
+- **Java 8** (o una versión superior).  
+- **Java JDK 17** (o una versión superior).
+  
+Después de instalarlos, puedes confirmar que se han instalado correctamente ejecutando el comando:  java-version en el Símbolo del sistema.
+---
+##**Compilar el proyecto**  
+A continuación, se describe el procedimiento para compilar el código en el equipo que actuará como servidor del juego:  
+
+1. **Extraer los archivos:**  
+Si descargaste el archivo .zip, descomprímelo y guarda los archivos en una carpeta de fácil acceso, como **C:/DFTMT** o una carpeta en tu escritorio. Si clonaste el repositorio, simplemente ubica los archivos en la carpeta predeterminada de clonación.
+
+2. **Localizar el archivo ejecutable:**  
+   Dirígete a la siguiente ubicación dentro de los archivos extraídos:   
+   Donde `"BASE"/` corresponde a la carpeta en la que guardaste el código fuente. Por ejemplo:  
+   - Si usaste **C:/DFTMT**, la ruta sería:  
+   - Si está en tu escritorio:
+   - 
+3. **Copiar la ruta del archivo:**  
+   Dentro de la carpeta `target`, encontrarás el archivo **  **, que es el necesario para ejecutar el servidor localmente. Copia la ruta completa donde se encuentra este archivo siguiendo el método que prefieras.
+
+
+
 # Documento de Diseño de Videojuegos
 
 ## Tabla de Contenido
@@ -292,7 +325,6 @@ El desarrollo gráfico y sonoro del juego utilizará las siguientes herramientas
 - **FL Studio:** Para la creación y edición de la música y efectos de sonido del juego.
 
 ---
-
 ## 8. Referencias
 
 Todo el contenido utilizado en este proyecto ha sido obtenido bajo la **licencia Creative Commons 0 (CC0)**.
