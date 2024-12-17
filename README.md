@@ -50,7 +50,7 @@ Si descargaste el archivo .zip, descomprímelo y guarda los archivos en una carp
    - Si está en tu escritorio:
    - 
 3. **Copiar la ruta del archivo:**  
-   Dentro de la carpeta `target`, encontrarás el archivo **  **, que es el necesario para ejecutar el servidor localmente. Copia la ruta completa donde se encuentra este archivo siguiendo el método que prefieras.
+Dentro de la carpeta `target`, encontrarás el archivo **  **, que es el necesario para ejecutar el servidor localmente. Copia la ruta completa donde se encuentra este archivo siguiendo el método que prefieras.
 **Iniciar el servidor y acceder al juego**  
 
 ## **Abrir el Símbolo del sistema**  
