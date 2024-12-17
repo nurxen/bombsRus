@@ -9,6 +9,7 @@ class RegisterScene extends Phaser.Scene {
     settingsText; // Texto del botón de salida
 	username;
 	
+	
     constructor() {
         super({ key: 'RegisterScene' });
     }
@@ -108,6 +109,8 @@ class RegisterScene extends Phaser.Scene {
     _onStartButtonOutOnline() {
         this.startButtonO.setScale(1.0); // Volver a la escala original
     }
+	
+	
 
     _popUp() {
 
@@ -212,6 +215,8 @@ class RegisterScene extends Phaser.Scene {
 		    }
 		});
 
+		
+		
 		console.log('submitLoginBtn:', document.getElementById('submitLoginBtn'));
 		
 		document.getElementById('submitLoginBtn').addEventListener('click', async () => {
@@ -235,6 +240,10 @@ class RegisterScene extends Phaser.Scene {
 			    //const user = await response.json();
 			    if (response.ok) { // Verifica si la respuesta es exitosa
 			        localStorage.setItem('currentUser', username); // Guarda el usuario actual
+					// Notificar al servidor que el usuario está conectado
+		            await fetch(`/api/usuarioConectado?usuario=${encodeURIComponent(username)}`, {
+		                method: 'POST'
+		            });
 			        console.log('ACTIVE USER:', localStorage.getItem('currentUser'));
 			        alert('LOGIN SUCCESSFUL.');
 
@@ -266,4 +275,5 @@ class RegisterScene extends Phaser.Scene {
             }, 500);
         });
     }
+	
 }

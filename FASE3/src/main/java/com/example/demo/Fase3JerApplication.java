@@ -236,5 +236,35 @@ public class Fase3JerApplication {
         chatMessages.add(newMessage);
         return ResponseEntity.ok("Message sent.");
     }
+    
+ // Lista de usuarios conectados
+    private List<String> usuariosConectados = new ArrayList<>();
+
+    // Endpoint para agregar usuario a la lista de conectados
+    @PostMapping("/usuarioConectado")
+    public ResponseEntity<String> agregarUsuarioConectado(@RequestParam String usuario) {
+        if (!usuariosConectados.contains(usuario)) {
+            usuariosConectados.add(usuario);
+            return ResponseEntity.ok("Usuario conectado.");
+        }
+        return ResponseEntity.badRequest().body("El usuario ya está conectado.");
+    }
+
+    // Endpoint para eliminar usuario de la lista de conectados
+    @DeleteMapping("/usuarioConectado")
+    public ResponseEntity<String> eliminarUsuarioConectado(@RequestParam String usuario) {
+        if (usuariosConectados.contains(usuario)) {
+            usuariosConectados.remove(usuario);
+            return ResponseEntity.ok("Usuario desconectado.");
+        }
+        return ResponseEntity.badRequest().body("El usuario no está en la lista.");
+    }
+
+    // Endpoint para obtener la lista de usuarios conectados
+    @GetMapping("/usuariosConectados")
+    public List<String> obtenerUsuariosConectados() {
+        return usuariosConectados;
+    }
+
 
 }

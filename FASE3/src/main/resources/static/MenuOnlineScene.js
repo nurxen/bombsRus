@@ -39,6 +39,14 @@ class MenuOnlineScene extends Phaser.Scene {
         this._createUsernameText();
         this._addButtonAnimations();
 		this._defaultrefresh();
+		this._actualizarUsuariosConectados(); 
+		// Variable para almacenar el texto de usuarios conectados
+		this.usuariosConectadosText = this.add.text(20, this.game.config.height - 40, 'Usuarios Conectados: 0', {
+		    fontSize: '20px',
+		    fill: '#ffffff',
+		    align: 'left'
+		});
+
     }
 
     // Crear el fondo de la escena
@@ -110,7 +118,7 @@ class MenuOnlineScene extends Phaser.Scene {
 	            .setScale(0.5)
 	            .setOrigin(0.5, 0.5)
 	            .setInteractive()
-	    }
+	  }
 		
     _createBackButton() {
         this.BackButton = this.add.image(1175, 725, 'MainMenuButton')
@@ -119,11 +127,24 @@ class MenuOnlineScene extends Phaser.Scene {
             .setInteractive()
             .on('pointerdown', () => this._back());
     }
+	
+	_stopUsuariosInterval() {
+	    if (this.usuariosInterval) {
+	        clearInterval(this.usuariosInterval);
+	        this.usuariosInterval = null;
+	    }
+	}
 
-    _back() {
-		this.username = null;
-		this.scene.start('RegisterScene', {"username" : this.username});
-    }
+	_back() {
+	    this._stopUsuariosInterval();
+	    fetch(`/api/usuarioConectado?usuario=${encodeURIComponent(this.username)}`, {
+	        method: 'DELETE'
+	    }).then(() => {
+	        console.log('Usuario desconectado.');
+	        this.scene.start('RegisterScene');
+	    }).catch(error => console.error('Error removing user:', error));
+	}
+
 
     _createOptionsButton() {
         this.optionsButton = this.add.image(1040, 500, 'OptionsButton')
@@ -340,15 +361,15 @@ class MenuOnlineScene extends Phaser.Scene {
 			}
 			
 			// Animación de cuando el puntero pasa por encima del botón "Start"
-						_onButtonHoverCircle(button) {
-							button.setScale(0.55); // Cambiar a una escala mayor
-						}
+			_onButtonHoverCircle(button) {
+				button.setScale(0.55); // Cambiar a una escala mayor
+			}
 
-						// Animación de cuando el puntero sale del botón "Start"
-						_onButtonOutCircle(button) {
-							button.setScale(0.50); // Volver a la escala original
-						}
-	
+			// Animación de cuando el puntero sale del botón "Start"
+			_onButtonOutCircle(button) {
+				button.setScale(0.50); // Volver a la escala original
+			}
+
 
 
 	// Crear el botón de "Chat"
@@ -446,7 +467,37 @@ class MenuOnlineScene extends Phaser.Scene {
 		        });
 		    }
 
+
+			_actualizarUsuariosConectados() {
+			    this.usuariosInterval = setInterval(async () => {
+			        try {
+			            const response = await fetch('/api/usuariosConectados');
+			            if (response.ok) {
+			                const usuarios = await response.json();
+			                console.log('Usuarios conectados:', usuarios);
+			                // Opcional: puedes mostrar esta lista en pantalla
+			            }
+			        } catch (error) {
+			            console.error('Error fetching connected users:', error);
+			        }
+			    }, 1000); // Cada 1 segundos
+			}
 			
+			_actualizarUsuariosConectados() {
+			    this.usuariosInterval = setInterval(async () => {
+			        try {
+			            const response = await fetch('/api/usuariosConectados');
+			            if (response.ok) {
+			                const usuarios = await response.json();			                
+			                // Actualizar el texto con el número de usuarios conectados
+			                this.usuariosConectadosText.setText('Usuarios Conectados: ' + usuarios.length);
+			            }
+			        } catch (error) {
+			            console.error('Error fetching connected users:', error);
+			        }
+			    }, 2000); // Actualizar cada 2 segundos
+			}
+
 			
 			_error() {
 			    console.log('Connection failed. Redirecting to the menu...');
