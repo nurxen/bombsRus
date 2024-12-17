@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 @RequestMapping("/api")
 public class Fase3JerApplication {
 
+	//Lista de mensajes para el chat
     private List<Map<String, String>> chatMessages = new ArrayList<>();
 
     // Simulación de una base de datos en memoria
@@ -36,7 +37,7 @@ public class Fase3JerApplication {
     @PostMapping("/usuario")
     public String crearUsuario(@RequestParam String usuario, @RequestParam String contrasena) {
         
-    	if (users.containsKey(usuario)) {
+    	if (users.containsKey(usuario)) { //restreiccion de usuarios repetidos
             return "THE USER ALREADY EXISTS.";
         }
         users.put(usuario, contrasena);
@@ -52,6 +53,7 @@ public class Fase3JerApplication {
         return "USER CREATED SUSCCESSFULLY.";
     }
     
+    //devolvemos estado de la conexion del servidor
     @GetMapping("/conexion")
     public ResponseEntity<String> conexion(){
     	return new ResponseEntity<>(HttpStatus.OK);
@@ -63,12 +65,12 @@ public class Fase3JerApplication {
         List<String> lines = Files.readAllLines(Paths.get(usuariosFile));
         System.out.println("u: " + usuario.getUsername() + " c: " + usuario.getPassword());
 
-        if (usuario == null || usuario.getUsername() == null || usuario.getPassword() == null) {
+        if (usuario == null || usuario.getUsername() == null || usuario.getPassword() == null) { //restricciondes de campos vacios
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
         for (String line : lines) {
-            String[] parts = line.split(":");
+            String[] parts = line.split(":");//dividir el string en username y cntraseña
             if (parts.length == 2 && parts[0].equals(usuario.getUsername()) && parts[1].equals(usuario.getPassword())) {
                 return new ResponseEntity<>(usuario.getUsername(), HttpStatus.OK);
             }
@@ -166,7 +168,7 @@ public class Fase3JerApplication {
                 }
             }
 
-            // Si no hay información, devolver un mensaje adecuado
+            // Si no hay información, devolver un mensaje
             if (response.length() == 0) {
                 return "NO USER VICTORIES RECORDED.";
             }
@@ -240,7 +242,7 @@ public class Fase3JerApplication {
  // Lista de usuarios conectados
     private List<String> usuariosConectados = new ArrayList<>();
 
-    // Endpoint para agregar usuario a la lista de conectados
+    // Agregar usuario a la lista de conectados
     @PostMapping("/usuarioConectado")
     public ResponseEntity<String> agregarUsuarioConectado(@RequestParam String usuario) {
         if (!usuariosConectados.contains(usuario)) {
@@ -250,7 +252,7 @@ public class Fase3JerApplication {
         return ResponseEntity.badRequest().body("El usuario ya está conectado.");
     }
 
-    // Endpoint para eliminar usuario de la lista de conectados
+    // Eliminar usuario de la lista de conectados
     @DeleteMapping("/usuarioConectado")
     public ResponseEntity<String> eliminarUsuarioConectado(@RequestParam String usuario) {
         if (usuariosConectados.contains(usuario)) {
@@ -260,7 +262,7 @@ public class Fase3JerApplication {
         return ResponseEntity.badRequest().body("El usuario no está en la lista.");
     }
 
-    // Endpoint para obtener la lista de usuarios conectados
+    // Obtener la lista de usuarios conectados
     @GetMapping("/usuariosConectados")
     public List<String> obtenerUsuariosConectados() {
         return usuariosConectados;
