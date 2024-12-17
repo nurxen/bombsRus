@@ -6,6 +6,7 @@
     effectsSlider; // Slider para efectos de sonido
     musicText; // Texto del slider de música
     effectsText; // Texto del slider de efectos de sonido
+	username;
 	
 	//cambiar volumen dpendiendo de cuenta
 	musicVolume =  0.5; // Volumen inicial de la música (0.0 a 1.0)
@@ -16,6 +17,10 @@
     constructor() {
         super({ key: 'OptionsOnlineScene' });
     }
+	
+	init(data) {
+		        this.username = data.username;
+		    }
 
     create() {
         this._createBackground(); // Crear fondo
@@ -120,7 +125,7 @@
     }
 
     _menuScene() {
-        this.scene.start('MenuOnlineScene'); // Cambiar a la escena del menú
+        this.scene.start('MenuOnlineScene', { "username": this.username }); // Cambiar a la escena del menú
     }
 
     _addButtonAnimations() {

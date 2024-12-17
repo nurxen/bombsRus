@@ -53,6 +53,8 @@ class PreloadScene extends Phaser.Scene {
         this.load.image("CoveyorBeltExtremo", "./assets/ASSTES/CoveyorBeltExtremo.png"); // cinta transpoirtadora
         this.load.image("CoveyorBeltMedio1", "./assets/ASSTES/CoveyorBeltMedio1.png");
         this.load.image("CoveyorBeltMedio2", "./assets/ASSTES/Present.png");
+		this.load.image("CuddlesIcon", "./assets/ASSTES/CuddlesIcon.png");
+		this.load.image("PuffyIcon", "./assets/ASSTES/PuffyIcon.png");
 
         // Assets de decoracion
         this.load.image("LegoDecoration", "./assets/DECORACION/LegoDecoration.png");
@@ -73,7 +75,7 @@ class PreloadScene extends Phaser.Scene {
         this.load.image("GameBackground", "./assets/ESCENARIOS/GameBackground.png");
 		this.load.image("PauseBackground", "./assets/ESCENARIOS/PauseBackground.png");
 		this.load.image("RankingBackground", "./assets/ESCENARIOS/MainMenuBackground.png");
-		
+				
 		//Botones
         this.load.image("StartButton", "./assets/BOTONES/StartButton.png");
 		this.load.image("OnlineButton", "./assets/BOTONES/OnlineButton.png");
@@ -86,6 +88,7 @@ class PreloadScene extends Phaser.Scene {
         this.load.image("RetryButton", "./assets/BOTONES/RetryButton.png");
         this.load.image("MainMenuButton", "./assets/BOTONES/MainMenuButton.png");
 		this.load.image("RankingButton", "./assets/BOTONES/RankingButton.png");
+		this.load.image("ChatIcon", "./assets/BOTONES/ChatIcon.png");
         this.load.image("Life", "./assets/ASSTES/heart.png");
         this.load.image("OptionsText", "./assets/BOTONES/OptionsText.png");
         this.load.image("MusicText", "./assets/BOTONES/MusicText.png");

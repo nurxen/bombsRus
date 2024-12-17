@@ -6,6 +6,7 @@ class MenuScene extends Phaser.Scene {
     settingsButton; // Botón de salida
     settingsText; // Texto del botón de salida
 	usernameText;
+	username;
 
     constructor() {
         super({ key: 'MenuScene' });
@@ -23,6 +24,9 @@ class MenuScene extends Phaser.Scene {
     }
 
     // Métodos privados
+	init(data) {
+		        this.username = data.username;
+		    }
     
     // Crear el fondo de la escena
     _createBackground() {
@@ -54,8 +58,8 @@ class MenuScene extends Phaser.Scene {
 
     // Función que inicia el juego
     _startGame() {
-        this.scene.start('GameScene'); // Cambiar a la escena del juego
-		this.backgroundMusic.stop();        
+        this.scene.start('GameScene', {"username" : this.username}); // Cambiar a la escena del juego
+		//this.backgroundMusic.stop();        
     }
 	
 	// Crear el botón de "Back"
@@ -74,7 +78,7 @@ class MenuScene extends Phaser.Scene {
 
 		    // Función que te devuelve al menu de registro
 		    _back() {
-		        this.scene.start('RegisterScene'); // Cambiar a la escena de registro
+		        this.scene.start('RegisterScene', {"username" : this.username}); // Cambiar a la escena de registro
 		        //this.backgroundMusic.stop();
 		    }
 
@@ -94,7 +98,7 @@ class MenuScene extends Phaser.Scene {
 
     // Función que maneja la ajustes del juego
     _settingsScene() {
-        this.scene.start('SettingsScene'); // Cambiar a la escena del juego
+        this.scene.start('SettingsScene', {"username" : this.username}); // Cambiar a la escena del juego
         console.log("Ajustes"); // Aquí se puede agregar la lógica para salir del juego, por ejemplo, cerrando la ventana o redirigiendo
         
     }
@@ -140,7 +144,7 @@ class MenuScene extends Phaser.Scene {
     
     // Función que maneja la ajustes del juego
     _optionsScene() {
-        this.scene.start('OptionsScene'); // Cambiar a la escena del juego
+        this.scene.start('OptionsScene', {"username" : this.username}); // Cambiar a la escena del juego
         console.log("Opciones"); // Aquí se puede agregar la lógica para salir del juego, por ejemplo, cerrando la ventana o redirigiendo
     }
 	

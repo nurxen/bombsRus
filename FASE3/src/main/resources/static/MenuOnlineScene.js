@@ -85,7 +85,7 @@ class MenuOnlineScene extends Phaser.Scene {
 
     _startGame() {
         this.scene.start('GameScene', { "username": this.username });
-        this.backgroundMusic.stop();
+        //this.backgroundMusic.stop();
     }
 
     _createSettingsButton() {
@@ -97,8 +97,7 @@ class MenuOnlineScene extends Phaser.Scene {
     }
 
     _settingsScene() {
-        this.scene.start('SettingsOnlineScene');
-        console.log("Ajustes");
+        this.scene.start('SettingsOnlineScene', {"username" : this.username});
     }
 
     _createBackButton() {
@@ -110,7 +109,8 @@ class MenuOnlineScene extends Phaser.Scene {
     }
 
     _back() {
-        this.scene.start('RegisterScene');
+		this.username = null;
+		this.scene.start('RegisterScene', {"username" : this.username});
     }
 
     _createOptionsButton() {
@@ -122,26 +122,145 @@ class MenuOnlineScene extends Phaser.Scene {
     }
 
     _optionsScene() {
-        this.scene.start('OptionsOnlineScene');
-        console.log("Opciones");
+        this.scene.start('OptionsOnlineScene', {"username" : this.username});
     }
 
     _createAccountButton() {
-        this.accountButton = this.add.image(this.sys.game.config.width - 40, 40, 'UserButton')
-            .setScale(0.5)
-            .setOrigin(1, 0)
+        this.accountButton = this.add.image(this.sys.game.config.width - 70, 40, 'UserButton')
+            .setScale(0.25)
+            .setOrigin(0.0, 0.0)
             .setInteractive()
             .on('pointerdown', () => this._showAccountOptions());
     }
 
-    _showAccountOptions() {
-        // Implementación existente del formulario de cuenta
-    }
+	// Mostrar formulario de cambio de cuenta o contraseña
+	    _showAccountOptions() {
+	        if (this.accountFormContainer) {
+	            document.body.removeChild(this.accountFormContainer); // Eliminar cualquier formulario anterior
+	        }
+	        this._createAccountForm(); // Crear un nuevo formulario
+	    }
+
+	    // Crear el formulario para cambiar contraseña o borrar cuenta
+	    _createAccountForm() {
+	        this.accountFormContainer = document.createElement('div');
+	        this.accountFormContainer.id = 'accountForm';
+	        this.accountFormContainer.style.position = 'absolute';
+	        this.accountFormContainer.style.top = '50%';
+	        this.accountFormContainer.style.left = '50%';
+	        this.accountFormContainer.style.transform = 'translate(-50%, -50%)';
+	        this.accountFormContainer.style.background = 'rgba(0, 0, 0, 0.8)';
+	        this.accountFormContainer.style.borderRadius = '15px';
+	        this.accountFormContainer.style.padding = '20px 30px';
+	        this.accountFormContainer.style.textAlign = 'center';
+	        this.accountFormContainer.style.color = 'white';
+	        this.accountFormContainer.style.fontFamily = 'Arial, sans-serif';
+	        this.accountFormContainer.style.width = '400px';
+
+	        this.accountFormContainer.innerHTML = `
+	            <h2 style="margin-bottom: 20px;">ACCOUNT</h2>
+	            <button id="changePasswordBtn" style="padding: 10px; width: 100%; margin-bottom: 10px; background: orange; color: white; border: none; border-radius: 20px;">
+	                Update password
+	            </button>
+	            <button id="deleteAccountBtn" style="padding: 10px; width: 100%; background: red; color: white; border: none; border-radius: 20px;">
+	                Delete account
+	            </button>
+	            <button id="closeAccountFormBtn" style="padding: 10px; width: 100%; margin-top: 15px; background: #c0392b; color: white; border: none; border-radius: 20px;">
+	                Close
+	            </button>
+	        `;
+
+	        document.body.appendChild(this.accountFormContainer);
+
+			// Depuración: verificar que el botón está en el DOM
+			    console.log('submitLoginBtn:', document.getElementById('submitLoginBtn'));
+			
+				
+	        document.getElementById('changePasswordBtn').addEventListener('click', () => this._changePassword());
+	        document.getElementById('deleteAccountBtn').addEventListener('click', () => this._deleteAccount());
+	        document.getElementById('closeAccountFormBtn').addEventListener('click', () => {
+	            this.accountFormContainer.style.display = 'none'; // Ocultar el formulario
+	        });
+	    }
+
+		// Cambiar la contraseña
+		_changePassword() {
+		    const currentUser = localStorage.getItem('currentUser');
+		    if (!currentUser) {
+		        alert('NO ACTIVE USER.');
+		        return;
+		    }
+
+		    const newPassword = prompt('NEW PASSWORD:');
+		    if (newPassword) {
+		        const url = `/api/usuario?usuario=${encodeURIComponent(currentUser)}&nuevaContrasena=${encodeURIComponent(newPassword)}`;
+		        fetch(url, {
+		            method: 'PUT',
+		        })
+		        .then(response => {
+		            if (!response.ok) {
+		                throw new Error("Error ${response.status}: ${response.statusText}");
+		            }
+		            return response.text();
+		        })
+		        .then(message => {
+		            alert(message);
+
+					// Ocultar el formulario en lugar de eliminarlo
+		            const accountForm = document.getElementById('accountForm');
+		            if (accountForm) {
+		                accountForm.style.display = 'none'; // Ocultar el formulario
+		            }
+					
+		            // Redirigir al MenuOnlineScene después de cambiar la contraseña
+		            this.scene.start('MenuOnlineScene', { "username": this.username }); // Cambiar a la escena principal
+		        })
+		        .catch(error => alert("ERROR UPDATING PASSWORD: ${error.message}"));
+		    }
+		}
+
+		// Eliminar usuario
+		_deleteAccount() {
+		    const currentUser = localStorage.getItem('currentUser');
+		    if (!currentUser) {
+		        alert('NO ACTIVE USER.');
+		        return;
+		    }
+
+		    const confirmDelete = confirm('ARE YOU SURE YOU WANT TO DELETE YOUR ACCOUNT?');
+		    if (confirmDelete) {
+		        const url = `/api/usuario?usuario=${encodeURIComponent(currentUser)}`;
+		        fetch(url, {
+		            method: 'DELETE',
+		        })
+		        .then(response => {
+		            if (!response.ok) {
+		                throw new Error("Error ${response.status}: ${response.statusText}");
+		            }
+		            return response.text();
+		        })
+		        .then(message => {
+		            alert(message);
+		            localStorage.removeItem('currentUser'); // Eliminar el usuario de localStorage
+
+		            // Eliminar el pop-up antes de cambiar a RegisterScene
+		            const accountForm = document.getElementById('accountForm');
+		            if (accountForm) {
+		            	accountForm.style.display = 'none'; // Ocultar el formulario
+		            }
+					this.username = null;
+		            // Redirigir al RegisterScene después de eliminar la cuenta
+		            this.scene.start('RegisterScene', {"username" : this.username}); // Cambiar a la escena de registro
+		        })
+		        .catch(error => alert("ERROR DELETING ACCOUNT: ${error.message}"));
+		    }
+			
+		}
 
     _createRankingButton() {
-        this.rankingButton = this.add.image(this.sys.game.config.width - 40, 400, 'RankingButton')
-            .setScale(0.5)
-            .setOrigin(0.5, 0.5)
+        this.rankingButton = this.add.image(this.sys.game.config.width - 115, 135, 'RankingButton')
+            .setScale(0.25)
+            .setOrigin(0.0, 0.0)
             .setInteractive()
             .on('pointerdown', () => this._rankingScene());
     }
@@ -150,40 +269,81 @@ class MenuOnlineScene extends Phaser.Scene {
 		this.scene.start('RankingScene', {"username" : this.username}); // Cambiar a la escena del juego
     }
 
-    _addButtonAnimations() {
-        this.startButton.on('pointerover', () => this._onButtonHover(this.startButton));
-        this.startButton.on('pointerout', () => this._onButtonOut(this.startButton));
-        this.settingsButton.on('pointerover', () => this._onButtonHover(this.settingsButton));
-        this.settingsButton.on('pointerout', () => this._onButtonOut(this.settingsButton));
-        this.optionsButton.on('pointerover', () => this._onButtonHover(this.optionsButton));
-        this.optionsButton.on('pointerout', () => this._onButtonOut(this.optionsButton));
-        this.rankingButton.on('pointerover', () => this._onButtonHover(this.rankingButton));
-        this.rankingButton.on('pointerout', () => this._onButtonOut(this.rankingButton));
-        this.BackButton.on('pointerover', () => this._onButtonHoverBack(this.BackButton));
-        this.BackButton.on('pointerout', () => this._onButtonOutBack(this.BackButton));
-    }
+	// Agregar animaciones o efectos a los botones
+		    _addButtonAnimations() {
+		        // Agregar eventos para el botón de start
+		        this.startButton.on('pointerover', () => this._onButtonHover(this.startButton));
+		        this.startButton.on('pointerout', () => this._onButtonOut(this.startButton));
 
-    _onButtonHover(button) {
-        button.setScale(1.05);
-    }
+		        // Agregar eventos para el botón de ajustes
+		        this.settingsButton.on('pointerover', () => this._onButtonHover(this.settingsButton));
+		        this.settingsButton.on('pointerout', () => this._onButtonOut(this.settingsButton));
 
-    _onButtonOut(button) {
-        button.setScale(1.0);
-    }
+		        // Agregar eventos para el botón de ajustes
+		        this.optionsButton.on('pointerover', () => this._onButtonHover(this.optionsButton));
+		        this.optionsButton.on('pointerout', () => this._onButtonOut(this.optionsButton));
+				
+				// Agregar eventos para el botón de ajustes
+				this.rankingButton.on('pointerover', () => this._onButtonHoverAccount(this.rankingButton));
+				this.rankingButton.on('pointerout', () => this._onButtonOutAccount(this.rankingButton));
+				
+				this.BackButton.on('pointerover', () => this._onButtonHoverBack(this.BackButton));
+				this.BackButton.on('pointerout', () => this._onButtonOutBack(this.BackButton));
+				
+				this.accountButton.on('pointerover', () => this._onButtonHoverAccount(this.accountButton));
+				this.accountButton.on('pointerout', () => this._onButtonOutAccount(this.accountButton));
+				
+				this.chatButton.on('pointerover', () => this._onButtonHoverCircle(this.chatButton));
+				this.chatButton.on('pointerout', () => this._onButtonOutCircle(this.chatButton));
+		    }
 
-    _onButtonHoverBack(button) {
-        button.setScale(0.14);
-    }
+		    // Animación de cuando el puntero pasa por encima del botón "Start"
+		    _onButtonHover(button) {
+		        button.setScale(1.05); // Cambiar a una escala mayor
+		    }
 
-    _onButtonOutBack(button) {
-        button.setScale(0.13);
-    }
+		    // Animación de cuando el puntero sale del botón "Start"
+		    _onButtonOut(button) {
+		        button.setScale(1.0); // Volver a la escala original
+		    }
+			
+			// Animación de cuando el puntero pasa por encima del botón "Start"
+			_onButtonHoverBack(button) {
+			    button.setScale(0.14); // Cambiar a una escala mayor
+			}
+
+			// Animación de cuando el puntero sale del botón "Start"
+			_onButtonOutBack(button) {
+			    button.setScale(0.13); // Volver a la escala original
+			}
+			
+			// Animación de cuando el puntero pasa por encima del botón "Start"
+			_onButtonHoverAccount(button) {
+				button.setScale(0.30); // Cambiar a una escala mayor
+			}
+
+			// Animación de cuando el puntero sale del botón "Start"
+			_onButtonOutAccount(button) {
+				button.setScale(0.25); // Volver a la escala original
+			}
+			
+			// Animación de cuando el puntero pasa por encima del botón "Start"
+						_onButtonHoverCircle(button) {
+							button.setScale(0.55); // Cambiar a una escala mayor
+						}
+
+						// Animación de cuando el puntero sale del botón "Start"
+						_onButtonOutCircle(button) {
+							button.setScale(0.50); // Volver a la escala original
+						}
+	
+
 
 	// Crear el botón de "Chat"
 	    _createChatButton() {
-	        this.chatButton = this.add.image(this.sys.game.config.width - 35, 600, 'StartButton')
+	        this.chatButton = this.add.image(this.sys.game.config.width - 175, 40, 'ChatIcon')
 	            .setScale(0.5)
-	            .setOrigin(1, 0)
+	            .setOrigin(0.0, 0.0)
 	            .setInteractive()
 	            .on('pointerdown', () => this._toggleChatForm()); // Usar _toggleChatForm en lugar de _openChatForm
 	    }
@@ -254,7 +414,6 @@ class MenuOnlineScene extends Phaser.Scene {
 			
 	        // Actualizar el estado del chat
 	        this.isChatOpen = false;
-			
 			
 	    }
 

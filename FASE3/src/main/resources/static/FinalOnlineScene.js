@@ -57,7 +57,7 @@ class FinalOnlineScene extends Phaser.Scene {
     }
 
     _startGame() {
-        this.scene.start('GameScene');
+        this.scene.start('GameScene', {"username" : this.username});
     }
 
     _createExitButton() {
@@ -69,7 +69,7 @@ class FinalOnlineScene extends Phaser.Scene {
     }
 
     _exitGame() {
-        this.scene.start('MenuOnlineScene');
+        this.scene.start('MenuOnlineScene', {"username" : this.username});
     }
 
     _addButtonAnimations() {

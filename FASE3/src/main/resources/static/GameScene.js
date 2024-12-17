@@ -22,6 +22,9 @@ class GameScene extends Phaser.Scene {
     _frames; // Frames de la animación
 	_pauseButton = null; // El botón de pausa
 	_pauseText = null;   // El texto que indica el estado de pausa
+	puffy;
+	cuddle;
+	username;
 
     constructor() {
         super({ key: 'GameScene' });
@@ -166,12 +169,22 @@ class GameScene extends Phaser.Scene {
         for (let i = 0; i < 3; i+=1.25) {
             const life = this.add.image(35 + i * 40, 30, "Life").setScale(0.8);
             this.player1Lifes.push(life);
+			
+			if(i<4){
+				this.puffy = this.add.image(35 + (1.3*3) * 40, 30, "PuffyIcon").setScale(0.8);
+			}
         }
+		
+		
 
         // Vidas del jugador 2
         for (let i = 0; i < 3; i+=1.25) {
             const life = this.add.image(1216 - i * 40, 730, "Life").setScale(0.8);
             this.player2Lifes.push(life);
+			
+			if(i<4){
+				this.cuddles = this.add.image(1216 + -(1.3*3) * 40, 730, "CuddlesIcon").setScale(0.8);
+			}
         }
     }
     
@@ -420,7 +433,6 @@ class GameScene extends Phaser.Scene {
             this.backgroundMusic.stop();
 			
 			if(this.username == null){
-				
 				this.scene.start('FinalScene', { loser: loser, "username" : this.username}); // Pasas el perdedor como parámetro
 			}else{
 				this.scene.start('FinalOnlineScene', { loser: loser, "username" : this.username});
@@ -431,8 +443,8 @@ class GameScene extends Phaser.Scene {
 	
 	// Crear el botón de "Pause"
 	_createPauseButton() {
-	    this.pauseButton = this.add.image(1200, 30, 'PauseButton')
-	        .setScale(1.0)
+	    this.pauseButton = this.add.image(1250, 30, 'PauseButton')
+	        .setScale(0.15)
 	        .setOrigin(0.5, 0.5)
 	        .setInteractive() // Hacer el botón interactivo
 	        .on('pointerdown', () => this._togglePause()); // Llamar a la función para pausar o reanudar el juego
@@ -445,8 +457,8 @@ class GameScene extends Phaser.Scene {
 
 	// Función que alterna el estado de pausa
 	_togglePause() {
-		this.scene.pause('GameScene'); // Pausar el juego
-	   	this.scene.launch('PauseScene'); // Pausar el juego
+		this.scene.pause('GameScene', { "username": this.username }); // Pausar el juego
+	   	this.scene.launch('PauseScene', { "username": this.username }); // Pausar el juego
 	    
 	}
 

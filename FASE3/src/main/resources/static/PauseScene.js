@@ -6,10 +6,15 @@ class PauseScene extends Phaser.Scene {
 	    exitButton; // Botón de salida
 		backButton;
 	    gameScene = new GameScene();
+		username;
 	    constructor() {
 	        super({ key: 'PauseScene' });
 	        
 	    }
+		
+		init(data) {
+			this.username = data.username;
+		}
 
 	    // Metodo que llamamos cuando creamos la escena
 	    create(data) {
@@ -18,7 +23,6 @@ class PauseScene extends Phaser.Scene {
 	        this._createExitButton(); // Crear botón de salida
 			this._createBackButton();
 	        this._addButtonAnimations(); // Agregar animaciones a los botones
-			
 	    }
 
 	    // Métodos privados
@@ -37,8 +41,8 @@ class PauseScene extends Phaser.Scene {
 			
 			// Crear el botón de "Start Game"
 			    _createExitButton() {
-			        this.exitButton = this.add.image(400, 500, 'ExitButton')
-			            .setScale(0.12)
+			        this.exitButton = this.add.image(610, 300, 'ExitButton')
+			            .setScale(0.25)
 			            .setOrigin(0.5, 0.5)
 			            .setInteractive() // Hacer el botón interactivo
 			            .on('pointerdown', () => this._startGame()); // Llamar a la función para iniciar el juego
@@ -51,21 +55,26 @@ class PauseScene extends Phaser.Scene {
 
 			    // Función que inicia el juego
 			    _startGame() {
-			        this.scene.resume('GameScene'); // Cambiar a la escena del juego
-					this.scene.sleep('PauseScene'); // Cambiar a la escena del juego
+			        this.scene.resume('GameScene', {"username" : this.username}); // Cambiar a la escena del juego
+					this.scene.sleep('PauseScene', {"username" : this.username}); // Cambiar a la escena del juego
 			        //this.backgroundMusic.stop();
 			    }
 				
 				_createBackButton() {
-				        this.backButton = this.add.image(700, 500, 'MainMenuButton')
-				            .setScale(0.13)
+				        this.backButton = this.add.image(610, 450, 'MainMenuButton')
+				            .setScale(0.2)
 				            .setOrigin(0.5, 0.5)
 				            .setInteractive()
 				            .on('pointerdown', () => this._back());
 				    }
 
 				    _back() {
-				        this.scene.start('MenuOnlineScene');
+						this.scene.stop('GameScene', {"username" : this.username});
+						if(this.username == null){
+							this.scene.start('MenuScene', {"username" : this.username}); // Pasas el perdedor como parámetro
+						}else{
+							this.scene.start('MenuOnlineScene', {"username" : this.username});
+					}
 				    }
 
 				// Agregar animaciones o efectos a los botones

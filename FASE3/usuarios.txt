@@ -3,7 +3,8 @@ asd:asdads
 vv:vv
 pp:pp
 aa:aa
-o:o
 y:y
 Nurii:iiiiii
 aaa:aaa
+o:i
+u:u
