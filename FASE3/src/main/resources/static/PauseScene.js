@@ -90,11 +90,11 @@ class PauseScene extends Phaser.Scene {
 
 				    // Animación de cuando el puntero pasa por encima del botón "Start"
 				    _onExitButtonHover(button) {
-				        button.setScale(0.13); // Cambiar a una escala mayor
+				        button.setScale(0.27); // Cambiar a una escala mayor
 				    }
 
 				    // Animación de cuando el puntero sale del botón "Start"
 				    _onExitButtonOut(button) {
-				        button.setScale(0.12); // Volver a la escala original
+				        button.setScale(0.25); // Volver a la escala original
 				    }
 }

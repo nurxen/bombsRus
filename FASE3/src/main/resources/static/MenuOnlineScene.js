@@ -114,10 +114,11 @@ class MenuOnlineScene extends Phaser.Scene {
     }
 
 	_createReconnectButton() {
-	        this.reconectButton = this.add.image(240, 500, 'sinWifi')
+	        this.reconectButton = this.add.image(6000, 6000, 'sinWifi')
 	            .setScale(0.5)
 	            .setOrigin(0.5, 0.5)
 	            .setInteractive()
+				this.sinWifi= this.add.image(6000, 6000, 'sinWifi').setScale(0.75)
 	  }
 		
     _createBackButton() {
@@ -159,9 +160,9 @@ class MenuOnlineScene extends Phaser.Scene {
     }
 
     _createAccountButton() {
-        this.accountButton = this.add.image(this.sys.game.config.width - 70, 40, 'UserButton')
+        this.accountButton = this.add.image(this.sys.game.config.width - 90, 80, 'UserButton')
             .setScale(0.25)
-            .setOrigin(0.0, 0.0)
+            .setOrigin(0.5, 0.5)
             .setInteractive()
             .on('pointerdown', () => this._showAccountOptions());
     }
@@ -291,9 +292,9 @@ class MenuOnlineScene extends Phaser.Scene {
 		}
 
     _createRankingButton() {
-        this.rankingButton = this.add.image(this.sys.game.config.width - 115, 135, 'RankingButton')
+        this.rankingButton = this.add.image(this.sys.game.config.width - 135, 175, 'RankingButton')
             .setScale(0.25)
-            .setOrigin(0.0, 0.0)
+            .setOrigin(0.5, 0.5)
             .setInteractive()
             .on('pointerdown', () => this._rankingScene());
     }
@@ -374,9 +375,9 @@ class MenuOnlineScene extends Phaser.Scene {
 
 	// Crear el botón de "Chat"
 	    _createChatButton() {
-	        this.chatButton = this.add.image(this.sys.game.config.width - 175, 40, 'ChatIcon')
+	        this.chatButton = this.add.image(this.sys.game.config.width - 195, 80, 'ChatIcon')
 	            .setScale(0.5)
-	            .setOrigin(0.0, 0.0)
+	            .setOrigin(0.5, 0.5)
 	            .setInteractive()
 	            .on('pointerdown', () => this._toggleChatForm()); // Usar _toggleChatForm en lugar de _openChatForm
 	    }
@@ -488,7 +489,8 @@ class MenuOnlineScene extends Phaser.Scene {
 			        try {
 			            const response = await fetch('/api/usuariosConectados');
 			            if (response.ok) {
-			                const usuarios = await response.json();			                
+			                const usuarios = await response.json();		
+							console.log('Usuarios conectados:', usuarios);	                
 			                // Actualizar el texto con el número de usuarios conectados
 			                this.usuariosConectadosText.setText('Usuarios Conectados: ' + usuarios.length);
 			            }
@@ -504,7 +506,8 @@ class MenuOnlineScene extends Phaser.Scene {
 			    this._stopRefresh(); // Detiene el refresh
 
 			    // Muestra el ícono de sin conexión
-			    this.sinWifi = this.add.image(700, 70, 'sinWifi');
+			    this.sinWifi.setPosition(636,200);
+				this.reconectButton.setPosition(640,600);
 
 			    // Crea el botón de reconexión
 			    this.reconectButton.on('pointerdown', () => {
@@ -519,8 +522,11 @@ class MenuOnlineScene extends Phaser.Scene {
 			                console.log('Reconnection successful!');
 
 			                // Eliminar el ícono y el botón al reconectar
+							this._actualizarUsuariosConectados();
 			                this.sinWifi.destroy(); // Elimina el ícono de la escena
 			                this.reconectButton.destroy(); // Elimina el botón de reconexión de la escena
+							this.scene.start('RegisterScene', { "username": this.username });
+							
 			            })
 			            .catch(error => {
 			                console.error('Reconnection error:', error);
