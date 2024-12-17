@@ -52,6 +52,11 @@ public class Fase3JerApplication {
         return "USER CREATED SUSCCESSFULLY.";
     }
     
+    @GetMapping("/conexion")
+    public ResponseEntity<String> conexion(){
+    	return new ResponseEntity<>(HttpStatus.OK);
+    }
+    
     // POST: Cargar usuario y contraseña
     @PostMapping("/loadusuario")
     public ResponseEntity<String> cargarUsuario(@RequestBody User usuario) throws IOException {
@@ -231,6 +236,5 @@ public class Fase3JerApplication {
         chatMessages.add(newMessage);
         return ResponseEntity.ok("Message sent.");
     }
-
 
 }

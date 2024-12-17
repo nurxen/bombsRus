@@ -8,3 +8,5 @@ Nurii:iiiiii
 aaa:aaa
 o:i
 u:u
+zrono:zrono
+o:o

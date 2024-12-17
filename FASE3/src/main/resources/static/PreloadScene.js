@@ -55,6 +55,7 @@ class PreloadScene extends Phaser.Scene {
         this.load.image("CoveyorBeltMedio2", "./assets/ASSTES/Present.png");
 		this.load.image("CuddlesIcon", "./assets/ASSTES/CuddlesIcon.png");
 		this.load.image("PuffyIcon", "./assets/ASSTES/PuffyIcon.png");
+		this.load.image("sinWifi", "./assets/ASSTES/sinWifi.png");
 
         // Assets de decoracion
         this.load.image("LegoDecoration", "./assets/DECORACION/LegoDecoration.png");

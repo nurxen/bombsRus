@@ -14,6 +14,9 @@ class MenuOnlineScene extends Phaser.Scene {
     chatFormContainer;
 	buttonsEnabled = true;
 	isChatOpen = false; // Variable para controlar el estado del chat
+	refresh;
+	sinWifi;
+	reconectButton;
 
     constructor() {
         super({ key: 'MenuOnlineScene' });
@@ -32,8 +35,10 @@ class MenuOnlineScene extends Phaser.Scene {
         this._createBackButton();
         this._createAccountButton();
         this._createChatButton();
+		this._createReconnectButton();
         this._createUsernameText();
         this._addButtonAnimations();
+		this._defaultrefresh();
     }
 
     // Crear el fondo de la escena
@@ -100,6 +105,13 @@ class MenuOnlineScene extends Phaser.Scene {
         this.scene.start('SettingsOnlineScene', {"username" : this.username});
     }
 
+	_createReconnectButton() {
+	        this.reconectButton = this.add.image(240, 500, 'sinWifi')
+	            .setScale(0.5)
+	            .setOrigin(0.5, 0.5)
+	            .setInteractive()
+	    }
+		
     _createBackButton() {
         this.BackButton = this.add.image(1175, 725, 'MainMenuButton')
             .setScale(0.13)
@@ -434,6 +446,68 @@ class MenuOnlineScene extends Phaser.Scene {
 		        });
 		    }
 
+			
+			
+			_error() {
+			    console.log('Connection failed. Redirecting to the menu...');
+			    this._stopRefresh(); // Detiene el refresh
+
+			    // Muestra el ícono de sin conexión
+			    this.sinWifi = this.add.image(700, 70, 'sinWifi');
+
+			    // Crea el botón de reconexión
+			    this.reconectButton.on('pointerdown', () => {
+			            fetch('/api/conexion', {
+			                method: 'GET',
+			                headers: { 'Content-Type': 'application/json' }
+			            })
+			            .then(response => {
+			                if (!response.ok) {
+			                    throw new Error('Failed to connect');
+			                }
+			                console.log('Reconnection successful!');
+
+			                // Eliminar el ícono y el botón al reconectar
+			                this.sinWifi.destroy(); // Elimina el ícono de la escena
+			                this.reconectButton.destroy(); // Elimina el botón de reconexión de la escena
+			            })
+			            .catch(error => {
+			                console.error('Reconnection error:', error);
+			                // Podrías mantener el ícono y botón si sigue fallando la conexión
+			            });
+			        });
+			}
+
+			_tryconexion() {
+			    fetch('/api/conexion', {
+			        method: 'GET',
+			        headers: { 'Content-Type': 'application/json' }
+			    })
+			    .then(response => {
+			        if (!response.ok) {
+			            throw new Error('Failed to connect');
+			        }
+			        console.log('Connection successful!');
+			    })
+			    .catch(error => {
+			        console.error('Connection error:', error);
+			        this._error(); // Llama al manejador de errores
+			    });
+			}
+
+			_defaultrefresh() {
+			    this.refresh = setInterval(() => {
+			        this._tryconexion();
+			    }, 1000); // Intenta conectar cada segundo
+			}
+
+			_stopRefresh() {
+			    clearInterval(this.refresh); // Detiene el intervalo
+			}
+
+			
+			
+			
 		    // Obtener mensajes del servidor
 		    _fetchChatMessages() {
 		        fetch('/api/chat')
@@ -443,8 +517,8 @@ class MenuOnlineScene extends Phaser.Scene {
 		                chatMessagesDiv.innerHTML = messages.map(msg => `<p><strong>${msg.username}:</strong> ${msg.message}</p>`).join('');
 		            });
 
-		        // Vuelve a llamar a este método después de 2 segundos para que se le muestren a todos los usuarios los mensajes
-		        setTimeout(() => this._fetchChatMessages(), 2000);
+		        // Vuelve a llamar a este método después de 0.5 segundos para que se le muestren a todos los usuarios los mensajes
+		        setTimeout(() => this._fetchChatMessages(), 500);
 		    }
 
 		    // Agregar un overlay para bloquear toda la pantalla
