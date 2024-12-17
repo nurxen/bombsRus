@@ -1,20 +1,44 @@
---CUENTA--
-Registro e inicio de sesión: Se ha utilizado un método Post
-Borrar cuenta: Se ha utilizado un método Delete
-Cambiar contraseña: Se ha utilizado un método Put
+# REST API Documentación
 
---RANKING--
-Crear ranking: Se ha utilizado un método Post
-Recoger datos del ranking: Se ha utilizado un método Get
+---
 
---CHAT--
-Crear mensaje: Se ha utilizado un método Post
-Devolver mensajes almacenados: Se ha utilizado un método Get
+## 🚀 CUENTA
+| **Acción**                  | **Método HTTP** |
+|-----------------------------|-----------------|
+| Registro e inicio de sesión | `POST`          |
+| Borrar cuenta            | `DELETE`        |
+| Cambiar contraseña        | `PUT`           |
 
---USUARIOS CONECTADOS--
-Agregar usuario a la lista de conectados: Se ha utilizado un método Post
-Eliminar usuario de la lista de conectados: Se ha utilizado un método Delete
-Obtener lista de usuarios conectados: Se ha utilizado un método Get
+---
 
---CONECTIVIDAD DEL SERVIDOR--
-Estado de la conexión: Se ha utilizado un método Get
+## 🏆 RANKING
+| **Acción**                  | **Método HTTP** |
+|-----------------------------|-----------------|
+| Crear ranking             | `POST`          |
+| Recoger datos del ranking | `GET`           |
+
+---
+
+## 💬 CHAT
+| **Acción**                  | **Método HTTP** |
+|-----------------------------|-----------------|
+| Crear mensaje            | `POST`          |
+| Devolver mensajes almacenados | `GET`       |
+
+---
+
+## 👥 USUARIOS CONECTADOS
+| **Acción**                  | **Método HTTP** |
+|-----------------------------|-----------------|
+| Agregar usuario a la lista de conectados | `POST`    |
+| Eliminar usuario de la lista de conectados | `DELETE`  |
+| Obtener lista de usuarios conectados | `GET`       |
+
+---
+
+## 📡 CONECTIVIDAD DEL SERVIDOR
+| **Acción**                  | **Método HTTP** |
+|-----------------------------|-----------------|
+| Estado de la conexión     | `GET`           |
+
+---
