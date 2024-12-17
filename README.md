@@ -31,6 +31,7 @@ Para obtener el código fuente, hay dos opciones:
 2. Clona el repositorio directamente con el siguiente comando:  
 ---
 ## **Requisitos previos**  
+
 Antes de proceder, asegúrate de contar con las siguientes dependencias:  
 - **Java 8** (o una versión superior).  
 - **Java JDK 17** (o una versión superior).
@@ -38,6 +39,7 @@ Antes de proceder, asegúrate de contar con las siguientes dependencias:
 Después de instalarlos, puedes confirmar que se han instalado correctamente ejecutando el comando:  java-version en el Símbolo del sistema.
 ---
 ##**Compilar el proyecto**  
+
 A continuación, se describe el procedimiento para compilar el código en el equipo que actuará como servidor del juego:  
 
 1. **Extraer los archivos:**  
@@ -53,19 +55,28 @@ Si descargaste el archivo .zip, descomprímelo y guarda los archivos en una carp
 Dentro de la carpeta `target`, encontrarás el archivo **  **, que es el necesario para ejecutar el servidor localmente. Copia la ruta completa donde se encuentra este archivo siguiendo el método que prefieras.
 **Iniciar el servidor y acceder al juego**  
 
-## **Abrir el Símbolo del sistema**  
+## **Abrir el Símbolo del sistema** 
+
 Para comenzar, abre el **Símbolo del sistema** con uno de los siguientes métodos:  
 1. Pulsa las teclas **Windows + R**, escribe `cmd` en la ventana que aparece, y haz clic en "Aceptar".  
 2. Busca "Símbolo del sistema" en la lista de programas de Windows.  
 ---
+
 ## **Navegar a la carpeta del archivo ejecutable**  
+
 En la consola abierta, escribe el comando `cd` seguido de la ruta donde se encuentra el archivo `.jar` que copiamos anteriormente. Por ejemplo:  
+
 ---
+
 ## **Ejecutar el servidor**  
+
 Introduce el siguiente comando en la consola para ejecutar el servidor:  
 Si todo se configuró correctamente, deberías ver un mensaje que indica que el servidor está en ejecución.  
+
 ---
+
 ## **Obtener la dirección IP del servidor**  
+
 Para que los demás dispositivos en la red puedan conectarse al juego, es necesario conocer la dirección IP del ordenador que actúa como servidor.  
 
 1. Abre una nueva ventana del **Símbolo del sistema**.  
@@ -75,17 +86,23 @@ Para que los demás dispositivos en la red puedan conectarse al juego, es necesa
    ipconfig
    ```  
 
-3. Busca el apartado **Dirección IPv4**. El número que aparece es la dirección IP del servidor. Por ejemplo, en este caso es:  
+3. Busca el apartado **Dirección IPv4**. El número que aparece es la dirección IP del servidor. Por ejemplo, en este caso es:
+   
 ---
+
 ## **Acceder al juego desde un navegador**  
+
 En un ordenador conectado a la misma red que el servidor, abre un navegador web. Se recomienda utilizar alguno de los siguientes:  
 - **Microsoft Edge**  
 - **Mozilla Firefox**  
 - **Google Chrome**  
 
-En una nueva pestaña, escribe la dirección IP del servidor seguida de `:8080` (el puerto de conexión). Por ejemplo:  
+En una nueva pestaña, escribe la dirección IP del servidor seguida de `:8080` (el puerto de conexión). Por ejemplo: 
+
 ---
+
 ## **Confirmación de funcionamiento**  
+
 Si los pasos se realizaron correctamente, el juego debería cargarse en el navegador y estar listo para jugar.
 
 # Documento de Diseño de Videojuegos
