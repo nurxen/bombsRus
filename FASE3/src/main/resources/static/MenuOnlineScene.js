@@ -101,6 +101,7 @@ class MenuOnlineScene extends Phaser.Scene {
         //this.backgroundMusic.stop();
     }
 
+	
     _createSettingsButton() {
         this.settingsButton = this.add.image(240, 500, 'HelpButton')
             .setScale(1.0)
