@@ -113,7 +113,7 @@ class RankingScene extends Phaser.Scene {
     
     // Función que maneja la ajustes del juego
     _menuScene() {
-        this.scene.start('MenuOnlineScene'); // Cambiar a la escena del juego
+        this.scene.start('MenuOnlineScene', {"username" : this.username}); // Cambiar a la escena del juego
     }
 
     // Agregar animaciones o efectos a los botones

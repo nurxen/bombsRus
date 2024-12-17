@@ -6,11 +6,16 @@
     effectsSlider; // Slider para efectos de sonido
     musicText; // Texto del slider de música
     effectsText; // Texto del slider de efectos de sonido
+	username;
 
     constructor() {
         super({ key: 'OptionsScene' });
     }
 
+	init(data) {
+		        this.username = data.username;
+		    }
+			
     create() {
         this._createBackground(); // Crear fondo
         this._createSettingsText(); // Crear texto de ajustes
@@ -114,7 +119,7 @@
     }
 
     _menuScene() {
-        this.scene.start('MenuScene'); // Cambiar a la escena del menú
+        this.scene.start('MenuScene', { "username": this.username }); // Cambiar a la escena del menú
     }
 
     _addButtonAnimations() {

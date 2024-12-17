@@ -3,10 +3,15 @@ class SettingsOnlineScene extends Phaser.Scene {
     settingsBackground; // Fondo de la escena de pérdida
     exitButton; // Botón de salida
     settingsText; // Texto del botón de salida
+	username;
 
     constructor() {
         super({ key: 'SettingsOnlineScene' });
     }
+	
+	init(data) {
+		        this.username = data.username;
+		    }
 
     // Metodo que llamamos cuando creamos la escena
     create() {
@@ -54,7 +59,7 @@ class SettingsOnlineScene extends Phaser.Scene {
     
     // Función que maneja la ajustes del juego
     _menuScene() {
-        this.scene.start('MenuOnlineScene'); // Cambiar a la escena del juego
+        this.scene.start('MenuOnlineScene', {"username" : this.username}); // Cambiar a la escena del juego
     }
 
     // Agregar animaciones o efectos a los botones

@@ -3,10 +3,15 @@
     settingsBackground; // Fondo de la escena de pérdida
     exitButton; // Botón de salida
     settingsText; // Texto del botón de salida
+	username;
 
     constructor() {
         super({ key: 'SettingsScene' });
     }
+	
+	init(data) {
+		        this.username = data.username;
+		    }
 
     // Metodo que llamamos cuando creamos la escena
     create() {
@@ -54,7 +59,7 @@
     
     // Función que maneja la ajustes del juego
     _menuScene() {
-        this.scene.start('MenuScene'); // Cambiar a la escena del juego
+        this.scene.start('MenuScene', {"username" : this.username}); // Cambiar a la escena del juego
     }
 
     // Agregar animaciones o efectos a los botones

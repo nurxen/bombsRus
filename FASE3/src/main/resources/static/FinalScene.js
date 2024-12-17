@@ -6,6 +6,7 @@ class FinalScene extends Phaser.Scene {
     loser;
     playerOneWins = 0; // Contador de victorias para el jugador 1
     playerTwoWins = 0; // Contador de victorias para el jugador 2
+	username;
 
     constructor() {
         super({ key: 'FinalScene' });
@@ -58,7 +59,7 @@ class FinalScene extends Phaser.Scene {
 
     _startGame() {
         // Evitar bucles infinitos, solo lanzamos la escena si es necesario
-            this.scene.start('GameScene');
+            this.scene.start('GameScene', {"username" : this.username});
             this.scene.stop(); // Detenemos la escena actual para evitar el bucle infinito
     }
 
@@ -71,7 +72,7 @@ class FinalScene extends Phaser.Scene {
     }
 
     _exitGame() {
-        this.scene.start('MenuScene');
+        this.scene.start('MenuScene', {"username" : this.username});
     }
 
     _addButtonAnimations() {

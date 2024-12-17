@@ -7,13 +7,18 @@ class RegisterScene extends Phaser.Scene {
     startText; // Texto del botón de inicio
     settingsButton; // Botón de salida
     settingsText; // Texto del botón de salida
-	ipLocal;
+	username;
 	
     constructor() {
         super({ key: 'RegisterScene' });
     }
+	
+	init(data) {
+		this.username = data.username;
+	}
 
     create() {
+		this.username = null;
 		// Estilo global para todos los textos
 		    this.sys.game.config.defaultFontFamily = 'Poppins, Montserrat, Arial Rounded MT Bold, sans-serif';
 		    this.sys.game.config.defaultFontSize = '36px';
@@ -49,6 +54,12 @@ class RegisterScene extends Phaser.Scene {
             fill: '#fff'
         }).setOrigin(0.5, 0.5);
     }
+	
+	// Función que inicia el juego
+	    _startGame() {
+			
+	        this.scene.start('MenuScene', {"username" : this.username}); // Cambiar a la escena del juego
+	    }
 
     // Crear el botón de "Start Game" online
     _createStartButtonOnline() {
@@ -62,11 +73,6 @@ class RegisterScene extends Phaser.Scene {
             font: '32px Arial',
             fill: '#fff'
         }).setOrigin(0.5, 0.5);
-    }
-
-    // Función que inicia el juego
-    _startGame() {
-        this.scene.start('MenuScene'); // Cambiar a la escena del juego
     }
 
     _startRegister() {
