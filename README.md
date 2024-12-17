@@ -28,8 +28,8 @@ A continuación, se proporcionan las indicaciones necesarias para compilar y eje
 ## **Descargar el código fuente**  
 
 Para obtener el código fuente, hay dos opciones:  
-1. Descarga la última versión disponible del archivo comprimido: ** **, desde la sección de releases del repositorio.  
-2. Clona el repositorio directamente con el siguiente comando:  
+1. Descarga la última versión disponible del archivo comprimido: ** bombsRus.zip **, desde la sección de releases del repositorio.  
+2. Clona el repositorio directamente con el siguiente comando:  !!!!!!!!!!!!!!!!!!!!!
 ---
 ## **Requisitos previos**  
 
@@ -38,7 +38,9 @@ Antes de proceder, asegúrate de contar con las siguientes dependencias:
 - **Java JDK 17** (o una versión superior).
   
 Después de instalarlos, puedes confirmar que se han instalado correctamente ejecutando el comando:  java-version en el Símbolo del sistema.
+
 ---
+
 ##**Compilar el proyecto**  
 
 A continuación, se describe el procedimiento para compilar el código en el equipo que actuará como servidor del juego:  
@@ -47,13 +49,14 @@ A continuación, se describe el procedimiento para compilar el código en el equ
 Si descargaste el archivo .zip, descomprímelo y guarda los archivos en una carpeta de fácil acceso, como **C:/DFTMT** o una carpeta en tu escritorio. Si clonaste el repositorio, simplemente ubica los archivos en la carpeta predeterminada de clonación.
 
 2. **Localizar el archivo ejecutable:**  
-   Dirígete a la siguiente ubicación dentro de los archivos extraídos:   
+   Dirígete a la siguiente ubicación dentro de los archivos extraídos: !!!!!!!!!!!!!!!!!!!!!  
    Donde `"BASE"/` corresponde a la carpeta en la que guardaste el código fuente. Por ejemplo:  
-   - Si usaste **C:/DFTMT**, la ruta sería:  
-   - Si está en tu escritorio:
+   - Si usaste **C:/DFTMT**, la ruta sería:  !!!!!!!!!!!!!!!!!!!!!
+   - Si está en tu escritorio: !!!!!!!!!!!!!!!!!!!!!
      
 3. **Copiar la ruta del archivo:**  
-Dentro de la carpeta `target`, encontrarás el archivo **  **, que es el necesario para ejecutar el servidor localmente. Copia la ruta completa donde se encuentra este archivo siguiendo el método que prefieras.
+Dentro de la carpeta `target`, encontrarás el archivo ** !!!!!!!!!!!!!!!!!!!!! **, que es el necesario para ejecutar el servidor localmente. Copia la ruta completa donde se encuentra este archivo siguiendo el método que prefieras.
+
 **Iniciar el servidor y acceder al juego**  
 
 ## **Abrir el Símbolo del sistema** 
@@ -65,13 +68,13 @@ Para comenzar, abre el **Símbolo del sistema** con uno de los siguientes métod
 
 ## **Navegar a la carpeta del archivo ejecutable**  
 
-En la consola abierta, escribe el comando `cd` seguido de la ruta donde se encuentra el archivo `.jar` que copiamos anteriormente. Por ejemplo:  
+En la consola abierta, escribe el comando `cd` seguido de la ruta donde se encuentra el archivo `.jar` que copiamos anteriormente. Por ejemplo:  !!!!!!!!!!!!!!!!!!!!!
 
 ---
 
 ## **Ejecutar el servidor**  
 
-Introduce el siguiente comando en la consola para ejecutar el servidor:  
+Introduce el siguiente comando en la consola para ejecutar el servidor:  !!!!!!!!!!!!!!!!!!!!!
 Si todo se configuró correctamente, deberías ver un mensaje que indica que el servidor está en ejecución.  
 
 ---
@@ -81,13 +84,13 @@ Si todo se configuró correctamente, deberías ver un mensaje que indica que el 
 Para que los demás dispositivos en la red puedan conectarse al juego, es necesario conocer la dirección IP del ordenador que actúa como servidor.  
 
 1. Abre una nueva ventana del **Símbolo del sistema**.  
-2. Ejecuta el comando:  
+2. Ejecuta el comando:  !!!!!!!!!!!!!!!!!!!!!
 
    ```bash
    ipconfig
    ```  
 
-3. Busca el apartado **Dirección IPv4**. El número que aparece es la dirección IP del servidor. Por ejemplo, en este caso es:
+3. Busca el apartado **Dirección IPv4**. El número que aparece es la dirección IP del servidor. Por ejemplo, en este caso es: !!!!!!!!!!!!!!!!!!!!!
    
 ---
 
@@ -98,7 +101,7 @@ En un ordenador conectado a la misma red que el servidor, abre un navegador web.
 - **Mozilla Firefox**  
 - **Google Chrome**  
 
-En una nueva pestaña, escribe la dirección IP del servidor seguida de `:8080` (el puerto de conexión). Por ejemplo: 
+En una nueva pestaña, escribe la dirección IP del servidor seguida de `:8080` (el puerto de conexión). Por ejemplo: !!!!!!!!!!!!!!!!!!!!!
 
 ---
 
@@ -364,11 +367,6 @@ El juego se desarrollará utilizando **Spring Boot** para la parte del servidor 
 
 Las funciones de red son esenciales para garantizar la interacción en tiempo real entre los jugadores y el servidor. Las principales funciones de red incluirán:
 
-- **Conexión de jugadores:** El servidor gestionará la conexión de dos jugadores, permitiendo que se unan a la partida y estableciendo un juego en tiempo real.
-- **Sincronización de estado:** Se implementarán mecanismos para sincronizar el estado del juego entre el servidor y los clientes, asegurando que todas las acciones (como movimientos de personajes y explosiones) se reflejen instantáneamente en todos los dispositivos de los jugadores.
-- **Comunicación en tiempo real:** Utilizando **WebSockets**, el servidor podrá enviar y recibir datos para garantizar que las interacciones entre los jugadores sean rápidas y fluidas.
-- **Gestión de partidas:** El servidor se encargará de gestionar el ciclo de vida de las partidas, desde la creación hasta la finalización, permitiendo a los jugadores unirse, salir y ser emparejados de forma dinámica.
-  
 ## CUENTA
 - *Registro e inicio de sesión: Se ha utilizado un método **POST*  
 - *Borrar cuenta: Se ha utilizado un método **DELETE*  
