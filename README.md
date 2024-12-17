@@ -21,7 +21,8 @@ Bombs "R" Us es un juego competitivo en el que dos jugadores se enfrentan dentro
   - Correo: [l.garciaper.2022@alumnos.urjc.es](mailto:l.garciaper.2022@alumnos.urjc.es)  
   - GitHub: [lugarpe](https://github.com/lugarpe)
 
-**Instrucciones de instalación (Windows)**  
+###**Instrucciones de instalación (Windows)**  
+
 A continuación, se proporcionan las indicaciones necesarias para compilar y ejecutar el juego correctamente en una red local.
 
 ## **Descargar el código fuente**  
