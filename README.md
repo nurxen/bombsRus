@@ -51,7 +51,7 @@ Si descargaste el archivo .zip, descomprímelo y guarda los archivos en una carp
    Donde `"BASE"/` corresponde a la carpeta en la que guardaste el código fuente. Por ejemplo:  
    - Si usaste **C:/DFTMT**, la ruta sería:  
    - Si está en tu escritorio:
-   - 
+     
 3. **Copiar la ruta del archivo:**  
 Dentro de la carpeta `target`, encontrarás el archivo **  **, que es el necesario para ejecutar el servidor localmente. Copia la ruta completa donde se encuentra este archivo siguiendo el método que prefieras.
 **Iniciar el servidor y acceder al juego**  
@@ -368,6 +368,27 @@ Las funciones de red son esenciales para garantizar la interacción en tiempo re
 - **Sincronización de estado:** Se implementarán mecanismos para sincronizar el estado del juego entre el servidor y los clientes, asegurando que todas las acciones (como movimientos de personajes y explosiones) se reflejen instantáneamente en todos los dispositivos de los jugadores.
 - **Comunicación en tiempo real:** Utilizando **WebSockets**, el servidor podrá enviar y recibir datos para garantizar que las interacciones entre los jugadores sean rápidas y fluidas.
 - **Gestión de partidas:** El servidor se encargará de gestionar el ciclo de vida de las partidas, desde la creación hasta la finalización, permitiendo a los jugadores unirse, salir y ser emparejados de forma dinámica.
+  
+## CUENTA
+- *Registro e inicio de sesión: Se ha utilizado un método **POST*  
+- *Borrar cuenta: Se ha utilizado un método **DELETE*  
+- *Cambiar contraseña: Se ha utilizado un método **PUT*  
+
+## RANKING
+- *Crear ranking: Se ha utilizado un método **POST*  
+- *Recoger datos del ranking: Se ha utilizado un método **GET*  
+
+## CHAT
+- *Crear mensaje: Se ha utilizado un método **POST*  
+- *Devolver mensajes almacenados: Se ha utilizado un método **GET*  
+
+## USUARIOS CONECTADOS
+- *Agregar usuario a la lista de conectados: Se ha utilizado un método **POST*  
+- *Eliminar usuario de la lista de conectados: Se ha utilizado un método **DELETE*  
+- *Obtener lista de usuarios conectados: Se ha utilizado un método **GET*  
+
+## CONECTIVIDAD DEL SERVIDOR
+- *Estado de la conexión: Se ha utilizado un método **GET*
 
 ### 7.2 Herramientas adicionales
 
