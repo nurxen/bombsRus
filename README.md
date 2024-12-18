@@ -305,6 +305,7 @@ Las principales influencias visuales para este proyecto provienen de títulos co
 ![Personaje](IMAGENES_README/GameImagen.jpg)
 
 - **Decoración/obstáculos:**
+  
 ![Escenario](IMAGENES_README/BallDecoration.png)
 ![Escenario](IMAGENES_README/CarDecoracion.png)
 ![Escenario](IMAGENES_README/CubeDecoration.png)
@@ -353,6 +354,7 @@ A la pantalla de juego solo se podrá acceder desde el menú principal y no se p
 Esta escena aparece cuando el jugador pulsa durante la partida el botón de pausa. De ella se puede volver a acceder al Menu principal o al juego de nuevo.
 
 - **Botones:**
+  
 ![Personaje](IMAGENES_README/LOGOUT.png)
 ![Personaje](IMAGENES_README/CARGAR1.png)
 ![Personaje](IMAGENES_README/CARGAR2.png)
