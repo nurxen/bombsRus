@@ -56,6 +56,7 @@ class PreloadScene extends Phaser.Scene {
 		this.load.image("CuddlesIcon", "./assets/ASSTES/CuddlesIcon.png");
 		this.load.image("PuffyIcon", "./assets/ASSTES/PuffyIcon.png");
 		this.load.image("sinWifi", "./assets/ASSTES/sinWifi.png");
+		this.load.image("reloadButton", "./assets/BOTONES/reloadButton.png");
 
         // Assets de decoracion
         this.load.image("LegoDecoration", "./assets/DECORACION/LegoDecoration.png");
@@ -75,10 +76,12 @@ class PreloadScene extends Phaser.Scene {
         this.load.image("OptionsBackground", "./assets/ESCENARIOS/OptionsBackground.png");
         this.load.image("GameBackground", "./assets/ESCENARIOS/GameBackground.png");
 		this.load.image("PauseBackground", "./assets/ESCENARIOS/PauseBackground.png");
-		this.load.image("RankingBackground", "./assets/ESCENARIOS/MainMenuBackground.png");
+		this.load.image("RankingBackground", "./assets/ESCENARIOS/RankingBackground.png");
 				
 		//Botones
         this.load.image("StartButton", "./assets/BOTONES/StartButton.png");
+		this.load.image("X", "./assets/BOTONES/X.png");
+		this.load.image("BackButton", "./assets/BOTONES/BackButton.png");
 		this.load.image("OnlineButton", "./assets/BOTONES/OnlineButton.png");
 		this.load.image("LocalButton", "./assets/BOTONES/LocalButton.png");
 		this.load.image("PauseButton", "./assets/BOTONES/PauseButton.png");

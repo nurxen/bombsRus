@@ -162,7 +162,7 @@ public class Fase3JerApplication {
             for (String line : lines) {
                 String[] parts = line.split(":");
                 if (parts.length == 2) {
-                    response.append(parts[0] + " HAS " + parts[1] + " VICTORIES.\n");
+                    response.append(parts[0] + " has " + parts[1] + " victories.\n");
                 }
             }
 

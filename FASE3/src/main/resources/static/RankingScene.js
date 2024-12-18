@@ -33,8 +33,8 @@ class RankingScene extends Phaser.Scene {
 
     // Crear el botón de "Settings"
     _createExitButton() {
-        this.exitButton = this.add.image(1125, 650, 'MainMenuButton')
-            .setScale(0.15)
+        this.exitButton = this.add.image(1125, 650, 'ExitButton')
+            .setScale(0.23)
             .setOrigin(0.5, 0.5)
             .setInteractive() // Hacer el botón interactivo
             .on('pointerdown', () => this._menuScene()); // Llamar a la función para salir del juego
@@ -125,11 +125,11 @@ class RankingScene extends Phaser.Scene {
 
     // Animación de cuando el puntero pasa por encima del botón "Settings"
     _onButtonHover() {
-        this.exitButton.setScale(0.2); // Cambiar a una escala mayor
+        this.exitButton.setScale(0.24); // Cambiar a una escala mayor
     }
 
     // Animación de cuando el puntero sale del botón "Settings"
     _onButtonOut() {
-        this.exitButton.setScale(0.15); // Volver a la escala original
+        this.exitButton.setScale(0.23); // Volver a la escala original
     }
 }

@@ -64,8 +64,8 @@ class MenuScene extends Phaser.Scene {
 	
 	// Crear el botón de "Back"
 		    _createBackButton() {
-		        this.BackButton = this.add.image(1175, 725, 'MainMenuButton')
-		            .setScale(0.13)
+		        this.BackButton = this.add.image(this.sys.game.config.width-65, this.sys.game.config.height-65, 'ExitButton')
+		            .setScale(0.23)
 		            .setOrigin(0.5, 0.5)
 		            .setInteractive() // Hacer el botón interactivo
 		            .on('pointerdown', () => this._back()); // Llamar a la función para iniciar el juego
@@ -180,11 +180,11 @@ class MenuScene extends Phaser.Scene {
 	
 	// Animación de cuando el puntero pasa por encima del botón "Start"
 	_onButtonHoverBack(button) {
-	    button.setScale(0.14); // Cambiar a una escala mayor
+	    button.setScale(0.24); // Cambiar a una escala mayor
 	}
 
 	// Animación de cuando el puntero sale del botón "Start"
 	_onButtonOutBack(button) {
-	    button.setScale(0.13); // Volver a la escala original
+	    button.setScale(0.23); // Volver a la escala original
 	}
 }

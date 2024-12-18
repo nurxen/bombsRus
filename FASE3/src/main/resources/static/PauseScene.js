@@ -41,8 +41,8 @@ class PauseScene extends Phaser.Scene {
 			
 			// Crear el botón de "Start Game"
 			    _createExitButton() {
-			        this.exitButton = this.add.image(610, 300, 'ExitButton')
-			            .setScale(0.25)
+			        this.exitButton = this.add.image(this.sys.game.config.width-65, 65, 'X')
+			            .setScale(0.2)
 			            .setOrigin(0.5, 0.5)
 			            .setInteractive() // Hacer el botón interactivo
 			            .on('pointerdown', () => this._startGame()); // Llamar a la función para iniciar el juego
@@ -61,7 +61,7 @@ class PauseScene extends Phaser.Scene {
 			    }
 				
 				_createBackButton() {
-				        this.backButton = this.add.image(610, 450, 'MainMenuButton')
+				        this.backButton = this.add.image(640, 450, 'MainMenuButton')
 				            .setScale(0.2)
 				            .setOrigin(0.5, 0.5)
 				            .setInteractive()
@@ -90,11 +90,11 @@ class PauseScene extends Phaser.Scene {
 
 				    // Animación de cuando el puntero pasa por encima del botón "Start"
 				    _onExitButtonHover(button) {
-				        button.setScale(0.27); // Cambiar a una escala mayor
+				        button.setScale(0.22); // Cambiar a una escala mayor
 				    }
 
 				    // Animación de cuando el puntero sale del botón "Start"
 				    _onExitButtonOut(button) {
-				        button.setScale(0.25); // Volver a la escala original
+				        button.setScale(0.2); // Volver a la escala original
 				    }
 }
