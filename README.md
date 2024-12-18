@@ -353,6 +353,8 @@ A esta escena solo se accede desde el menu principal, aquí se encontrarán los 
 ![Personaje](IMAGENES_README/GameImagen.jpg)
 A la pantalla de juego solo se podrá acceder desde el menú principal y no se podrá salir de ellla hasta finalizar la partida.
 ![Personaje](IMAGENES_README/RANKING2.png)
+En esta interfaz se muestra el número de partidas ganadas por usuario. De ella se puede volver al menú principal.
+![Escenario](IMAGENES_README/imssage.png)
 Esta escena aparece cuando el jugador pulsa durante la partida el botón de pausa. De ella se puede volver a acceder al Menu principal o al juego de nuevo.
 
 - **Botones:**
@@ -398,23 +400,38 @@ Las funciones de red son esenciales para garantizar la interacción en tiempo re
 ## CUENTA
 - *Registro e inicio de sesión: Se ha utilizado un método **POST*  
 - *Borrar cuenta: Se ha utilizado un método **DELETE*  
-- *Cambiar contraseña: Se ha utilizado un método **PUT*  
+- *Cambiar contraseña: Se ha utilizado un método **PUT*
+
+
+![Escenario](IMAGENES_README/imaaage.png)
+![Escenario](IMAGENES_README/imasssge.png)
+
 
 ## RANKING
 - *Crear ranking: Se ha utilizado un método **POST*  
-- *Recoger datos del ranking: Se ha utilizado un método **GET*  
+- *Recoger datos del ranking: Se ha utilizado un método **GET*
+
+![Escenario](IMAGENES_README/imassge.png)
 
 ## CHAT
 - *Crear mensaje: Se ha utilizado un método **POST*  
-- *Devolver mensajes almacenados: Se ha utilizado un método **GET*  
+- *Devolver mensajes almacenados: Se ha utilizado un método **GET*
+
+![Escenario](IMAGENES_README/imaage.png)
 
 ## USUARIOS CONECTADOS
 - *Agregar usuario a la lista de conectados: Se ha utilizado un método **POST*  
 - *Eliminar usuario de la lista de conectados: Se ha utilizado un método **DELETE*  
-- *Obtener lista de usuarios conectados: Se ha utilizado un método **GET*  
+- *Obtener lista de usuarios conectados: Se ha utilizado un método **GET*
+
+![Escenario](IMAGENES_README/imagea.png)
+![Escenario](IMAGENES_README/imagsse.png)
+
 
 ## CONECTIVIDAD DEL SERVIDOR
 - *Estado de la conexión: Se ha utilizado un método **GET*
+
+![Escenario](IMAGENES_README/imadddge.png)
 
 ### 7.2 Herramientas adicionales
 
