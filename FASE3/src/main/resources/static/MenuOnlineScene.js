@@ -115,7 +115,7 @@ class MenuOnlineScene extends Phaser.Scene {
     }
 
 	_createReconnectButton() {
-	        this.reconectButton = this.add.image(6000, 6000, 'sinWifi')
+	        this.reconectButton = this.add.image(6000, 6000, 'reloadButton')
 	            .setScale(0.5)
 	            .setOrigin(0.5, 0.5)
 	            .setInteractive()
@@ -123,8 +123,8 @@ class MenuOnlineScene extends Phaser.Scene {
 	  }
 		
     _createBackButton() {
-        this.BackButton = this.add.image(1175, 725, 'MainMenuButton')
-            .setScale(0.13)
+        this.BackButton = this.add.image(1175, 725, 'BackButton')
+            .setScale(0.25)
             .setOrigin(0.5, 0.5)
             .setInteractive()
             .on('pointerdown', () => this._back());
@@ -257,6 +257,7 @@ class MenuOnlineScene extends Phaser.Scene {
 		// Eliminar usuario
 		_deleteAccount() {
 		    const currentUser = localStorage.getItem('currentUser');
+			
 		    if (!currentUser) {
 		        alert('NO ACTIVE USER.');
 		        return;
@@ -285,7 +286,9 @@ class MenuOnlineScene extends Phaser.Scene {
 		            }
 					this.username = null;
 		            // Redirigir al RegisterScene después de eliminar la cuenta
+					
 		            this.scene.start('RegisterScene', {"username" : this.username}); // Cambiar a la escena de registro
+					this._actualizarUsuariosConectados();
 		        })
 		        .catch(error => alert("ERROR DELETING ACCOUNT: ${error.message}"));
 		    }
@@ -344,12 +347,12 @@ class MenuOnlineScene extends Phaser.Scene {
 			
 			// Animación de cuando el puntero pasa por encima del botón "Start"
 			_onButtonHoverBack(button) {
-			    button.setScale(0.14); // Cambiar a una escala mayor
+			    button.setScale(0.26); // Cambiar a una escala mayor
 			}
 
 			// Animación de cuando el puntero sale del botón "Start"
 			_onButtonOutBack(button) {
-			    button.setScale(0.13); // Volver a la escala original
+			    button.setScale(0.25); // Volver a la escala original
 			}
 			
 			// Animación de cuando el puntero pasa por encima del botón "Start"
@@ -364,12 +367,12 @@ class MenuOnlineScene extends Phaser.Scene {
 			
 			// Animación de cuando el puntero pasa por encima del botón "Start"
 			_onButtonHoverCircle(button) {
-				button.setScale(0.55); // Cambiar a una escala mayor
+				button.setScale(0.21); // Cambiar a una escala mayor
 			}
 
 			// Animación de cuando el puntero sale del botón "Start"
 			_onButtonOutCircle(button) {
-				button.setScale(0.50); // Volver a la escala original
+				button.setScale(0.18); // Volver a la escala original
 			}
 
 
@@ -377,7 +380,7 @@ class MenuOnlineScene extends Phaser.Scene {
 	// Crear el botón de "Chat"
 	    _createChatButton() {
 	        this.chatButton = this.add.image(this.sys.game.config.width - 195, 80, 'ChatIcon')
-	            .setScale(0.5)
+	            .setScale(0.18)
 	            .setOrigin(0.5, 0.5)
 	            .setInteractive()
 	            .on('pointerdown', () => this._toggleChatForm()); // Usar _toggleChatForm en lugar de _openChatForm
@@ -470,20 +473,7 @@ class MenuOnlineScene extends Phaser.Scene {
 		    }
 
 
-			_actualizarUsuariosConectados() {
-			    this.usuariosInterval = setInterval(async () => {
-			        try {
-			            const response = await fetch('/api/usuariosConectados');
-			            if (response.ok) {
-			                const usuarios = await response.json();
-			                console.log('Usuarios conectados:', usuarios);
-			                // Opcional: puedes mostrar esta lista en pantalla
-			            }
-			        } catch (error) {
-			            console.error('Error fetching connected users:', error);
-			        }
-			    }, 1000); // Cada 1 segundos
-			}
+
 			
 			_actualizarUsuariosConectados() {
 			    this.usuariosInterval = setInterval(async () => {

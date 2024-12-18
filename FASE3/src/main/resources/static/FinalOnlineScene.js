@@ -124,7 +124,7 @@ class FinalOnlineScene extends Phaser.Scene {
 	            this.sys.game.config.width / 2, 
 	            150, 
 	            rankingText, 
-	            { font: '32px Arial', fill: '#ffffff', align: 'center' }
+	            { font: '32px Arial', fill: '#000000', align: 'center' }
 	        );
 	        this.rankingsText.setOrigin(0.5, 0);  // Centrar el texto
 	    }).fail((jqXHR, textStatus, errorThrown) => {

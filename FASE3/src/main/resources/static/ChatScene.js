@@ -25,8 +25,8 @@ class ChatScene extends Phaser.Scene {
 		
 		// Crear el botón de "Start Game"
 		    _createStartButton() {
-		        this.startButton = this.add.image(640, 560, '')
-		            .setScale(1.0)
+		        this.startButton = this.add.image(640, 560, 'Colider64')
+		            .setScale(1.5)
 		            .setOrigin(0.5, 0.5)
 		            .setInteractive() // Hacer el botón interactivo
 		            .on('pointerdown', () => this._startGame()); // Llamar a la función para iniciar el juego

@@ -117,8 +117,8 @@
 
     // Crear el botón de salida
     _createExitButton() {
-        this.exitButton = this.add.image(1125, 650, 'MainMenuButton')
-            .setScale(0.15)
+        this.exitButton = this.add.image(1125, 650, 'ExitButton')
+            .setScale(0.23)
             .setOrigin(0.5, 0.5)
             .setInteractive()
             .on('pointerdown', () => this._menuScene());
@@ -129,8 +129,8 @@
     }
 
     _addButtonAnimations() {
-        this.exitButton.on('pointerover', () => this.exitButton.setScale(0.2));
-        this.exitButton.on('pointerout', () => this.exitButton.setScale(0.15));
+        this.exitButton.on('pointerover', () => this.exitButton.setScale(0.24));
+        this.exitButton.on('pointerout', () => this.exitButton.setScale(0.23));
     }
 }
 
