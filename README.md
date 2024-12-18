@@ -29,7 +29,7 @@ A continuación, se proporcionan las indicaciones necesarias para compilar y eje
 
 Para obtener el código fuente, hay dos opciones:  
 1. Descarga la última versión disponible del archivo comprimido: ** bombsRus.zip **, desde la sección de releases del repositorio.  
-2. Clona el repositorio directamente con el siguiente comando:  !!!!!!!!!!!!!!!!!!!!!
+2. Clona el repositorio directamente con el siguiente comando: https://github.com/nurxen/bombsRus.git 
 ---
 ## **Requisitos previos**  
 
@@ -46,16 +46,17 @@ Después de instalarlos, puedes confirmar que se han instalado correctamente eje
 A continuación, se describe el procedimiento para compilar el código en el equipo que actuará como servidor del juego:  
 
 1. **Extraer los archivos:**  
-Si descargaste el archivo .zip, descomprímelo y guarda los archivos en una carpeta de fácil acceso, como **C:/DFTMT** o una carpeta en tu escritorio. Si clonaste el repositorio, simplemente ubica los archivos en la carpeta predeterminada de clonación.
+Si descargaste el archivo .zip, descomprímelo y guarda los archivos en una carpeta de fácil acceso, como **C:/DFTMT**. Si clonaste el repositorio, simplemente ubica los archivos en la carpeta predeterminada de clonación.
 
 2. **Localizar el archivo ejecutable:**  
-   Dirígete a la siguiente ubicación dentro de los archivos extraídos: !!!!!!!!!!!!!!!!!!!!!  
-   Donde `"BASE"/` corresponde a la carpeta en la que guardaste el código fuente. Por ejemplo:  
-   - Si usaste **C:/DFTMT**, la ruta sería:  !!!!!!!!!!!!!!!!!!!!!
-   - Si está en tu escritorio: !!!!!!!!!!!!!!!!!!!!!
+   Dirígete a la siguiente ubicación dentro de los archivos extraídos: bombRus.jar
+   Donde `"BASE"/` corresponde a la carpeta en la que guardaste el código fuente. Por ejemplo:
+   
+   - La ruta sería:  "BASE"/FASE3/target
+ 
      
-3. **Copiar la ruta del archivo:**  
-Dentro de la carpeta `target`, encontrarás el archivo ** !!!!!!!!!!!!!!!!!!!!! **, que es el necesario para ejecutar el servidor localmente. Copia la ruta completa donde se encuentra este archivo siguiendo el método que prefieras.
+4. **Copiar la ruta del archivo:**  
+Dentro de la carpeta `target`, encontrarás el archivo ** bombsRus.jar **, que es el necesario para ejecutar el servidor localmente. Copia la ruta completa donde se encuentra este archivo siguiendo el método que prefieras.
 
 **Iniciar el servidor y acceder al juego**  
 
@@ -68,13 +69,13 @@ Para comenzar, abre el **Símbolo del sistema** con uno de los siguientes métod
 
 ## **Navegar a la carpeta del archivo ejecutable**  
 
-En la consola abierta, escribe el comando `cd` seguido de la ruta donde se encuentra el archivo `.jar` que copiamos anteriormente. Por ejemplo:  !!!!!!!!!!!!!!!!!!!!!
+En la consola abierta, escribe el comando `cd` seguido de la ruta donde se encuentra el archivo `.jar` que copiamos anteriormente. Por ejemplo: cd C:\Users\Lenovo\Documents\GitHub\bombsRus\FASE3\target
 
 ---
 
 ## **Ejecutar el servidor**  
 
-Introduce el siguiente comando en la consola para ejecutar el servidor:  !!!!!!!!!!!!!!!!!!!!!
+Introduce el siguiente comando en la consola para ejecutar el servidor: java -jar bombsRus.jar
 Si todo se configuró correctamente, deberías ver un mensaje que indica que el servidor está en ejecución.  
 
 ---
@@ -84,13 +85,13 @@ Si todo se configuró correctamente, deberías ver un mensaje que indica que el 
 Para que los demás dispositivos en la red puedan conectarse al juego, es necesario conocer la dirección IP del ordenador que actúa como servidor.  
 
 1. Abre una nueva ventana del **Símbolo del sistema**.  
-2. Ejecuta el comando:  !!!!!!!!!!!!!!!!!!!!!
+2. Ejecuta el comando: 
 
    ```bash
    ipconfig
    ```  
 
-3. Busca el apartado **Dirección IPv4**. El número que aparece es la dirección IP del servidor. Por ejemplo, en este caso es: !!!!!!!!!!!!!!!!!!!!!
+3. Busca el apartado **Dirección IPv4**. El número que aparece es la dirección IP del servidor. Por ejemplo, en este caso es: 192.168.0.10
    
 ---
 
@@ -101,7 +102,7 @@ En un ordenador conectado a la misma red que el servidor, abre un navegador web.
 - **Mozilla Firefox**  
 - **Google Chrome**  
 
-En una nueva pestaña, escribe la dirección IP del servidor seguida de `:8080` (el puerto de conexión). Por ejemplo: !!!!!!!!!!!!!!!!!!!!!
+En una nueva pestaña, escribe la dirección IP del servidor seguida de `:8080` (el puerto de conexión). Por ejemplo: 192.168.0.10:8080
 
 ---
 
