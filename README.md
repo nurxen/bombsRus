@@ -320,6 +320,8 @@ Las principales influencias visuales para este proyecto provienen de títulos co
 ![Escenario](IMAGENES_README/CINTA1.png)
 ![Escenario](IMAGENES_README/CINTA2.png)
 ![Escenario](IMAGENES_README/CINTA3.png)
+![Escenario](IMAGENES_README/OSOVIDAS.png)
+![Escenario](IMAGENES_README/CONEJOVIDAS.png)
 
 
 ### 5.4 UI/UX
