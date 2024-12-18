@@ -7,8 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.*;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.nio.file.*;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -22,7 +20,6 @@ public class Fase3JerApplication {
 
     // Simulación de una base de datos en memoria
     private Map<String, String> users = new HashMap<>();
-    private String opcionesVolumen = "50"; // Ajustes iniciales del volumen
 
     // Archivos de usuario y rankings
     private final String usuariosFile = "usuarios.txt";
