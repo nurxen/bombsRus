@@ -254,7 +254,7 @@ El diagrama de flujo de la interfaz del juego sigue una estructura simple entre 
 - **Pantalla de victoria/derrota**: Al finalizar la partida, dependiendo del resultado (ganador o perdedor), el jugador es redirigido a una pantalla que muestra el resultado de la partida y les ofrece la opción de volver al menú principal.
 
 ![Diagramas](IMAGENES_README/diagramaDeFlujo2.jpg)
-
+![Diagramas](IMAGENES_README/DiagramaDeClases.png)
 
 ### 4.3 Créditos
 En la interfaz de "HELP", se muestra a los desarrolladores del juego:
