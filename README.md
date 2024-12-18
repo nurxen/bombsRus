@@ -157,6 +157,12 @@ Si los pasos se realizaron correctamente, el juego debería cargarse en el naveg
 **Revisión 2**
 - Actualización del README
 - Implementación del juego local.
+**Revisión 3**
+- Actualización del README
+- Implementar la comunicación entre el cliente y un servidor utilizando un servicio REST.
+- Definir la API REST que ofrecerá el servidor.
+- Definir las funciones de gestión de clientes y servidor.
+- Implementación comunicación cliente-cliente.
 ---
 
 ## 2. Introducción
@@ -310,6 +316,9 @@ Las principales influencias visuales para este proyecto provienen de títulos co
 ![Escenario](IMAGENES_README/PinkDuckDecoration.png)
 ![Escenario](IMAGENES_README/tiles.png)
 ![Escenario](IMAGENES_README/SettingsButton.png)
+![Escenario](IMAGENES_README/CINTA1.png)
+![Escenario](IMAGENES_README/CINTA2.png)
+![Escenario](IMAGENES_README/CINTA3.png)
 
 
 ### 5.4 UI/UX
@@ -340,10 +349,25 @@ A esta escena solo se accede desde el menu principal, aquí se encontrarán tant
 A esta escena solo se accede desde el menu principal, aquí se encontrarán los recursos para adaptar el juego tanto en volumen como en VFX. De ella se podrá volver de nuevo al menu principal.
 ![Personaje](IMAGENES_README/GameImagen.jpg)
 A la pantalla de juego solo se podrá acceder desde el menú principal y no se podrá salir de ellla hasta finalizar la partida.
+![Personaje](IMAGENES_README/RANKING2.png)
+Esta escena aparece cuando el jugador pulsa durante la partida el botón de pausa. De ella se puede volver a acceder al Menu principal o al juego de nuevo.
+
+- **Botones:**
+![Personaje](IMAGENES_README/LOGOUT.png)
+![Personaje](IMAGENES_README/CARGAR1.png)
+![Personaje](IMAGENES_README/CARGAR2.png)
+![Personaje](IMAGENES_README/CARGAR3.png)
+![Personaje](IMAGENES_README/BOTONUSER.png)
+![Personaje](IMAGENES_README/BOTONRANCKING.png)
+![Personaje](IMAGENES_README/BOTONPAUSA.png)
+![Personaje](IMAGENES_README/BOTONBACK.png)
+![Personaje](IMAGENES_README/CHAT.png)
+  
 **Diagrama de Imágenes:**
 ![Personaje](IMAGENES_README/diagramaDeImagenes.jpg)
 ### 5.5 Logo del juego
 ![Logo](IMAGENES_README/logo.png)
+
 
 ---
 
