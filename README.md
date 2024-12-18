@@ -53,7 +53,8 @@ Si descargaste el archivo .zip, descomprímelo y guarda los archivos en una carp
    Donde `"BASE"/` corresponde a la carpeta en la que guardaste el código fuente. Por ejemplo:
    
    - La ruta sería:  "BASE"/FASE3/target
- 
+   
+ ![Portada](IMAGENES_README/CAP1.png)
      
 4. **Copiar la ruta del archivo:**  
 Dentro de la carpeta `target`, encontrarás el archivo ** bombsRus.jar **, que es el necesario para ejecutar el servidor localmente. Copia la ruta completa donde se encuentra este archivo siguiendo el método que prefieras.
@@ -78,6 +79,8 @@ En la consola abierta, escribe el comando `cd` seguido de la ruta donde se encue
 Introduce el siguiente comando en la consola para ejecutar el servidor: java -jar bombsRus.jar
 Si todo se configuró correctamente, deberías ver un mensaje que indica que el servidor está en ejecución.  
 
+ ![Portada](IMAGENES_README/CAP2.png)
+ 
 ---
 
 ## **Obtener la dirección IP del servidor**  
@@ -93,6 +96,8 @@ Para que los demás dispositivos en la red puedan conectarse al juego, es necesa
 
 3. Busca el apartado **Dirección IPv4**. El número que aparece es la dirección IP del servidor. Por ejemplo, en este caso es: 192.168.0.10
    
+ ![Portada](IMAGENES_README/CAP3.png)   
+ 
 ---
 
 ## **Acceder al juego desde un navegador**  
