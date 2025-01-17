@@ -20,14 +20,23 @@ class GameScene extends Phaser.Scene {
     _bk; // Fondo de la escena
     _presentAnimation; // Sprite para la animación de los regalos
     _frames; // Frames de la animación
+	_pauseButton = null; // El botón de pausa
+	_pauseText = null;   // El texto que indica el estado de pausa
+	puffy;
+	cuddle;
+	username;
 
     constructor() {
         super({ key: 'GameScene' });
     }
 
+	init(data) { 
+			this.username = data.username;
+		}
+	
     // Preload: Cargar todos los recursos
     preload() {
-        console.log("Cargando GameScene...");
+        console.log("Loading GameScene...");
         this._loadAssets();
     }
 
@@ -43,7 +52,8 @@ class GameScene extends Phaser.Scene {
         this._createOsoAnimation(); // Crear la animación del regalo
         this._createPresentAnimationSprite(); // Crear el sprite para la animación
         this._setupCollisions(); // Configurar colisiones
-        this.backgroundMusic = this.sound.add('backgroundMusic', { volume: 0.3, loop: true });
+		this._createPauseButton(); // Crear botón de salida
+        this.backgroundMusic = this.sound.add('backgroundMusic', { volume: 0.1, loop: true });
         this.backgroundMusic.play();
     }
 
@@ -159,12 +169,22 @@ class GameScene extends Phaser.Scene {
         for (let i = 0; i < 3; i+=1.25) {
             const life = this.add.image(35 + i * 40, 30, "Life").setScale(0.8);
             this.player1Lifes.push(life);
+			
+			if(i<4){
+				this.puffy = this.add.image(35 + (1.3*3) * 40, 30, "PuffyIcon").setScale(0.8);
+			}
         }
+		
+		
 
         // Vidas del jugador 2
         for (let i = 0; i < 3; i+=1.25) {
             const life = this.add.image(1216 - i * 40, 730, "Life").setScale(0.8);
             this.player2Lifes.push(life);
+			
+			if(i<4){
+				this.cuddles = this.add.image(1216 + -(1.3*3) * 40, 730, "CuddlesIcon").setScale(0.8);
+			}
         }
     }
     
@@ -411,9 +431,52 @@ class GameScene extends Phaser.Scene {
         if (this.player1.isLoser() || this.player2.isLoser()) {
             const loser = this.getLoser();  // Obtienes el perdedor
             this.backgroundMusic.stop();
-            this.scene.start('FinalScene', { loser: loser }); // Pasas el perdedor como parámetro
+			
+			if(this.username == null){
+				this.scene.start('FinalScene', { loser: loser, "username" : this.username}); // Pasas el perdedor como parámetro
+			}else{
+				this.scene.start('FinalOnlineScene', { loser: loser, "username" : this.username});
+			}
+            
         }
     }
+	
+	// Crear el botón de "Pause"
+	_createPauseButton() {
+	    this.pauseButton = this.add.image(1250, 30, 'PauseButton')
+	        .setScale(0.15)
+	        .setOrigin(0.5, 0.5)
+	        .setInteractive() // Hacer el botón interactivo
+	        .on('pointerdown', () => this._togglePause()); // Llamar a la función para pausar o reanudar el juego
 
+	    this.pauseText = this.add.text(640, 600, '', {
+	        font: '32px Arial',
+	        fill: '#fff'
+	    }).setOrigin(0.5, 0.5);
+	}
+
+	// Función que alterna el estado de pausa
+	_togglePause() {
+		this.scene.pause('GameScene', { "username": this.username }); // Pausar el juego
+	   	this.scene.launch('PauseScene', { "username": this.username }); // Pausar el juego
+	    
+	}
+
+	// Agregar animaciones o efectos al botón de pausa
+	_addButtonAnimations() {
+	    // Agregar eventos para el botón de pausa
+	    this._pauseButton.on('pointerover', () => this._onPauseButtonHover());
+	    this._pauseButton.on('pointerout', () => this._onPauseButtonOut());
+	}
+
+	// Animación de cuando el puntero pasa por encima del botón "Pause"
+	_onPauseButtonHover() {
+	    this._pauseButton.setScale(1.05); // Cambiar a una escala mayor
+	}
+
+	// Animación de cuando el puntero sale del botón "Pause"
+	_onPauseButtonOut() {
+	    this._pauseButton.setScale(1.0); // Volver a la escala original
+	}
 
 }

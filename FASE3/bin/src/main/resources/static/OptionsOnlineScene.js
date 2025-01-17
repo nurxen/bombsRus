@@ -1,4 +1,4 @@
-﻿class OptionsScene extends Phaser.Scene {
+﻿class OptionsOnlineScene extends Phaser.Scene {
     // Variables públicas
     settingsBackground; // Fondo de la escena
     exitButton; // Botón de salida
@@ -7,15 +7,21 @@
     musicText; // Texto del slider de música
     effectsText; // Texto del slider de efectos de sonido
 	username;
+	
+	//cambiar volumen dpendiendo de cuenta
+	musicVolume =  0.5; // Volumen inicial de la música (0.0 a 1.0)
+	effectsVolume = 0.5; // Volumen inicial de los efectos de sonido (0.0 a 1.0)
+	
+
 
     constructor() {
-        super({ key: 'OptionsScene' });
+        super({ key: 'OptionsOnlineScene' });
     }
-
+	
 	init(data) {
 		        this.username = data.username;
 		    }
-			
+
     create() {
         this._createBackground(); // Crear fondo
         this._createSettingsText(); // Crear texto de ajustes
@@ -119,7 +125,7 @@
     }
 
     _menuScene() {
-        this.scene.start('MenuScene', { "username": this.username }); // Cambiar a la escena del menú
+        this.scene.start('MenuOnlineScene', { "username": this.username }); // Cambiar a la escena del menú
     }
 
     _addButtonAnimations() {
@@ -128,8 +134,3 @@
     }
 }
 
-// Variables globales para almacenar los volúmenes
-const globalSettings = {
-    musicVolume: 0.5, // Volumen inicial de la música (0.0 a 1.0)
-    effectsVolume: 0.5 // Volumen inicial de los efectos de sonido (0.0 a 1.0)
-};
