@@ -2,20 +2,25 @@ package com.example.demo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.socket.config.annotation.EnableWebSocket;
+import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
+import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
 
 import java.io.*;
 import java.nio.file.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@SpringBootApplication
 @RestController
 @RequestMapping("/api")
-public class Fase3JerApplication {
 
+public class Fase3JerApplication{ 
+	
+	
 	//Lista de mensajes para el chat
     private List<Map<String, String>> chatMessages = new ArrayList<>();
 
@@ -26,9 +31,6 @@ public class Fase3JerApplication {
     private final String usuariosFile = "usuarios.txt";
     private final String rankingsFile = "rankings.txt";
 
-    public static void main(String[] args) {
-        SpringApplication.run(Fase3JerApplication.class, args);
-    }    
     
     // POST: Crear usuario y contraseña
     @PostMapping("/usuario")
@@ -264,6 +266,7 @@ public class Fase3JerApplication {
     public List<String> obtenerUsuariosConectados() {
         return usuariosConectados;
     }
+
 
 
 }
