@@ -475,14 +475,30 @@ class OnlineGameScene extends Phaser.Scene {
 
 	// Función que alterna el estado de pausa
 	_togglePause() {
-		this.scene.pause('OnlineGameScene', { "username": this.username }); // Pausar el juego
-	   	this.scene.launch('PauseScene', { "username": this.username }); // Pausar el juego
+		
+		this._processPauseToggle();
 		
 		this.sendMessageToOpponent
         ({
             isPauseInput: true, pause: true
-        })
+        });
 	    
+	}
+	
+	_processPauseToggle(){
+		
+		this.scene.pause("OnlineGameScene");
+
+		// Evita que se vuelva a crear el objeto del menú si ya existe
+		if(!this.scene.get("PauseOnlineScene").loaded)
+		{
+		    this.scene.get("PauseOnlineScene").loaded = true;
+		    this.scene.launch("PauseOnlineScene"); // pone el menu de pausa por encima
+		}
+		else
+		{
+		    this.scene.wake("PauseOnlineScene"); // reactiva el menú de pausa (que ya estaba por encima)
+		}
 	}
 
 	// Agregar animaciones o efectos al botón de pausa
@@ -526,7 +542,7 @@ class OnlineGameScene extends Phaser.Scene {
 
             if(msg.isPauseInput && msg.pause)
             {
-                this._togglePause();
+                this._processPauseToggle();
             }
 
             return;

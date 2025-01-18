@@ -1,4 +1,4 @@
-class PauseScene extends Phaser.Scene {
+class PauseOnlineScene extends Phaser.Scene {
 	
 	// Variables públicas
 	    pauseBackground; // Fondo de la escena de pérdida
@@ -7,8 +7,11 @@ class PauseScene extends Phaser.Scene {
 		backButton;
 	    gameScene = new GameScene();
 		username;
+		remotePlayerResumed = false;
+		localPlayerResumed = false;
+		
 	    constructor() {
-	        super({ key: 'PauseScene' });
+	        super({ key: 'PauseOnlineScene' });
 	        
 	    }
 		
@@ -23,6 +26,8 @@ class PauseScene extends Phaser.Scene {
 	        this._createExitButton(); // Crear botón de salida
 			this._createBackButton();
 	        this._addButtonAnimations(); // Agregar animaciones a los botones
+			
+			wsMessageCallbacks.push((msg) => this.processWSMessage(msg.data))
 	    }
 
 	    // Métodos privados
@@ -45,18 +50,27 @@ class PauseScene extends Phaser.Scene {
 			            .setScale(0.2)
 			            .setOrigin(0.5, 0.5)
 			            .setInteractive() // Hacer el botón interactivo
-			            .on('pointerdown', () => this._startGame()); // Llamar a la función para iniciar el juego
+			            .on('pointerdown', () => this._resume()); // Llamar a la función para iniciar el juego
 
 			        this.startText = this.add.text(640, 600, '', {
 			            font: '32px Arial',
 			            fill: '#fff'
 			        }).setOrigin(0.5, 0.5);
 			    }
+				
+				_resume(){
+					this.localPlayerResumed = true;
+					connection.send(JSON.stringify({isPauseInput: true, resume: true}));
+					this._startGame();
+
+				}	
 
 			    // Función que inicia el juego
 			    _startGame() {
-			        this.scene.resume('GameScene', {"username" : this.username}); // Cambiar a la escena del juego
-					this.scene.sleep('PauseScene', {"username" : this.username}); // Cambiar a la escena del juego
+					this.remotePlayerResumed = false;
+					this.localPlayerResumed = false;
+					this.scene.resume('OnlineGameScene', {"username" : this.username});
+					this.scene.sleep('PauseOnlineScene', {"username" : this.username}); // Cambiar a la escena del juego
 			        //this.backgroundMusic.stop();
 			    }
 				
@@ -69,10 +83,16 @@ class PauseScene extends Phaser.Scene {
 				    }
 
 				    _back() {
-						this.scene.stop('GameScene', {"username" : this.username});
-						this.scene.start('MenuScene', {"username" : this.username}); // Pasas el perdedor como parámetro
-
-				    }
+						this.scene.stop('OnlineGameScene', {"username" : this.username});
+						this.scene.start('MenuOnlineScene', {"username" : this.username});
+						
+						if(connection)
+						        {
+						            connection.onclose = null;
+						            connection.close();
+						            connection = null;
+						        }
+					}
 
 				// Agregar animaciones o efectos a los botones
 				    _addButtonAnimations() {
@@ -94,4 +114,15 @@ class PauseScene extends Phaser.Scene {
 				    _onExitButtonOut(button) {
 				        button.setScale(0.2); // Volver a la escala original
 				    }
+					
+					processWSMessage(msg)
+					   {
+					       msg = JSON.parse(msg);
+					       
+					       if(msg.fromPlayer && msg.isPauseInput && msg.resume)
+					       {
+					           console.log("mensaje recibido de volver a jugar")
+					           this._startGame();
+					       }
+					   }
 }
