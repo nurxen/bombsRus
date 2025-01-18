@@ -69,7 +69,7 @@ public class Fase3JerApplication{
         }
 
         for (String line : lines) {
-            String[] parts = line.split(":");//dividir el string en username y cntraseña
+            String[] parts = line.split(":");//dividir el string en username y contraseña
             if (parts.length == 2 && parts[0].equals(usuario.getUsername()) && parts[1].equals(usuario.getPassword())) {
                 return new ResponseEntity<>(usuario.getUsername(), HttpStatus.OK);
             }

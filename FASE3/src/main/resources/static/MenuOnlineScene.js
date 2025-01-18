@@ -97,7 +97,8 @@ class MenuOnlineScene extends Phaser.Scene {
     }
 
     _startGame() {
-        this.scene.start('GameScene', { "username": this.username });
+        //this.scene.start('GameScene', { "username": this.username });
+		this.scene.start('Connecting', { "username": this.username }); // Cambia a la escena principal
         //this.backgroundMusic.stop();
     }
 

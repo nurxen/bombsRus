@@ -102,8 +102,7 @@ class Player {
     isLoser(){
         return this.isLoserPlayer;
     }
-
-    // Crear el sprite del jugador
+	
     // Crear el sprite del jugador
     _createPlayerSprite(position) {
         let spriteKey; // Variable para almacenar el spritesheet correspondiente
