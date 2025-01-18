@@ -1,7 +1,7 @@
 package com.example.demo;
 
 public class User {
-    private String username;
+	private String username;
     private String password; // Nuevo campo para la contraseña
     private long lastSeen;
 

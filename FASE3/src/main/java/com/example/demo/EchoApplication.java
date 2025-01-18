@@ -14,16 +14,14 @@ public class EchoApplication implements WebSocketConfigurer {
 
 	
     @Override
-    public void registerWebSocketHandlers(
-    WebSocketHandlerRegistry registry) {
-    registry.addHandler(echoHandler(), "/echo")
-    .setAllowedOrigins("*");
+    public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
+    	registry.addHandler(echoHandler(), "/echo").setAllowedOrigins("*");
     }
 
     
     @Bean
     public WebsocketEchoHandler echoHandler() {
-    return new WebsocketEchoHandler();
+    	return new WebsocketEchoHandler();
     }
     
     public static void main(String[] args) {
