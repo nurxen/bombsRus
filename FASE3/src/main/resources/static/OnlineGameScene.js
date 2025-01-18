@@ -1,5 +1,5 @@
 // noinspection SpellCheckingInspection
-class GameScene extends Phaser.Scene {
+class OnlineGameScene extends Phaser.Scene {
     // Variables públicas
     playersInput = {
         wasdKeys: 0,
@@ -25,9 +25,13 @@ class GameScene extends Phaser.Scene {
 	puffy;
 	cuddle;
 	username;
+	
+	// Online
+	localUser;
+	outerUser;
 
     constructor() {
-        super({ key: 'GameScene' });
+        super({ key: 'OnlineGameScene' });
     }
 
 	init(data) { 
@@ -36,11 +40,18 @@ class GameScene extends Phaser.Scene {
 	
     // Preload: Cargar todos los recursos
     preload() {
-        console.log("Loading GameScene...");
+        console.log("Loading OnlineGameScene...");
         this._loadAssets();
     }
 
     create() {
+		
+		//this.pauseKeyIsPressed = false;
+		//this.remotePausePanel = this.add.image(0, 0, "remotePause").setOrigin(0, 0).setVisible(false);
+		
+		wsMessageCallbacks.push((msg) => this.processWSMessage(msg.data));
+		connection.onclose = (msg) => this.closeWS(msg);
+				
         this._setupInputs(); // Configurar las teclas de entrada
         this._createBackground(); // Crear fondo
         this._createLifes(); // Crear fondo
@@ -151,8 +162,7 @@ class GameScene extends Phaser.Scene {
     _setupInputs() {
         this.playersInput.wasdKeys = this.input.keyboard.addKeys("W,A,S,D");
         this.playersInput.bombKey1 = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-        this.playersInput.arrowKeys = this.input.keyboard.createCursorKeys();
-        this.playersInput.bombKey2 = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
+		//this.playerInput.pauseKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
     }
 
     // Crear el fondo
@@ -192,6 +202,9 @@ class GameScene extends Phaser.Scene {
     _initPlayers() {
         this.player1 = new Player(this, 1, this.position, 1);
         this.player2 = new Player(this, 2, this.position2, -1);
+		
+		this.localPlayer = matchData.isPlayer1 ? this.player1 : this.player2;
+		this.remotePlayer = !matchData.isPlayer1 ? this.player1 : this.player2;
 
         console.log(this.player1); // Añadir para depurar
         console.log(this.player2); // Añadir para depurar
@@ -373,36 +386,40 @@ class GameScene extends Phaser.Scene {
     _processInput() {
         // Movimiento del jugador 1
         if (this.playersInput.wasdKeys.A.isDown) {
-            this.player1.xInput = -1;
+            this.localPlayer.xInput = -1;
         } else if (this.playersInput.wasdKeys.D.isDown) {
-            this.player1.xInput = 1;
+            this.localPlayer.xInput = 1;
         } else if (this.playersInput.wasdKeys.W.isDown) {
-            this.player1.yInput = -1;
+            this.localPlayer.yInput = -1;
         } else if (this.playersInput.wasdKeys.S.isDown) {
-            this.player1.yInput = 1;
+            this.localPlayer.yInput = 1;
         }
 
-        // Movimiento del jugador 2
-        if (this.playersInput.arrowKeys.left.isDown) {
-            this.player2.xInput = -1;
-        } else if (this.playersInput.arrowKeys.right.isDown) {
-            this.player2.xInput = 1;
-        } else if (this.playersInput.arrowKeys.up.isDown) {
-            this.player2.yInput = -1;
-        } else if (this.playersInput.arrowKeys.down.isDown) {
-            this.player2.yInput = 1;
-        }
-
+        
         // Si el jugador presiona la tecla para colocar una bomba
         if (this.playersInput.bombKey1.isDown) {
-            this.player1.dispararInput = 1;
+            this.localPlayer.dispararInput = 1;
         }
+		
+		this.sendMessageToOpponent
+	       ({
+	           isInput: true,
+	           xInput: this.localPlayer.xInput,
+	           yInput: this.localPlayer.yInput,
+			   dispararInput: this.localPlayer.dispararInput,
+	       });
 
-        // Si el jugador presiona la tecla para colocar una bomba
-        if (this.playersInput.bombKey2.isDown) {
-            this.player2.dispararInput = 1;
-        }
+    }
+	
+	_processOpponentInput(remotePlayerInput)
+    {
 
+        // Recibimos los inputs del jugador remoto
+        if(!remotePlayerInput) return;
+        
+        this.remotePlayer.xInput = remotePlayerInput.xInput;
+        this.remotePlayer.yInput = remotePlayerInput.yInput;
+		this.remotePlayer.dispararInput = remotePlayerInput.dispararInput;
     }
 
     // Metodo que se ejecuta cuando un jugador recibe daño
@@ -431,8 +448,15 @@ class GameScene extends Phaser.Scene {
         if (this.player1.isLoser() || this.player2.isLoser()) {
             const loser = this.getLoser();  // Obtienes el perdedor
             this.backgroundMusic.stop();
-			this.scene.start('FinalScene', { loser: loser, "username" : this.username}); // Pasas el perdedor como parámetro
+			
+			
+			wsMessageCallbacks = [];
+			connection.onclose = (m) => console.log("sesion cerrada por fin de partida.");
+			connection.send("!" + JSON.stringify({gameOver: true}));
+			
+			this.scene.start('FinalOnlineScene', { loser: loser, "username" : this.username});
 		}
+            
     }
 	
 	// Crear el botón de "Pause"
@@ -451,8 +475,13 @@ class GameScene extends Phaser.Scene {
 
 	// Función que alterna el estado de pausa
 	_togglePause() {
-		this.scene.pause('GameScene', { "username": this.username }); // Pausar el juego
+		this.scene.pause('OnlineGameScene', { "username": this.username }); // Pausar el juego
 	   	this.scene.launch('PauseScene', { "username": this.username }); // Pausar el juego
+		
+		this.sendMessageToOpponent
+        ({
+            isPauseInput: true, pause: true
+        })
 	    
 	}
 
@@ -472,5 +501,53 @@ class GameScene extends Phaser.Scene {
 	_onPauseButtonOut() {
 	    this._pauseButton.setScale(1.0); // Volver a la escala original
 	}
+	
+	sendMessageToOpponent(msg)
+    {
+        if(connection == null || connection.readyState == null || connection.readyState >= 2)
+        {
+            //error web socket cerrado tal
+            return;
+        }
+
+        connection.send(JSON.stringify(msg));
+    }
+
+	processWSMessage(msg)
+    {
+        msg = JSON.parse(msg);
+
+        if(msg.fromPlayer)
+        {
+            if(msg.isInput)
+            {
+                this._processOpponentInput(msg);
+            }
+
+            if(msg.isPauseInput && msg.pause)
+            {
+                this._togglePause();
+            }
+
+            return;
+        }
+
+        if(msg.onMatch)
+        {
+            if(msg.error) console.log(msg.error);
+        }
+    }
+
+    closeWS(msg)
+    {
+        connection = null;
+        console.log(msg);
+        //cambiar de escena a una que muestre el mensaje de conexion perdida, y luego volver al menu principal
+
+        this.scene.launch("ConnectionLostScene");
+        this.enableInput(false);
+        this.scene.stop("OnlineGameScene");
+        this.scene.sleep("OnlinePauseScene");
+    }
 
 }

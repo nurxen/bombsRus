@@ -73,7 +73,7 @@ class Connecting extends Phaser.Scene {
 	            wsMessageCallbacks.shift(); //quitar el callback del array
 
 	    		this.game.sound.stopAll();
-	            this.scene.start("GameScene", { isPlaying: true, "username": this.username });
+	            this.scene.start("OnlineGameScene", { isPlaying: true, "username": this.username });
 				
 	        }
 	    }
