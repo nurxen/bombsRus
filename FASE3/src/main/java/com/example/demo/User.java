@@ -1,4 +1,7 @@
 package com.example.demo;
+import org.springframework.stereotype.Service;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class User {
@@ -8,10 +11,10 @@ public class User {
     private long lastSeen;
 
     // Constructor con la contraseña
-    public User(String username, String password, long lastSeen) {
+    public User(String username, String password) {
         this.username = username;
         this.password = password;
-        this.lastSeen = lastSeen;
+        //this.lastSeen = lastSeen;
         this.logged = true;
     }
     

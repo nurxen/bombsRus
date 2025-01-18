@@ -19,7 +19,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 public class WebsocketEchoHandler extends TextWebSocketHandler {
 	
 	@Autowired // Habilita la inyeccion de dependencias en clases de java
-	private User user;
+	private UserService userService;
 	private int count = 0; // Contador de sesiones activas
 	
 	//tiempo maximo de una sesion en partida sin responder antes de cerrarla 
@@ -141,7 +141,7 @@ public class WebsocketEchoHandler extends TextWebSocketHandler {
 		}
 		
 		//se comprueba que el usuario este en el mapa de la api rest
-		User actualUser = user; //-------------------------------------------------------------------------------
+		User actualUser = userService.getUser(newUser.getUsername());
 		if(actualUser == null || !actualUser.getLogged())
 		{
 			json.put("error", "Usuario inválido.");

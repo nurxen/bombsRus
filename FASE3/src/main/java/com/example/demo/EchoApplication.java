@@ -13,14 +13,13 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
 
 @EnableWebSocket
 @SpringBootApplication
-
 public class EchoApplication implements WebSocketConfigurer {
 
 	
     @Override
     // Asignamos el handler al registro
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-    	registry.addHandler(echoHandler(), "/echo").setAllowedOrigins("*");
+    	registry.addHandler(echoHandler(), "/match").setAllowedOrigins("*");
     }
 
     

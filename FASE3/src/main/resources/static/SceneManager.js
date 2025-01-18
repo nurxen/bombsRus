@@ -1,6 +1,13 @@
 	// Configuración del juego en Phaser
 // noinspection SpellCheckingInspection
 
+let user = null;
+let gameplayResourcesLoaded = false;
+let IP = "";
+let connection = null;
+let wsMessageCallbacks = []
+let matchData = null;
+
 const config = {
     type: Phaser.AUTO,
     width: 1280,
@@ -15,7 +22,7 @@ const config = {
         }
     },
     scene: [PreloadScene, RegisterScene, MenuScene, 
-		SettingsScene,  OptionsScene,  GameScene, PauseScene, FinalScene, 
+		SettingsScene,  OptionsScene,  GameScene, PauseScene, FinalScene, Connecting,
 		MenuOnlineScene, RankingScene, SettingsOnlineScene, OptionsOnlineScene, ChatScene, FinalOnlineScene] // Orden de las escenas
 };
 
@@ -25,16 +32,27 @@ const game = new Phaser.Game(config);
 
 const openWS = (openCallback, errorCallback) => 
 {
+	// Se establece una conexión WebSocket con una URL dinámica que se basa en la URL actual de la ventana.
     connection = new WebSocket('ws://' + window.location.href.slice(6) + 'match');
 
+	// Asigna un callback que se ejecutará cuando la conexión se abra correctamente.
     connection.onopen = openCallback;
-
+    
+	// Define el comportamiento al recibir un mensaje.
     connection.onmessage = (m) => { for(const c of wsMessageCallbacks) c(m); }
 
-    connection.onerror = (e)  => {console.log("WebSocket error: " + e); errorCallback()};
-    
-    connection.onclose = (e) => {connection = null; console.log("conexion cerrada: " + e);}
-}
+	// Maneja errores en la conexión WebSocket.
+    connection.onerror = (e)  => {
+        console.log("WebSocket error: " + e); 
+        errorCallback();
+    };
+
+	// Define el comportamiento cuando se cierre la conexión.
+    connection.onclose = (e) => {
+        connection = null; 
+        console.log("conexion cerrada: " + e);
+    };
+};
 
 
 // Métodos para gestionar escenas
