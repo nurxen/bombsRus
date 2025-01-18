@@ -22,6 +22,21 @@ const config = {
 // Creación de una nueva instancia del juego con la configuración especificada
 const game = new Phaser.Game(config);
 
+
+const openWS = (openCallback, errorCallback) => 
+{
+    connection = new WebSocket('ws://' + window.location.href.slice(6) + 'match');
+
+    connection.onopen = openCallback;
+
+    connection.onmessage = (m) => { for(const c of wsMessageCallbacks) c(m); }
+
+    connection.onerror = (e)  => {console.log("WebSocket error: " + e); errorCallback()};
+    
+    connection.onclose = (e) => {connection = null; console.log("conexion cerrada: " + e);}
+}
+
+
 // Métodos para gestionar escenas
 function removeScene(key) {
     game.scene.remove(key);
