@@ -68,6 +68,7 @@ class PreloadScene extends Phaser.Scene {
         this.load.image("YellowDuckDecoration", "./assets/DECORACION/YellowDuckDecoration.png");
 
         // Interfaces
+		this.load.image("finalGameBackground", "./assets/ESCENARIOS/finalGameBackground.png");
         this.load.image("MainMenuBackground", "./assets/ESCENARIOS/MainMenuBackground.png");
         this.load.image("WinPlayerOneBackground", "./assets/ESCENARIOS/WinPlayerOneBackground.png");
         this.load.image("WinPlayerTwoBackground", "./assets/ESCENARIOS/WinPlayerTwoBackground.png");
@@ -77,8 +78,8 @@ class PreloadScene extends Phaser.Scene {
         this.load.image("GameBackground", "./assets/ESCENARIOS/GameBackground.png");
 		this.load.image("PauseBackground", "./assets/ESCENARIOS/PauseBackground.png");
 		this.load.image("RankingBackground", "./assets/ESCENARIOS/RankingBackground.png");
-		this.load.image("searchingBackground", "./assets/ESCENARIOS/RankingBackground.png");
-		this.load.image("connectingBackground", "./assets/ESCENARIOS/OptionsBackground.png");
+		this.load.image("searchingBackground", "./assets/ESCENARIOS/searchingBackground.png");
+		this.load.image("connectingBackground", "./assets/ESCENARIOS/connectingBackground.png");
 
 		
 				
