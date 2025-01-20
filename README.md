@@ -472,6 +472,26 @@ Mientras que los "sockets" sirven como una interfaz para que los protocolos de a
 
 ### 8.2 MÉTODOS
 
+**- WebsocketHandler():** Constructor de la clase encargada de gestionar los WebSockets.
+
+**- handleTextMessage(WebSocketSession session, TextMessage message) y readServerMessage(WebSocketSession session, String message):** Método que se activa al recibir un mensaje de una sesión abierta. Se encarga de iniciar las sesiones y gestionar el intercambio de mensajes entre los jugadores.
+
+**- initiateSession(WebSocketSession session, String message):** Inicia una nueva sesión y valida al usuario.
+
+**- sendMessage(WebSocketSession session, String message):** Envía mensajes a los clientes a través de las sesiones WebSocket.
+
+**- convertJSONToString(ObjectNode json):** Transforma un objeto ObjectNode en una cadena de texto en formato JSON.
+
+**- refreshActiveSessions():** Método que se ejecuta de forma periódica para mantener actualizadas las sesiones, gestionar el emparejamiento y controlar la inactividad de los usuarios.
+
+**- doMatchmaking():** Empareja a los usuarios que están en espera de ser asignados a una partida.
+
+**- getMatchStartJSONs(String id1, String id2):** Crea mensajes en formato JSON para el inicio de la partida, enviados a ambos jugadores.
+
+**- validateActiveSessions():** Verifica la inactividad y el tiempo de espera de las sesiones.
+
+**- closeSession(WebSocketSession session) y closeSessionWithStatus(WebSocketSession session, CloseStatus status):** Finaliza una sesión WebSocket y lleva a cabo las operaciones necesarias, como la eliminación de mapas y otros procesos relacionados.
+
 ### 8.3 UML ACTUALIZADO
 
 ---
