@@ -129,38 +129,37 @@ class RegisterScene extends Phaser.Scene {
 	    formContainer.style.fontFamily = 'Arial, sans-serif';
 	    formContainer.style.width = '400px';
 
-	    formContainer.innerHTML = `
-	        <h2 id="formTitle" style="margin-bottom: 20px; font-size: 28px; background: white; -webkit-background-clip: 
-	            text; -webkit-text-fill-color: transparent;">
-	            REGISTER / LOG IN
-	        </h2>
-	        <div id="tab-buttons" style="display: flex; justify-content: space-around; margin-bottom: 15px;">
-	            <button id="registerTab" style="flex: 1; padding: 10px; cursor: pointer; background: #fd9e18; color: white; border: none; border-radius: 20px; transition: all 0.3s;">
-	                Register
-	            </button>
-	            <button id="loginTab" style="flex: 1; padding: 10px; cursor: pointer; background: #19a3d2; color: white; border: none; border-radius: 20px; transition: all 0.3s;">
-	                Log in
-	            </button>
-	        </div>
-	        <div id="form-section">
-	            <!-- Registro -->
-	            <div id="registerForm">
-	                <input id="usernameRegister" type="text" placeholder="Username" style="margin-bottom: 10px; padding: 10px; width: 90%; border: 1px solid #ccc; border-radius: 15px;"/><br/>
-	                <input id="passwordRegister" type="password" placeholder="Password" style="margin-bottom: 10px; padding: 10px; width: 90%; border: 1px solid #ccc; border-radius: 15px;"/><br/>
-	                <button id="submitRegisterBtn" style="padding: 10px; cursor: pointer; width: 100%; background: #77dd77; color: white; border: none; border-radius: 20px; transition: all 0.3s;">
-	                    Confirm
-	                </button>
-	            </div>
+		formContainer.innerHTML = `
+		    <h2 id="formTitle" style="margin-bottom: 20px; font-size: 28px; background: white; -webkit-background-clip: 
+		        text; -webkit-text-fill-color: transparent;">
+		        LOG IN
+		    </h2>
+		    <div id="form-section">
+		        <!-- Mensaje de error -->
+		        <p id="errorMessage" style="color: red; display: none; font-size: 14px; margin-bottom: 10px;"></p>
+		        
+		        <!-- Inicio de Sesión -->
+		        <div id="loginForm">
+		            <input id="usernameLogin" type="text" placeholder="Username" style="margin-bottom: 10px; padding: 10px; width: 90%; border: 1px solid #ccc; border-radius: 15px;"/><br/>
+		            <input id="passwordLogin" type="password" placeholder="Password" style="margin-bottom: 10px; padding: 10px; width: 90%; border: 1px solid #ccc; border-radius: 15px;"/><br/>
+		            <button id="submitLoginBtn" style="padding: 10px; cursor: pointer; width: 100%; background: #77dd77; color: white; border: none; border-radius: 20px; transition: all 0.3s;">
+		                Confirm
+		            </button>
+		        </div>
 
-	            <!-- Inicio de Sesión -->
-	            <div id="loginForm" style="display: none;">
-	                <input id="usernameLogin" type="text" placeholder="Username" style="margin-bottom: 10px; padding: 10px; width: 90%; border: 1px solid #ccc; border-radius: 15px;"/><br/>
-	                <input id="passwordLogin" type="password" placeholder="Password" style="margin-bottom: 10px; padding: 10px; width: 90%; border: 1px solid #ccc; border-radius: 15px;"/><br/>
-	                <button id="submitLoginBtn" style="padding: 10px; cursor: pointer; width: 100%; background: #77dd77; color: white; border: none; border-radius: 20px; transition: all 0.3s;">
-	                    Confirm
-	                </button>
-	            </div>
-	        </div>
+		        <!-- Registro (oculto por defecto) -->
+		        <div id="registerForm" style="display: none;">
+		            <input id="usernameRegister" type="text" placeholder="Username" style="margin-bottom: 10px; padding: 10px; width: 90%; border: 1px solid #ccc; border-radius: 15px;"/><br/>
+		            <input id="passwordRegister" type="password" placeholder="Password" style="margin-bottom: 10px; padding: 10px; width: 90%; border: 1px solid #ccc; border-radius: 15px;"/><br/>
+		            <button id="submitRegisterBtn" style="padding: 10px; cursor: pointer; width: 100%; background: #77dd77; color: white; border: none; border-radius: 20px; transition: all 0.3s;">
+		                Confirm
+		            </button>
+		        </div>
+		    </div>
+
+	        <p id="toggleFormText" style="margin-top: 15px; color: #ddd; cursor: pointer; text-decoration: underline;">
+	            No account? Try registering here
+	        </p>
 	        <button id="closeBtn" style="padding: 10px; cursor: pointer; width: 100%; margin-top: 15px; background: #7d2b55; color: white; border: none; border-radius: 20px; transition: all 0.3s;">
 	            Close
 	        </button>
@@ -169,91 +168,102 @@ class RegisterScene extends Phaser.Scene {
 	    // Agregar el contenedor al cuerpo del documento
 	    document.body.appendChild(formContainer);
 
-	    // Lógica de los botones para cambiar entre "Registro" e "Inicio de Sesión"
-	    document.getElementById('registerTab').addEventListener('click', () => {
-	        // Cambiar el título y mostrar el formulario de registro
-	        document.getElementById('formTitle').innerText = 'REGISTER';
-	        document.getElementById('registerForm').style.display = 'block';
-	        document.getElementById('loginForm').style.display = 'none';
-	        document.getElementById('submitRegisterBtn').style.background = '#77dd77'; // Verde pastel
-	    });
+	    // Lógica para alternar entre formularios
+	    document.getElementById('toggleFormText').addEventListener('click', () => {
+	        const loginForm = document.getElementById('loginForm');
+	        const registerForm = document.getElementById('registerForm');
+	        const formTitle = document.getElementById('formTitle');
+	        const toggleText = document.getElementById('toggleFormText');
 
-	    document.getElementById('loginTab').addEventListener('click', () => {
-	        // Cambiar el título y mostrar el formulario de login
-	        document.getElementById('formTitle').innerText = 'LOG IN';
-	        document.getElementById('loginForm').style.display = 'block';
-	        document.getElementById('registerForm').style.display = 'none';
-	        document.getElementById('submitLoginBtn').style.background = '#77dd77'; // Verde pastel
-	    });
-
-	    // Eventos para enviar datos a la API (como ya tienes)
-	    document.getElementById('submitRegisterBtn').addEventListener('click', async () => {
-	        const username = document.getElementById('usernameRegister').value;
-	        const password = document.getElementById('passwordRegister').value;
-
-	        if (!username || !password) {
-	            console.log('Please complete both fields.');
-	            return;
-	        }
-
-	        try {
-	            const response = await fetch('/api/usuario', {
-	                method: 'POST',
-	                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-	                body: new URLSearchParams({ usuario: username, contrasena: password })
-	            });
-
-	            const result = await response.text();
-	            if (result.includes('user registered')) {
-	                localStorage.setItem('currentUser', username); // Establece el usuario como actual
-	                console.log('Usuario activo:', localStorage.getItem('currentUser'));
-	            } else {
-	                console.log('Error al registrar el usuario.');
-	            }
-	        } catch (error) {
-	            console.error(error);
+	        if (loginForm.style.display === 'none') {
+	            // Mostrar formulario de inicio de sesión
+	            loginForm.style.display = 'block';
+	            registerForm.style.display = 'none';
+	            formTitle.innerText = 'LOG IN';
+	            toggleText.innerText = 'No account? Try registering here';
+	        } else {
+	            // Mostrar formulario de registro
+	            loginForm.style.display = 'none';
+	            registerForm.style.display = 'block';
+	            formTitle.innerText = 'REGISTER';
+	            toggleText.innerText = 'Already have an account? Log in here.';
 	        }
 	    });
 
-	    document.getElementById('submitLoginBtn').addEventListener('click', async () => {
-	        const username = document.getElementById('usernameLogin').value;
-	        const password = document.getElementById('passwordLogin').value;
+	    // Eventos para manejar envío de formularios
+		document.getElementById('submitRegisterBtn').addEventListener('click', async () => {
+		    const username = document.getElementById('usernameRegister').value;
+		    const password = document.getElementById('passwordRegister').value;
+		    const errorMessage = document.getElementById('errorMessage');
 
-	        if (!username || !password) {
-	            return;
-	        }
+		    if (!username || !password) {
+		        errorMessage.style.display = 'block';
+		        errorMessage.innerText = 'Please, fill all the blanks.';
+		        return;
+		    }
 
-	        console.log(username);
-	        console.log(password);
-	        try {
-	            const response = await fetch('/api/loadusuario', {
-	                method: 'POST',
-	                headers: { 'Content-Type': 'application/json' },
-	                body: JSON.stringify({ username: username, password: password })
-	            });
+		    try {
+		        const response = await fetch('/api/usuario', {
+		            method: 'POST',
+		            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+		            body: new URLSearchParams({ usuario: username, contrasena: password })
+		        });
 
-	            if (response.ok) { // Verifica si la respuesta es exitosa
-	                localStorage.setItem('currentUser', username); // Guarda el usuario actual
-	                // Notificar al servidor que el usuario está conectado
-	                await fetch(`/api/usuarioConectado?usuario=${encodeURIComponent(username)}`, {
-	                    method: 'POST'
-	                });
-	                console.log('ACTIVE USER:', localStorage.getItem('currentUser'));
+		        const result = await response.text();
+		        if (result.includes('USER CREATED SUSCCESSFULLY.')) {
+		            localStorage.setItem('currentUser', username);
+		            console.log('Usuario registrado:', username);
+		            errorMessage.style.display = 'none'; // Oculta el mensaje de error
+		        } else {
+		            errorMessage.style.display = 'block';
+		            errorMessage.innerText = 'Error registering your user, please try again.';
+		        }
+		    } catch (error) {
+		        errorMessage.style.display = 'block';
+		        errorMessage.innerText = 'An error occurred. Try again.';
+		        console.error(error);
+		    }
+		});
 
-	                // Eliminar el formulario antes de cambiar de escena
-	                const formContainer = document.getElementById('registro');
-	                if (formContainer) {
-	                    document.body.removeChild(formContainer);
-	                }
 
-	                this.scene.start('MenuOnlineScene', { "username": username }); // Cambia a la escena principal
-	            } else {
-	                console.log('Error al iniciar sesión.');
-	            }
-	        } catch (error) {
-	            console.error(error);
-	        }
-	    });
+		document.getElementById('submitLoginBtn').addEventListener('click', async () => {
+		    const username = document.getElementById('usernameLogin').value;
+		    const password = document.getElementById('passwordLogin').value;
+		    const errorMessage = document.getElementById('errorMessage');
+
+		    if (!username || !password) {
+		        errorMessage.style.display = 'block';
+		        errorMessage.innerText = 'Please, fill all the blanks.';
+		        return;
+		    }
+
+		    try {
+		        const response = await fetch('/api/loadusuario', {
+		            method: 'POST',
+		            headers: { 'Content-Type': 'application/json' },
+		            body: JSON.stringify({ username, password })
+		        });
+
+		        if (response.ok) {
+		            localStorage.setItem('currentUser', username);
+		            console.log('Usuario conectado:', username);
+		            errorMessage.style.display = 'none'; // Oculta el mensaje de error
+		            const formContainer = document.getElementById('registro');
+		            if (formContainer) {
+		                document.body.removeChild(formContainer);
+		            }
+		            this.scene.start('MenuOnlineScene', { username });
+		        } else {
+		            errorMessage.style.display = 'block';
+		            errorMessage.innerText = 'Wrong username or password.';
+		        }
+		    } catch (error) {
+		        errorMessage.style.display = 'block';
+		        errorMessage.innerText = 'An error occurred. Try again.';
+		        console.error(error);
+		    }
+		});
+
 
 	    // Botón para cerrar el pop-up
 	    document.getElementById('closeBtn').addEventListener('click', () => {
@@ -265,5 +275,4 @@ class RegisterScene extends Phaser.Scene {
 	        }, 500);
 	    });
 	}
-
 }
