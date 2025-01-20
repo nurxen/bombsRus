@@ -1,7 +1,8 @@
 # *MEJORAS FASE 5*
+
 ## 1. GLITCHES Y EFICIENCIA: 
 
-???
+Se tuvo la suerte de no enfrentar ningún problema importante de programación durante el desarrollo del videojuego. Los únicos inconvenientes que surgieron fueron relacionados con aspectos estéticos y de jugabilidad. En lugar de problemas técnicos, nos enfocamos en perfeccionar detalles para mejorar la accesibilidad y la experiencia del usuario.
 
 ## 2. ESTÉTICA  Y DISEÑO DE ESCENARIOS:
 
@@ -9,7 +10,7 @@ La mejora de las interfaces, botones y demás elementos visuales se ha centrado 
 
 ### MAIN MENU ANTES:
 
-![Diagramas](IMAGENES_README/pantallainIcio.jpg)
+![Diagramas](IMAGENES_README/pantallaInicio.png)
 
 ### MAIN MENU DESPUÉS:
 
@@ -63,7 +64,7 @@ La mejora de las interfaces, botones y demás elementos visuales se ha centrado 
 
 ## 3. JUGABILIDAD: 
 
-Lo que realmente ha transformado el juego ha sido la implementación de un escenario procedural, es decir, cada vez que se juegue, los objetos y elementos del terreno se colocan de manera aleatoria en todo el mapa. Esta variabilidad del entorno le da al juego un dinamismo constante, lo que significa que no importa cuántas veces se juegue, siempre habrá algo nuevo. Esto evita que los jugadores se aburran o pierdan el interés al repetir partidas, ya que nunca se enfrentan a la misma experiencia dos veces. A pesar de esto, el diseño se ha cuidado de tal forma que no se sobrecarga visualmente el mapa, garantizando que el juego siga siendo claro en cada partida.
+Lo que realmente ha transformado el juego ha sido la implementación de un escenario procedural, es decir, cada vez que se juegue, los objetos y elementos del terreno se colocan de manera aleatoria en todo el mapa. Esta variabilidad del entorno le da al juego un dinamismo constante, lo que significa que no importa cuántas veces se juegue, siempre habrá algo nuevo. Esto evita que los jugadores se aburran o pierdan el interés al repetir partidas, ya que nunca se enfrentan a la misma experiencia dos veces. A pesar de esto, el diseño se ha cuidado de tal forma que no se sobrecarga visualmente el mapa, garantizando que el juego siga siendo claro en cada partida. Por último, ahora es posible enviar un mensaje en el chat simplemente presionando la tecla "Enter". Ya no es necesario hacerlo manualmente con el ratón haciendo clic, lo que hace que la interacción sea mucho más rápida y cómoda para el usuario.
 
 ### EJEMPLO: 
 
