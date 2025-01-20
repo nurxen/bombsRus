@@ -396,54 +396,61 @@ class MenuOnlineScene extends Phaser.Scene {
 	        }
 	    }
 
-	    // Abrir el formulario de chat
-	    _openChatForm() {
-			
-			this.scene.start('ChatScene', { "username": this.username });
-			this.startButton.setInteractive(false);
+		// Abrir el formulario de chat
+		_openChatForm() {
+		    this.scene.start('ChatScene', { "username": this.username });
+		    this.startButton.setInteractive(false);
 
-	        // Crear overlay que bloquea la pantalla
-	        this._createOverlay();
+		    // Crear overlay que bloquea la pantalla
+		    this._createOverlay();
 
-	        // Si ya hay un formulario de chat previo, eliminarlo
-	        if (this.chatFormContainer) {
-	            document.body.removeChild(this.chatFormContainer);
-	        }
+		    // Si ya hay un formulario de chat previo, eliminarlo
+		    if (this.chatFormContainer) {
+		        document.body.removeChild(this.chatFormContainer);
+		    }
 
-	        // Crear el contenedor del formulario de chat
-	        this.chatFormContainer = document.createElement('div');
-	        this.chatFormContainer.id = 'chatForm';
-	        this.chatFormContainer.style.position = 'absolute';
-	        this.chatFormContainer.style.top = '50%';
-	        this.chatFormContainer.style.left = '50%';
-	        this.chatFormContainer.style.transform = 'translate(-50%, -50%)';
-	        this.chatFormContainer.style.background = 'rgba(0, 0, 0, 0.8)';
-	        this.chatFormContainer.style.borderRadius = '15px';
-	        this.chatFormContainer.style.padding = '20px 30px';
-	        this.chatFormContainer.style.textAlign = 'center';
-	        this.chatFormContainer.style.color = 'white';
-	        this.chatFormContainer.style.fontFamily = 'Arial, sans-serif';
-	        this.chatFormContainer.style.width = '400px';
+		    // Crear el contenedor del formulario de chat
+		    this.chatFormContainer = document.createElement('div');
+		    this.chatFormContainer.id = 'chatForm';
+		    this.chatFormContainer.style.position = 'absolute';
+		    this.chatFormContainer.style.top = '50%';
+		    this.chatFormContainer.style.left = '50%';
+		    this.chatFormContainer.style.transform = 'translate(-50%, -50%)';
+		    this.chatFormContainer.style.background = 'rgba(0, 0, 0, 0.8)';
+		    this.chatFormContainer.style.borderRadius = '15px';
+		    this.chatFormContainer.style.padding = '20px 30px';
+		    this.chatFormContainer.style.textAlign = 'center';
+		    this.chatFormContainer.style.color = 'white';
+		    this.chatFormContainer.style.fontFamily = 'Arial, sans-serif';
+		    this.chatFormContainer.style.width = '400px';
 
-	        // Agregar el formulario al cuerpo de la página
-	        this.chatFormContainer.innerHTML = `
-	            <h2 style="margin-bottom: 20px;">CHAT</h2>
-	            <div id="chatMessages" style="height: 200px; overflow-y: auto; background: #333; padding: 10px; border-radius: 10px; margin-bottom: 10px;"></div>
-	            <input id="chatInput" type="text" placeholder="Type your message..." style="width: 80%; padding: 10px; border-radius: 5px; margin-bottom: 10px;"/>
-	            <button id="sendChatBtn" style="padding: 10px; background: #3498db; color: white; border: none; border-radius: 5px;">Send</button>
-	            <button id="closeChatFormBtn" style="padding: 10px; background: #c0392b; color: white; border: none; border-radius: 5px; margin-left: 10px;">Close</button>
-	        `;
-	        document.body.appendChild(this.chatFormContainer);
+		    // Agregar el formulario al cuerpo de la página
+		    this.chatFormContainer.innerHTML = `
+		        <h2 style="margin-bottom: 20px;">CHAT</h2>
+		        <div id="chatMessages" style="height: 200px; overflow-y: auto; background: #333; padding: 10px; border-radius: 10px; margin-bottom: 10px;"></div>
+		        <input id="chatInput" type="text" placeholder="Type your message..." style="width: 80%; padding: 10px; border-radius: 5px; margin-bottom: 10px;"/>
+		        <button id="sendChatBtn" style="padding: 10px; background: #3498db; color: white; border: none; border-radius: 5px;">Send</button>
+		        <button id="closeChatFormBtn" style="padding: 10px; background: #c0392b; color: white; border: none; border-radius: 5px; margin-left: 10px;">Close</button>
+		    `;
+		    document.body.appendChild(this.chatFormContainer);
 
-	        // Event listeners para botones de enviar y cerrar
-	        document.getElementById('sendChatBtn').addEventListener('click', () => this._sendChatMessage());
-	        document.getElementById('closeChatFormBtn').addEventListener('click', () => this._closeChatForm());
+		    // Event listeners para botones de enviar y cerrar
+		    document.getElementById('sendChatBtn').addEventListener('click', () => this._sendChatMessage());
+		    document.getElementById('closeChatFormBtn').addEventListener('click', () => this._closeChatForm());
 
-	        this._fetchChatMessages(); // Comienza a actualizar los mensajes periódicamente
+		    // **Evento para enviar mensaje con la tecla Enter**
+		    document.getElementById('chatInput').addEventListener('keydown', (event) => {
+		        if (event.key === 'Enter') {
+		            this._sendChatMessage();
+		        }
+		    });
 
-	        // Actualizar el estado del chat
-	        this.isChatOpen = true;
-	    }
+		    this._fetchChatMessages(); // Comienza a actualizar los mensajes periódicamente
+
+		    // Actualizar el estado del chat
+		    this.isChatOpen = true;
+		}
+
 
 	    // Cerrar el formulario de chat
 	    _closeChatForm() {

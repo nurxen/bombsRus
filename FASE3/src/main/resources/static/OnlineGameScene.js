@@ -30,6 +30,9 @@ class OnlineGameScene extends Phaser.Scene {
 	// Online
 	localUser;
 	outerUser;
+	
+	finalText2;
+	finalText;
 
     constructor() {
         super({ key: 'OnlineGameScene' });
@@ -199,9 +202,14 @@ class OnlineGameScene extends Phaser.Scene {
 			}
         }
 		
-		let finalText = matchData.username;
+		if (matchData.isPlayer1){
+			this.finalText = matchData.username;
+		} else{
+			this.finalText = matchData.otherUsername;
+		}
+
 		// Agregar el texto del ranking encima del overlay
-        this.text = this.add.text(35 + (1.3*3) * 40 + 40, 30, finalText, 
+        this.text = this.add.text(35 + (1.3*3) * 40 + 40, 30, this.finalText, 
             this.sys.game.config.width / 2,
             220, // Posición Y con padding
             {
@@ -223,9 +231,13 @@ class OnlineGameScene extends Phaser.Scene {
 			}
         }
 		
-		let finalText2 = matchData.otherUsername;
+		if (!matchData.isPlayer1){
+			this.finalText2 = matchData.username;
+		} else{
+			this.finalText2 = matchData.otherUsername;
+		}
 		// Agregar el texto del ranking encima del overlay
-        this.text = this.add.text(1216 + -(1.3*3) * 40 - 100, 730, finalText2, 
+        this.text = this.add.text(1216 + -(1.3*3) * 40 - 100, 730, this.finalText2, 
             this.sys.game.config.width / 2,
             220, // Posición Y con padding
             {
