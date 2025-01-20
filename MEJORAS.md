@@ -70,7 +70,7 @@ Además, se ajustaron algunos detalles visuales que antes no eran claros, como l
 
 ### INICIAR SESIÓN Y REGISTRARSE DESPUÉS:
 
-![Diagramas](IMAGENES_README/LOGINNEW.png)
+![Diagramas](IMAGENES_README/DEFDEFDEF.png)
 
 ## 3. JUGABILIDAD: 
 
