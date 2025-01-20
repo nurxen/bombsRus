@@ -112,168 +112,158 @@ class RegisterScene extends Phaser.Scene {
 	
 	
 
-    _popUp() {
+	_popUp() {
+	    // Crear un contenedor DOM para el formulario
+	    const formContainer = document.createElement('div');
+	    formContainer.id = 'registro';
+	    formContainer.style.position = 'absolute';
+	    formContainer.style.top = '50%';
+	    formContainer.style.left = '50%';
+	    formContainer.style.transform = 'translate(-50%, -50%)';
+	    formContainer.style.background = 'rgba(0, 0, 0, 0.8)';
+	    formContainer.style.borderRadius = '15px';
+	    formContainer.style.padding = '20px 30px';
+	    formContainer.style.textAlign = 'center';
+	    formContainer.style.boxShadow = '0px 10px 20px rgba(0, 0, 0, 0.5)';
+	    formContainer.style.color = 'white';
+	    formContainer.style.fontFamily = 'Arial, sans-serif';
+	    formContainer.style.width = '400px';
 
-        // Crear un contenedor DOM para el formulario
-        const formContainer = document.createElement('div');
-        formContainer.id = 'registro';
-        formContainer.style.position = 'absolute';
-        formContainer.style.top = '50%';
-        formContainer.style.left = '50%';
-        formContainer.style.transform = 'translate(-50%, -50%)';
-        formContainer.style.background = 'rgba(0, 0, 0, 0.8)';
-        formContainer.style.borderRadius = '15px';
-        formContainer.style.padding = '20px 30px';
-        formContainer.style.textAlign = 'center';
-        formContainer.style.boxShadow = '0px 10px 20px rgba(0, 0, 0, 0.5)';
-        formContainer.style.color = 'white';
-        formContainer.style.fontFamily = 'Arial, sans-serif';
-        formContainer.style.width = '400px';
+	    formContainer.innerHTML = `
+	        <h2 id="formTitle" style="margin-bottom: 20px; font-size: 28px; background: white; -webkit-background-clip: 
+	            text; -webkit-text-fill-color: transparent;">
+	            REGISTER / LOG IN
+	        </h2>
+	        <div id="tab-buttons" style="display: flex; justify-content: space-around; margin-bottom: 15px;">
+	            <button id="registerTab" style="flex: 1; padding: 10px; cursor: pointer; background: #fd9e18; color: white; border: none; border-radius: 20px; transition: all 0.3s;">
+	                Register
+	            </button>
+	            <button id="loginTab" style="flex: 1; padding: 10px; cursor: pointer; background: #19a3d2; color: white; border: none; border-radius: 20px; transition: all 0.3s;">
+	                Log in
+	            </button>
+	        </div>
+	        <div id="form-section">
+	            <!-- Registro -->
+	            <div id="registerForm">
+	                <input id="usernameRegister" type="text" placeholder="Username" style="margin-bottom: 10px; padding: 10px; width: 90%; border: 1px solid #ccc; border-radius: 15px;"/><br/>
+	                <input id="passwordRegister" type="password" placeholder="Password" style="margin-bottom: 10px; padding: 10px; width: 90%; border: 1px solid #ccc; border-radius: 15px;"/><br/>
+	                <button id="submitRegisterBtn" style="padding: 10px; cursor: pointer; width: 100%; background: #77dd77; color: white; border: none; border-radius: 20px; transition: all 0.3s;">
+	                    Confirm
+	                </button>
+	            </div>
 
-        formContainer.innerHTML = `
-            <h2 style="margin-bottom: 20px; font-size: 28px; background: white; -webkit-background-clip: 
-			         text; -webkit-text-fill-color: transparent;">
-                REGISTER / LOG IN
-            </h2>
-            <div id="tab-buttons" style="display: flex; justify-content: space-around; margin-bottom: 15px;">
-                <button id="registerTab" style="flex: 1; padding: 10px; cursor: pointer; background: #fd9e18; color: white; border: none; border-radius: 20px; transition: all 0.3s;">
-                    Register
-                </button>
-                <button id="loginTab" style="flex: 1; padding: 10px; cursor: pointer; background: #19a3d2; color: white; border: none; border-radius: 20px; transition: all 0.3s;">
-                    Log in
-                </button>
-            </div>
-            <div id="form-section">
-			
-                <!-- Registro -->
-				
-                <div id="registerForm">
-                    <input id="usernameRegister" type="text" placeholder="Username" style="margin-bottom: 10px; padding: 10px; width: 90%; border: 1px solid #ccc; border-radius: 15px;"/><br/>
-                    <input id="passwordRegister" type="password" placeholder="Password" style="margin-bottom: 10px; padding: 10px; width: 90%; border: 1px solid #ccc; border-radius: 15px;"/><br/>
-                    <button id="submitRegisterBtn" style="padding: 10px; cursor: pointer; width: 100%; background: #fd9e18; color: white; border: none; border-radius: 20px; transition: all 0.3s;">
-                        Register
-                    </button>
-                </div>
-				
-                <!-- Inicio de Sesión -->
-				
-                <div id="loginForm" style="display: none;">
-                    <input id="usernameLogin" type="text" placeholder="Username" style="margin-bottom: 10px; padding: 10px; width: 90%; border: 1px solid #ccc; border-radius: 15px;"/><br/>
-                    <input id="passwordLogin" type="password" placeholder="Password" style="margin-bottom: 10px; padding: 10px; width: 90%; border: 1px solid #ccc; border-radius: 15px;"/><br/>
-                    <button id="submitLoginBtn" style="padding: 10px; cursor: pointer; width: 100%; background: #19a3d2; color: white; border: none; border-radius: 20px; transition: all 0.3s;">
-                        Log in
-                    </button>
-                </div>
-            </div>
-            <button id="closeBtn" style="padding: 10px; cursor: pointer; width: 100%; margin-top: 15px; background: #7d2b55; color: white; border: none; border-radius: 20px; transition: all 0.3s;">
-                Close
-            </button>
-        `;
+	            <!-- Inicio de Sesión -->
+	            <div id="loginForm" style="display: none;">
+	                <input id="usernameLogin" type="text" placeholder="Username" style="margin-bottom: 10px; padding: 10px; width: 90%; border: 1px solid #ccc; border-radius: 15px;"/><br/>
+	                <input id="passwordLogin" type="password" placeholder="Password" style="margin-bottom: 10px; padding: 10px; width: 90%; border: 1px solid #ccc; border-radius: 15px;"/><br/>
+	                <button id="submitLoginBtn" style="padding: 10px; cursor: pointer; width: 100%; background: #77dd77; color: white; border: none; border-radius: 20px; transition: all 0.3s;">
+	                    Confirm
+	                </button>
+	            </div>
+	        </div>
+	        <button id="closeBtn" style="padding: 10px; cursor: pointer; width: 100%; margin-top: 15px; background: #7d2b55; color: white; border: none; border-radius: 20px; transition: all 0.3s;">
+	            Close
+	        </button>
+	    `;
 
-        // Agregar el contenedor al cuerpo del documento
-        document.body.appendChild(formContainer);
+	    // Agregar el contenedor al cuerpo del documento
+	    document.body.appendChild(formContainer);
 
-        // Lógica de los botones para cambiar entre "Registro" e "Inicio de Sesión"
-        document.getElementById('registerTab').addEventListener('click', () => {
-            document.getElementById('registerForm').style.display = 'block';
-            document.getElementById('loginForm').style.display = 'none';
-        });
-        document.getElementById('loginTab').addEventListener('click', () => {
-            document.getElementById('registerForm').style.display = 'none';
-            document.getElementById('loginForm').style.display = 'block';
-        });
-		
+	    // Lógica de los botones para cambiar entre "Registro" e "Inicio de Sesión"
+	    document.getElementById('registerTab').addEventListener('click', () => {
+	        // Cambiar el título y mostrar el formulario de registro
+	        document.getElementById('formTitle').innerText = 'REGISTER';
+	        document.getElementById('registerForm').style.display = 'block';
+	        document.getElementById('loginForm').style.display = 'none';
+	        document.getElementById('submitRegisterBtn').style.background = '#77dd77'; // Verde pastel
+	    });
 
-        // Eventos para enviar datos a la API
-		document.getElementById('submitRegisterBtn').addEventListener('click', async () => {
-		    const username = document.getElementById('usernameRegister').value;
-		    const password = document.getElementById('passwordRegister').value;
+	    document.getElementById('loginTab').addEventListener('click', () => {
+	        // Cambiar el título y mostrar el formulario de login
+	        document.getElementById('formTitle').innerText = 'LOG IN';
+	        document.getElementById('loginForm').style.display = 'block';
+	        document.getElementById('registerForm').style.display = 'none';
+	        document.getElementById('submitLoginBtn').style.background = '#77dd77'; // Verde pastel
+	    });
 
-		    if (!username || !password) {
-		        alert('Please complete both fields.');
-		        return;
-		    }
+	    // Eventos para enviar datos a la API (como ya tienes)
+	    document.getElementById('submitRegisterBtn').addEventListener('click', async () => {
+	        const username = document.getElementById('usernameRegister').value;
+	        const password = document.getElementById('passwordRegister').value;
 
-		    try {
-		        const response = await fetch('/api/usuario', {
-		            method: 'POST',
-		            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-		            body: new URLSearchParams({ usuario: username, contrasena: password })
-		        });
+	        if (!username || !password) {
+	            console.log('Please complete both fields.');
+	            return;
+	        }
 
-		        const result = await response.text();
-		        if (result.includes('user registered')) {
-		            localStorage.setItem('currentUser', username); // Establece el usuario como actual
-					console.log('Usuario activo:', localStorage.getItem('currentUser'));
-		            alert(result);
-		        } else {
-		            alert(result); // Si hay un error (por ejemplo, usuario ya existe)
-		        }
-		    } catch (error) {
-		        console.error(error);
-		        alert('Error registering user.');
-		    }
-		});
+	        try {
+	            const response = await fetch('/api/usuario', {
+	                method: 'POST',
+	                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+	                body: new URLSearchParams({ usuario: username, contrasena: password })
+	            });
 
-		
-		
-		console.log('submitLoginBtn:', document.getElementById('submitLoginBtn'));
-		
-		document.getElementById('submitLoginBtn').addEventListener('click', async () => {
-		    const username = document.getElementById('usernameLogin').value;
-		    const password = document.getElementById('passwordLogin').value;
+	            const result = await response.text();
+	            if (result.includes('user registered')) {
+	                localStorage.setItem('currentUser', username); // Establece el usuario como actual
+	                console.log('Usuario activo:', localStorage.getItem('currentUser'));
+	            } else {
+	                console.log('Error al registrar el usuario.');
+	            }
+	        } catch (error) {
+	            console.error(error);
+	        }
+	    });
 
-		    if (!username || !password) {
-		        alert('PLEASE COMPLETE BOTH FIELDS.');
-		        return;
-		    }
-			
-			console.log(username);
-			console.log(password);
-			try {
-			    const response = await fetch('/api/loadusuario', {
-			        method: 'POST',
-			        headers: { 'Content-Type': 'application/json' },
-			        body: JSON.stringify({ username: username, password: password }) // Se envían como JSON
-			    });
+	    document.getElementById('submitLoginBtn').addEventListener('click', async () => {
+	        const username = document.getElementById('usernameLogin').value;
+	        const password = document.getElementById('passwordLogin').value;
 
-			    //const user = await response.json();
-			    if (response.ok) { // Verifica si la respuesta es exitosa
-			        localStorage.setItem('currentUser', username); // Guarda el usuario actual
-					// Notificar al servidor que el usuario está conectado
-		            await fetch(`/api/usuarioConectado?usuario=${encodeURIComponent(username)}`, {
-		                method: 'POST'
-		            });
-			        console.log('ACTIVE USER:', localStorage.getItem('currentUser'));
-			        alert('LOGIN SUCCESSFUL.');
+	        if (!username || !password) {
+	            return;
+	        }
 
-			        // Eliminar el formulario antes de cambiar de escena
-			        const formContainer = document.getElementById('registro');
-			        if (formContainer) {
-			            document.body.removeChild(formContainer);
-			        }
+	        console.log(username);
+	        console.log(password);
+	        try {
+	            const response = await fetch('/api/loadusuario', {
+	                method: 'POST',
+	                headers: { 'Content-Type': 'application/json' },
+	                body: JSON.stringify({ username: username, password: password })
+	            });
 
-			        this.scene.start('MenuOnlineScene', { "username": username }); // Cambia a la escena principal
+	            if (response.ok) { // Verifica si la respuesta es exitosa
+	                localStorage.setItem('currentUser', username); // Guarda el usuario actual
+	                // Notificar al servidor que el usuario está conectado
+	                await fetch(`/api/usuarioConectado?usuario=${encodeURIComponent(username)}`, {
+	                    method: 'POST'
+	                });
+	                console.log('ACTIVE USER:', localStorage.getItem('currentUser'));
 
-			    } else {
-			        alert('INVALID USERNAME OR PASSWORD.');
-			    }
-			} catch (error) {
-			    console.error(error);
-			    alert('ERROR LOGGING IN.');
-			}
+	                // Eliminar el formulario antes de cambiar de escena
+	                const formContainer = document.getElementById('registro');
+	                if (formContainer) {
+	                    document.body.removeChild(formContainer);
+	                }
 
-		});
-		
-        // Botón para cerrar el pop-up
-        document.getElementById('closeBtn').addEventListener('click', () => {
-            formContainer.style.transition = 'opacity 0.5s';
-            formContainer.style.opacity = 0;
+	                this.scene.start('MenuOnlineScene', { "username": username }); // Cambia a la escena principal
+	            } else {
+	                console.log('Error al iniciar sesión.');
+	            }
+	        } catch (error) {
+	            console.error(error);
+	        }
+	    });
 
-            setTimeout(() => {
-                document.body.removeChild(formContainer);
-            }, 500);
-        });
-    }
-	
+	    // Botón para cerrar el pop-up
+	    document.getElementById('closeBtn').addEventListener('click', () => {
+	        formContainer.style.transition = 'opacity 0.5s';
+	        formContainer.style.opacity = 0;
+
+	        setTimeout(() => {
+	            document.body.removeChild(formContainer);
+	        }, 500);
+	    });
+	}
+
 }
