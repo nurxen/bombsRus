@@ -446,8 +446,29 @@ El desarrollo gráfico y sonoro del juego utilizará las siguientes herramientas
 - **Photoshop:** Para la edición gráfica avanzada de recursos.
 - **FL Studio:** Para la creación y edición de la música y efectos de sonido del juego.
 
+## 8. Uso de Websockets
+
+WebSocket es un protocolo de comunicación basado en TCP que permite el intercambio de datos eficiente y confiable entre redes. Esto mantiene una conexión abierta y bidireccional, lo que permite que tanto el cliente como el servidor envíen y reciban información simultáneamente de manera eficiente. Esto es ideal para aplicaciones que requieren actualizaciones en tiempo real, como chats, juegos en línea y colaboración.
+
+Mientras que los "sockets" sirven como una interfaz para que los protocolos de aplicación accedan a los servicios de transporte, WebSocket opera en la capa de aplicación, definiendo las reglas de comunicación directa entre diferentes hosts. Esto permite a las aplicaciones web actualizarse en tiempo real, sin la necesidad de realizar nuevas solicitudes.
+
+### 8.1 ATRIBUTOS
+
+UserService userService: ??
+count: Contador de sesiones activas.
+maxTimeout: Tiempo maximo de una sesion en partida sin responder antes de cerrarla en milisegundos.
+maxTimeOnQueue : Tiempo max buscando partida en milisegundos.
+ConcurrentHashMap<String, WebSocketSession> sessionMap: Mapa que asocia IDs de sesiones con las sesiones de WebSocket correspondientes. 
+ConcurrentHashMap<String, User> userMap: Mapa que asocia IDs de sesiones con los usuarios correspondientes.
+ConcurrentHashMap<String, String> pairedUsersMap: Mapa que asocia IDs de usuarios emparejados entre sí (clave: ID de un usuario, valor: ID del usuario emparejado). 
+ConcurrentLinkedQueue<String> waitingQueue: Cola de IDs de sesiones de usuarios que están esperando para jugar.
+
+### 8.2 MÉTODOS
+
+
+
 ---
-## 8. Referencias
+## 9. Referencias
 
 Todo el contenido utilizado en este proyecto ha sido obtenido bajo la **licencia Creative Commons 0 (CC0)**.
 

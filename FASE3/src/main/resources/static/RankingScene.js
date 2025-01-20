@@ -20,8 +20,8 @@ class RankingScene extends Phaser.Scene {
     }
 
 	init(data) { 
-					this.username = data.username;
-				}
+		this.username = data.username;
+	}
     // Métodos privados
 
     // Crear el fondo de la escena

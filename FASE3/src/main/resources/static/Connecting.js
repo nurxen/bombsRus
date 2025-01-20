@@ -39,7 +39,6 @@ class Connecting extends Phaser.Scene {
         this.closeScreen();
     }
 
-	
 	processWSMessage(msg)
 	{
 	    msg = JSON.parse(msg)
@@ -47,7 +46,6 @@ class Connecting extends Phaser.Scene {
 	    if(msg.onStart) //si es el mensaje de respuesta al intentar iniciar una sesion
 	    {
 	        if(msg.error) console.log(msg.error);
-
 	        else if(msg.info) //el usuario entro en la cola de emparejamiento
 	        {
 	            console.log(msg.info);
@@ -69,9 +67,7 @@ class Connecting extends Phaser.Scene {
 	        if(msg.matchStart)
 	        {
 	            matchData = msg;
-
 	            wsMessageCallbacks.shift(); //quitar el callback del array
-
 	    		this.game.sound.stopAll();
 	            this.scene.start("OnlineGameScene", { isPlaying: true, "username": this.username });
 				

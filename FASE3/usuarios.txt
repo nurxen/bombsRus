@@ -1,7 +1,4 @@
 ILOVEJER:ILOVEJER
+bb:bb
 aa:aa
-bb:bb
-bb:bb
-bb:bb
-gg:gg
-gg:gg
+Nurii:holi
