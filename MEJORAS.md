@@ -53,11 +53,10 @@ La mejora de las interfaces, botones y demás elementos visuales se ha centrado 
 
 ![Diagramas](IMAGENES_README/EmpateImagen.jpg)
 
-### INTERFAZ DE DERROTA ANTES:
+### INTERFAZ DE DERROTA:
 
 ![Diagramas](IMAGENES_README/pantallaDerrota.png)
 
-### INTERFAZ DE DERROTA DESPUÉS:
 ### INTERFAZ DE PAUSA:
 
 ![Diagramas](IMAGENES_README/PAUSAinterfaz.png)
