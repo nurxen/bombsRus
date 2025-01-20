@@ -454,18 +454,25 @@ Mientras que los "sockets" sirven como una interfaz para que los protocolos de a
 
 ### 8.1 ATRIBUTOS
 
-UserService userService: ??
-count: Contador de sesiones activas.
-maxTimeout: Tiempo maximo de una sesion en partida sin responder antes de cerrarla en milisegundos.
-maxTimeOnQueue : Tiempo max buscando partida en milisegundos.
-ConcurrentHashMap<String, WebSocketSession> sessionMap: Mapa que asocia IDs de sesiones con las sesiones de WebSocket correspondientes. 
-ConcurrentHashMap<String, User> userMap: Mapa que asocia IDs de sesiones con los usuarios correspondientes.
-ConcurrentHashMap<String, String> pairedUsersMap: Mapa que asocia IDs de usuarios emparejados entre sí (clave: ID de un usuario, valor: ID del usuario emparejado). 
-ConcurrentLinkedQueue<String> waitingQueue: Cola de IDs de sesiones de usuarios que están esperando para jugar.
+**- UserService userService:** ??
+
+**- count:** Contador de sesiones activas.
+
+**- maxTimeout:** Tiempo maximo de una sesion en partida sin responder antes de cerrarla en milisegundos.
+
+**- maxTimeOnQueue :** Tiempo max buscando partida en milisegundos.
+
+**- ConcurrentHashMap<String, WebSocketSession> sessionMap:** Mapa que asocia IDs de sesiones con las sesiones de WebSocket correspondientes. 
+
+**- ConcurrentHashMap<String, User> userMap:** Mapa que asocia IDs de sesiones con los usuarios correspondientes.
+
+**- ConcurrentHashMap<String, String> pairedUsersMap:** Mapa que asocia IDs de usuarios emparejados entre sí (clave: ID de un usuario, valor: ID del usuario emparejado). 
+
+**- ConcurrentLinkedQueue<String> waitingQueue:** Cola de IDs de sesiones de usuarios que están esperando para jugar.
 
 ### 8.2 MÉTODOS
 
-
+### 8.3 UML ACTUALIZADO
 
 ---
 ## 9. Referencias
