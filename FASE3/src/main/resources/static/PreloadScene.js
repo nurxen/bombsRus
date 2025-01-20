@@ -68,18 +68,18 @@ class PreloadScene extends Phaser.Scene {
         this.load.image("YellowDuckDecoration", "./assets/DECORACION/YellowDuckDecoration.png");
 
         // Interfaces
-		this.load.image("finalGameBackground", "./assets/ESCENARIOS/finalGameBackground.png");
         this.load.image("MainMenuBackground", "./assets/ESCENARIOS/MainMenuBackground.png");
         this.load.image("WinPlayerOneBackground", "./assets/ESCENARIOS/WinPlayerOneBackground.png");
         this.load.image("WinPlayerTwoBackground", "./assets/ESCENARIOS/WinPlayerTwoBackground.png");
+		this.load.image("FinalBackground", "./assets/ESCENARIOS/finalScene.png");
         this.load.image("DrawBackground", "./assets/ESCENARIOS/DrawBackground.png");
         this.load.image("SettingsBackground", "./assets/ESCENARIOS/SettingsBackground.png");
         this.load.image("OptionsBackground", "./assets/ESCENARIOS/OptionsBackground.png");
         this.load.image("GameBackground", "./assets/ESCENARIOS/GameBackground.png");
 		this.load.image("PauseBackground", "./assets/ESCENARIOS/PauseBackground.png");
 		this.load.image("RankingBackground", "./assets/ESCENARIOS/RankingBackground.png");
-		this.load.image("searchingBackground", "./assets/ESCENARIOS/searchingBackground.png");
-		this.load.image("connectingBackground", "./assets/ESCENARIOS/connectingBackground.png");
+		this.load.image("searchingBackground", "./assets/ESCENARIOS/matchingScene.png");
+		this.load.image("connectingBackground", "./assets/ESCENARIOS/conectionLost.png");
 
 		
 				
@@ -94,7 +94,7 @@ class PreloadScene extends Phaser.Scene {
 		this.load.image("UserButton", "./assets/BOTONES/UserButton.png");
         this.load.image("HelpButton", "./assets/BOTONES/HelpButton.png");
         this.load.image("OptionsButton", "./assets/BOTONES/OptionsButton.png");
-        this.load.image("RetryButton", "./assets/BOTONES/RetryButton.png");
+        this.load.image("RetryButton", "./assets/BOTONES/newMatch.png");
         this.load.image("MainMenuButton", "./assets/BOTONES/MainMenuButton.png");
 		this.load.image("RankingButton", "./assets/BOTONES/RankingButton.png");
 		this.load.image("ChatIcon", "./assets/BOTONES/ChatIcon.png");

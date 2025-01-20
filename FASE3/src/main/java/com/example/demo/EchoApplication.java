@@ -19,14 +19,14 @@ public class EchoApplication implements WebSocketConfigurer {
     @Override
     // Asignamos el handler al registro
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-    	registry.addHandler(echoHandler(), "/match").setAllowedOrigins("*");
+    	registry.addHandler(handler(), "/match").setAllowedOrigins("*");
     }
 
     
     @Bean
     // Creamos el handler y los usamos
-    public WebsocketEchoHandler echoHandler() {
-    	return new WebsocketEchoHandler();
+    public WebsocketHandler handler() {
+    	return new WebsocketHandler();
     }
     
   	@Bean
@@ -37,7 +37,7 @@ public class EchoApplication implements WebSocketConfigurer {
   		
   		executorService.scheduleAtFixedRate(() -> {
   		    try {
-  		    	echoHandler().updateSessions();
+  		    	handler().refreshActiveSessions();
   		    } catch (Exception e) {
   		        System.out.println("Error del sheduled executor: " + e.getMessage());
   		        e.printStackTrace();

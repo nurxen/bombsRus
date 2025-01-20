@@ -22,7 +22,7 @@ const config = {
         }
     },
     scene: [PreloadScene, RegisterScene, MenuScene, 
-		SettingsScene,  OptionsScene,  GameScene, OnlineGameScene, PauseScene, PauseOnlineScene, FinalScene, Connecting,
+		SettingsScene,  OptionsScene,  GameScene, OnlineGameScene, PauseScene, PauseOnlineScene, FinalScene, Connecting, ConnectionLostScene,
 		MenuOnlineScene, RankingScene, SettingsOnlineScene, OptionsOnlineScene, ChatScene, FinalOnlineScene] // Orden de las escenas
 };
 

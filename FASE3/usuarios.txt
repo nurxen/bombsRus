@@ -1,7 +1,5 @@
 ILOVEJER:ILOVEJER
-aa:aa
-bb:bb
-bb:bb
-bb:bb
-gg:gg
-gg:gg
+NURIA:NURIA
+HUGO:HUGO
+LUCIA:LUCIA
+RAUL:RAUL

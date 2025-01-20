@@ -1,4 +1,5 @@
 ILOVEJER:2
-aa:4
-bb:3
-gg:3
+NURIA:8
+HUGO:3
+LUCIA:1
+RAUL:6

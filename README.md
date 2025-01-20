@@ -21,6 +21,10 @@ Bombs "R" Us es un juego competitivo en el que dos jugadores se enfrentan dentro
   - Correo: [l.garciaper.2022@alumnos.urjc.es](mailto:l.garciaper.2022@alumnos.urjc.es)  
   - GitHub: [lugarpe](https://github.com/lugarpe)
 
+# **VIDEO PRESENTACÍON DEL VIDEOJUGO**  
+
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE/0.jpg)](https://www.youtube.com/watch?v=YOUTUBE_VIDEO_ID_HERE) 
+
 # **Instrucciones de instalación (Windows)**  
 
 A continuación, se proporcionan las indicaciones necesarias para compilar y ejecutar el juego correctamente en una red local.
@@ -446,8 +450,56 @@ El desarrollo gráfico y sonoro del juego utilizará las siguientes herramientas
 - **Photoshop:** Para la edición gráfica avanzada de recursos.
 - **FL Studio:** Para la creación y edición de la música y efectos de sonido del juego.
 
+## 8. Uso de Websockets
+
+WebSocket es un protocolo de comunicación basado en TCP que permite el intercambio de datos eficiente y confiable entre redes. Esto mantiene una conexión abierta y bidireccional, lo que permite que tanto el cliente como el servidor envíen y reciban información simultáneamente de manera eficiente. Esto es ideal para aplicaciones que requieren actualizaciones en tiempo real, como chats, juegos en línea y colaboración.
+
+Mientras que los "sockets" sirven como una interfaz para que los protocolos de aplicación accedan a los servicios de transporte, WebSocket opera en la capa de aplicación, definiendo las reglas de comunicación directa entre diferentes hosts. Esto permite a las aplicaciones web actualizarse en tiempo real, sin la necesidad de realizar nuevas solicitudes.
+
+### 8.1 ATRIBUTOS
+
+**- UserService userService:** Clase que maneja todos los usuarios.
+
+**- count:** Contador de sesiones activas.
+
+**- maxTimeout:** Tiempo maximo de una sesion en partida sin responder antes de cerrarla en milisegundos.
+
+**- maxTimeOnQueue :** Tiempo max buscando partida en milisegundos.
+
+**- ConcurrentHashMap<String, WebSocketSession> sessionMap:** Mapa que asocia IDs de sesiones con las sesiones de WebSocket correspondientes. 
+
+**- ConcurrentHashMap<String, User> userMap:** Mapa que asocia IDs de sesiones con los usuarios correspondientes.
+
+**- ConcurrentHashMap<String, String> pairedUsersMap:** Mapa que asocia IDs de usuarios emparejados entre sí (clave: ID de un usuario, valor: ID del usuario emparejado). 
+
+**- ConcurrentLinkedQueue<String> waitingQueue:** Cola de IDs de sesiones de usuarios que están esperando para jugar.
+
+### 8.2 MÉTODOS
+
+**- WebsocketHandler():** Constructor de la clase encargada de gestionar los WebSockets.
+
+**- handleTextMessage(WebSocketSession session, TextMessage message) y readServerMessage(WebSocketSession session, String message):** Método que se activa al recibir un mensaje de una sesión abierta. Se encarga de iniciar las sesiones y gestionar el intercambio de mensajes entre los jugadores.
+
+**- initiateSession(WebSocketSession session, String message):** Inicia una nueva sesión y valida al usuario.
+
+**- sendMessage(WebSocketSession session, String message):** Envía mensajes a los clientes a través de las sesiones WebSocket.
+
+**- convertJSONToString(ObjectNode json):** Transforma un objeto ObjectNode en una cadena de texto en formato JSON.
+
+**- refreshActiveSessions():** Método que se ejecuta de forma periódica para mantener actualizadas las sesiones, gestionar el emparejamiento y controlar la inactividad de los usuarios.
+
+**- doMatchmaking():** Empareja a los usuarios que están en espera de ser asignados a una partida.
+
+**- getMatchStartJSONs(String id1, String id2):** Crea mensajes en formato JSON para el inicio de la partida, enviados a ambos jugadores.
+
+**- validateActiveSessions():** Verifica la inactividad y el tiempo de espera de las sesiones.
+
+**- closeSession(WebSocketSession session) y closeSessionWithStatus(WebSocketSession session, CloseStatus status):** Finaliza una sesión WebSocket y lleva a cabo las operaciones necesarias, como la eliminación de mapas y otros procesos relacionados.
+
+### 8.3 UML ACTUALIZADO
+
 ---
-## 8. Referencias
+## 9. Referencias
 
 Todo el contenido utilizado en este proyecto ha sido obtenido bajo la **licencia Creative Commons 0 (CC0)**.
 
