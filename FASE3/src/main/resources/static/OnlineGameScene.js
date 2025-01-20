@@ -602,7 +602,7 @@ class OnlineGameScene extends Phaser.Scene {
 	
 	lostConnection()
 	{
-	    this.scene.launch("ConnectionLostScene", {"username" : this.username});
+	    this.scene.start("ConnectionLostScene", {"username" : this.username});
 	    this.scene.stop("OnlineGameScene", {"username" : this.username});
 	    this.scene.sleep("OnlinePauseScene", {"username" : this.username});
 	}

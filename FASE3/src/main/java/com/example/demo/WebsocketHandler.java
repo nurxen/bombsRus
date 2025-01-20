@@ -23,7 +23,7 @@ public class WebsocketHandler extends TextWebSocketHandler {
 	private int count = 0; // Contador de sesiones activas
 	
 	//tiempo maximo de una sesion en partida sin responder antes de cerrarla 
-	private long maxTimeout = 1000 * 5;  // en milisegundos
+	private long maxTimeout = 1000 * 10;  // en milisegundos
 	//tiempo max buscando partida
 	private long maxTimeOnQueue = 1000 * 60;  // en milisegundos
 	
