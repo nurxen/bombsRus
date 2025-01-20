@@ -44,11 +44,11 @@ class FinalOnlineScene extends Phaser.Scene {
 		let finalText2;
         // Cambiar el fondo dependiendo de quién haya perdido
         if (this.loser === 1) { // Gana el jugador 2
-				finalText = "Player 1 looses";
-				finalText2 = "Player 2 wins";
+				finalText = matchData.username + " looses";
+				finalText2 = matchData.otherUsername + " wins";
         } else if (this.loser === 2) { // Gana el jugador 1
-			finalText = "Player 1 wins";
-			finalText2 = "Player 2 looses";
+			finalText = matchData.username + " wins";
+			finalText2 = matchData.otherUsername + " looses";
         } else if (this.loser === 3) { // Empate
 				finalText = "Draw";
         }

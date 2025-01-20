@@ -199,7 +199,7 @@ class OnlineGameScene extends Phaser.Scene {
 			}
         }
 		
-		let finalText = "Player 1";
+		let finalText = matchData.username;
 		// Agregar el texto del ranking encima del overlay
         this.text = this.add.text(35 + (1.3*3) * 40 + 40, 30, finalText, 
             this.sys.game.config.width / 2,
@@ -223,7 +223,7 @@ class OnlineGameScene extends Phaser.Scene {
 			}
         }
 		
-		let finalText2 = "Player 2";
+		let finalText2 = matchData.otherUsername;
 		// Agregar el texto del ranking encima del overlay
         this.text = this.add.text(1216 + -(1.3*3) * 40 - 100, 730, finalText2, 
             this.sys.game.config.width / 2,
@@ -529,13 +529,13 @@ class OnlineGameScene extends Phaser.Scene {
 	
 	_processPauseToggle(){
 		
-		this.scene.pause("OnlineGameScene");
+		this.scene.pause("OnlineGameScene", {"username" : this.username});
 
 		// Evita que se vuelva a crear el objeto del menú si ya existe
-		if(!this.scene.get("PauseOnlineScene").loaded)
+		if(!this.scene.get("PauseOnlineScene", {"username" : this.username}).loaded)
 		{
-		    this.scene.get("PauseOnlineScene").loaded = true;
-		    this.scene.launch("PauseOnlineScene"); // pone el menu de pausa por encima
+		    this.scene.get("PauseOnlineScene", {"username" : this.username}).loaded = true;
+		    this.scene.launch("PauseOnlineScene", {"username" : this.username}); // pone el menu de pausa por encima
 		}
 		else
 		{
@@ -602,10 +602,10 @@ class OnlineGameScene extends Phaser.Scene {
         console.log(msg);
         //cambiar de escena a una que muestre el mensaje de conexion perdida, y luego volver al menu principal
 
-        this.scene.launch("ConnectionLostScene");
+        this.scene.launch("ConnectionLostScene", {"username" : this.username});
         this.enableInput(false);
-        this.scene.stop("OnlineGameScene");
-        this.scene.sleep("OnlinePauseScene");
+        this.scene.stop("OnlineGameScene", {"username" : this.username});
+        this.scene.sleep("OnlinePauseScene", {"username" : this.username});
     }
 
 }
