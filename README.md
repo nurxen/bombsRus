@@ -498,6 +498,8 @@ Mientras que los "sockets" sirven como una interfaz para que los protocolos de a
 
 ### 8.3 UML ACTUALIZADO
 
+![Portada](IMAGENES_README/uml.png)  
+
 ---
 ## 9. Referencias
 
