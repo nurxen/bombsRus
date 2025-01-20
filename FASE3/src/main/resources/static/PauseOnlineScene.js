@@ -29,6 +29,10 @@ class PauseOnlineScene extends Phaser.Scene {
 			
 			wsMessageCallbacks.push((msg) => this.processWSMessage(msg.data))
 	    }
+		
+		update(){
+			this._checkConexion();
+		}
 
 	    // Métodos privados
 			// Crear el fondo de la escena
@@ -114,6 +118,19 @@ class PauseOnlineScene extends Phaser.Scene {
 				    _onExitButtonOut(button) {
 				        button.setScale(0.2); // Volver a la escala original
 				    }
+					
+					_checkConexion(){
+						if(connection == null) {
+							this.lostConnection();
+						}
+					}
+					
+					lostConnection()
+					{
+					    this.scene.launch("ConnectionLostScene", {"username" : this.username});
+					    this.scene.stop("OnlineGameScene", {"username" : this.username});
+					    this.scene.sleep("OnlinePauseScene", {"username" : this.username});
+					}
 					
 					processWSMessage(msg)
 					   {

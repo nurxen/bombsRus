@@ -78,6 +78,7 @@ class OnlineGameScene extends Phaser.Scene {
         this.player1.update(time, delta); // Actualizar al jugador 1
         this.player2.update(time, delta); // Actualizar al jugador 2
         this._checkGameOver(); // Verificar si el juego ha terminado
+		this._checkConexion();
     }
     
     // ===========================
@@ -97,19 +98,6 @@ class OnlineGameScene extends Phaser.Scene {
         }
 
     }
-	
-	/*getLoserString() {
-
-        // Verificar si el jugador 1 ha perdido
-        if (this.player1.isLoser() && this.player2.isLoser()) {
-            return 3; // Devuelve 3 si hay empate
-        } else if (this.player2.isLoser()) {
-            return this.player2.getUsername(); // Devuelve 2 si el jugador 2 ha perdido
-        } else if (this.player1.isLoser()) {
-            return this.player1.getUsername();
-        }
-
-    }*/
     
     // Metodo para comprobar la colisión con los jugadores después de la animación
     checkCollisionWithPlayers(explosionImage) {
@@ -463,9 +451,7 @@ class OnlineGameScene extends Phaser.Scene {
 
     }
 	
-	_processOpponentInput(remotePlayerInput)
-    {
-
+	_processOpponentInput(remotePlayerInput) {
         // Recibimos los inputs del jugador remoto
         if(!remotePlayerInput) return;
         
@@ -607,6 +593,19 @@ class OnlineGameScene extends Phaser.Scene {
             if(msg.error) console.log(msg.error);
         }
     }
+	
+	_checkConexion(){
+		if(connection == null) {
+			this.lostConnection();
+		}
+	}
+	
+	lostConnection()
+	{
+	    this.scene.launch("ConnectionLostScene", {"username" : this.username});
+	    this.scene.stop("OnlineGameScene", {"username" : this.username});
+	    this.scene.sleep("OnlinePauseScene", {"username" : this.username});
+	}
 
     closeWS(msg)
     {
@@ -614,8 +613,8 @@ class OnlineGameScene extends Phaser.Scene {
         console.log(msg);
         //cambiar de escena a una que muestre el mensaje de conexion perdida, y luego volver al menu principal
 
-        this.scene.launch("ConnectionLostScene", {"username" : this.username});
-        this.enableInput(false);
+        this.scene.start("ConnectionLostScene", {"username" : this.username});
+        //this.enableInput(false);
         this.scene.stop("OnlineGameScene", {"username" : this.username});
         this.scene.sleep("OnlinePauseScene", {"username" : this.username});
     }
