@@ -454,7 +454,7 @@ Mientras que los "sockets" sirven como una interfaz para que los protocolos de a
 
 ### 8.1 ATRIBUTOS
 
-**- UserService userService:** ??
+**- UserService userService:** Clase que maneja todos los usuarios.
 
 **- count:** Contador de sesiones activas.
 
