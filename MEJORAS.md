@@ -9,7 +9,7 @@ La mejora de las interfaces, botones y demás elementos visuales se ha centrado 
 
 ### MAIN MENU ANTES:
 
-![Diagramas](IMAGENES_README/pantallainIcio.png)
+![Diagramas](IMAGENES_README/pantallainIcio.jpg)
 
 ### MAIN MENU DESPUÉS:
 
@@ -31,7 +31,7 @@ La mejora de las interfaces, botones y demás elementos visuales se ha centrado 
 
 ### ESCENRIO DE JUEGO DESPUÉS:
 
-![Diagramas](IMAGENES_README/GameImagen.png)
+![Diagramas](IMAGENES_README/GameImagen.jpg)
 
 ### IDENTIFICADOR DE VIDAS:
 
@@ -45,9 +45,13 @@ La mejora de las interfaces, botones y demás elementos visuales se ha centrado 
 
 ### INTERFAZ DE VICTORIA DESPUÉS:
 
-![Diagramas](IMAGENES_README/Player1WinsImagen.png)
+![Diagramas](IMAGENES_README/Player1WinsImagen.jpg)
 
-![Diagramas](IMAGENES_README/Player2WinsImagen.png)
+![Diagramas](IMAGENES_README/Player2WinsImagen.jpg)
+
+### INTERFAZ DE EMPATE: 
+
+![Diagramas](IMAGENES_README/EmpateImagen.jpg)
 
 ### INTERFAZ DE DERROTA ANTES:
 
