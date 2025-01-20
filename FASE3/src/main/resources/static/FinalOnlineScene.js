@@ -140,7 +140,7 @@ class FinalOnlineScene extends Phaser.Scene {
     }
 
     _onButtonOutRetry(button) {
-        button.setScale(0.8);
+        button.setScale(0.8	);
     }
 	
 	_onButtonHover(button) {

@@ -16,14 +16,14 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
-public class WebsocketEchoHandler extends TextWebSocketHandler {
+public class WebsocketHandler extends TextWebSocketHandler {
 	
 	@Autowired // Habilita la inyeccion de dependencias en clases de java
 	private UserService userService;
 	private int count = 0; // Contador de sesiones activas
 	
 	//tiempo maximo de una sesion en partida sin responder antes de cerrarla 
-	private long maxTimeout = 1000 * 5;  // en milisegundos
+	private long maxTimeout = 1000 * 10;  // en milisegundos
 	//tiempo max buscando partida
 	private long maxTimeOnQueue = 1000 * 60;  // en milisegundos
 	
@@ -43,7 +43,7 @@ public class WebsocketEchoHandler extends TextWebSocketHandler {
 	// para modificar los JSON
 	private ObjectMapper objectMapper;
 	
-	public WebsocketEchoHandler() //inicializar las estructuras
+	public WebsocketHandler() //inicializar las estructuras
 	{
 		sessionMap = new ConcurrentHashMap<String, WebSocketSession>();
 		userMap = new ConcurrentHashMap<String, User>();
@@ -58,7 +58,7 @@ public class WebsocketEchoHandler extends TextWebSocketHandler {
 		// Comprobamos si el id de la sesion esta en el mapa, si no lo está la inicializamos
 		if(!sessionMap.containsKey(session.getId()))
 		{
-			String newSession = startNewSession(session, message.getPayload());
+			String newSession = initiateSession(session, message.getPayload());
 			sendMessage(session, newSession);
 			System.out.println("Mensaje enviado: " + newSession);
 			return;
@@ -79,7 +79,7 @@ public class WebsocketEchoHandler extends TextWebSocketHandler {
 		{
 			json.put("error", "Mensaje enviado a un oponente sin estar en partida.");
 			json.put("onQueue", true);
-			sendMessage(session, JSONToString(json));
+			sendMessage(session, convertJSONToString(json));
 			return;
 		}
 		
@@ -111,13 +111,13 @@ public class WebsocketEchoHandler extends TextWebSocketHandler {
 		if(otherSession.isOpen())
 		{
 			//otherSession.sendMessage(new TextMessage(JSONToString(json)));
-			sendMessage(otherSession, JSONToString(json));
+			sendMessage(otherSession, convertJSONToString(json));
 			session.getAttributes().put("lastMessageTime", System.currentTimeMillis());
 		}
 	}
 	
 	// Inicia una sesion
-	private String startNewSession(WebSocketSession session, String message)
+	private String initiateSession(WebSocketSession session, String message)
 	{
 		// Creamos un JSON con el inicio de sesion
 		ObjectNode json = objectMapper.createObjectNode();
@@ -128,7 +128,7 @@ public class WebsocketEchoHandler extends TextWebSocketHandler {
 		{
 			json.put("error", "Formato inválido en el mensaje.");
 			json.put("invalidFormat", true);
-			return JSONToString(json);
+			return convertJSONToString(json);
 		}
 		
 		// Mandamos el nombre de usuario con un JSON
@@ -137,7 +137,7 @@ public class WebsocketEchoHandler extends TextWebSocketHandler {
 		{
 			json.put("error", "Usuario inválido en el mensaje.");
 			json.put("invalidUser", true);
-			return JSONToString(json); 
+			return convertJSONToString(json); 
 		}
 		
 		//se comprueba que el usuario este en el mapa de la api rest
@@ -146,7 +146,7 @@ public class WebsocketEchoHandler extends TextWebSocketHandler {
 		{
 			json.put("error", "Usuario inválido.");
 			json.put("invalidUser", true);
-			return JSONToString(json);
+			return convertJSONToString(json);
 		}
 		
 		// Comprobamos que si esta el usuario pero en otra sesion
@@ -154,7 +154,7 @@ public class WebsocketEchoHandler extends TextWebSocketHandler {
 		{
 			json.put("error", "Usuario en otra sesión.");
 			json.put("userInSession", true);
-			return JSONToString(json);
+			return convertJSONToString(json);
 		}
 		
 		// Anadimos los IDs de sesion y los usuarios a los mapas
@@ -170,7 +170,7 @@ public class WebsocketEchoHandler extends TextWebSocketHandler {
 		waitingQueue.add(session.getId());
 		json.put("info", "Sesión de emparejamiento iniciada para " + actualUser.getUsername() + ".");
 		
-		return JSONToString(json);
+		return convertJSONToString(json);
 	}
 	
 	// Envia un mensaje
@@ -232,7 +232,7 @@ public class WebsocketEchoHandler extends TextWebSocketHandler {
 	}
 	
 	// pasamos JSON a String
-	private String JSONToString(ObjectNode json)
+	private String convertJSONToString(ObjectNode json)
 	{
 		try
 		{
@@ -246,11 +246,11 @@ public class WebsocketEchoHandler extends TextWebSocketHandler {
 	}
 	
 	// llamamos a la funcion en el main 
-	public void updateSessions()
+	public void refreshActiveSessions()
 	{
 		System.out.println("UPDATESESIONES");
 		doMatchmaking();
-		checkSessions();
+		validateActiveSessions();
 	}
 	
 	// Sistema de emparejado
@@ -318,12 +318,12 @@ public class WebsocketEchoHandler extends TextWebSocketHandler {
 		jsonU2.put("isPlayer1", !isPlayer1);
 				
 		// Metemos en un array de strings los usuarios
-		String[] jsons = {JSONToString(jsonU1), JSONToString(jsonU2)};
+		String[] jsons = {convertJSONToString(jsonU1), convertJSONToString(jsonU2)};
 		return jsons;
 	}	
 	
 	// Comprobamos si la sesión sigue activa 
-	private void checkSessions()
+	private void validateActiveSessions()
 	{
 		// Escrtibimos todo a null
 		System.out.println(" /checkeo de sesiones/ " + count ++);
