@@ -8,20 +8,21 @@ class FinalOnlineScene extends Phaser.Scene {
     rankingsFile = '/api/rankings'; // Ruta de la API de rankings
 	username;
 	rankings;
+	text;
+	loserString;
 	
     constructor() {
         super({ key: 'FinalOnlineScene' });
     }
 
 	init(data) { 
-				this.username = data.username;
-				this.loser = data.loser; 
+		this.username = data.username;
+		this.loser = data.loser; 
+		//this.loserString = data.loserString;
 	}
 		
     create(data) {
 		
-         // Recibes el parámetro loser desde GameScene
-        //this.winner = data.winner;  // Recibes el parámetro winner desde GameScene
         this._createBackground(); // Crear fondo
         this._createRetryButton(); // Crear botón de inicio
         this._createExitButton(); // Crear botón de salida
@@ -32,21 +33,52 @@ class FinalOnlineScene extends Phaser.Scene {
     }
 
     _createBackground() {
+		this.loseBackground = this.add.image(0, 0, 'FinalBackground')
+		.setOrigin(0)
+        .setDisplaySize(this.sys.game.config.width, this.sys.game.config.height);
+		
+		let cuddles = this.add.image(1216 + -(1.3*3) * 40, 70, "CuddlesIcon").setScale(0.8);
+		let puffy = this.add.image(35 + (1.3*3) * 40, 70, "PuffyIcon").setScale(0.8);
+		
+		let finalText;
+		let finalText2;
         // Cambiar el fondo dependiendo de quién haya perdido
-        if (this.loser === 1) {
-            this.loseBackground = this.add.image(0, 0, 'WinPlayerTwoBackground') // Gana el jugador 2
-                .setOrigin(0)
-                .setDisplaySize(this.sys.game.config.width, this.sys.game.config.height);
-        } else if (this.loser === 2) {
-            this.loseBackground = this.add.image(0, 0, 'WinPlayerOneBackground') // Gana el jugador 1
-                .setOrigin(0)
-                .setDisplaySize(this.sys.game.config.width, this.sys.game.config.height);
-        } else if (this.loser === 3) {
-            this.loseBackground = this.add.image(0, 0, 'DrawBackground') // Empate
-                .setOrigin(0)
-                .setDisplaySize(this.sys.game.config.width, this.sys.game.config.height);
+        if (this.loser === 1) { // Gana el jugador 2
+				finalText = "Player 1 looses";
+				finalText2 = "Player 2 wins";
+        } else if (this.loser === 2) { // Gana el jugador 1
+			finalText = "Player 1 wins";
+			finalText2 = "Player 2 looses";
+        } else if (this.loser === 3) { // Empate
+				finalText = "Draw";
         }
-    }
+		
+		// Agregar el texto del ranking encima del overlay
+        this.text = this.add.text(35 + (1.3*3) * 40 + 20, 70, finalText, 
+            this.sys.game.config.width / 2,
+            220, // Posición Y con padding
+            {
+				fontFamily: 'Verdana, Geneva, sans-serif', // Fuente moderna
+                fontSize: '30px', // Tamaño del texto más grande
+                fontStyle: 'bold', // Negrita
+                color: '#FFFFFF', // Texto blanco
+                align: 'center' // Alineación
+            }
+        )
+		
+		// Agregar el texto del ranking encima del overlay
+	    this.text = this.add.text(1216 + -(1.3*3) * 40 - 20, 70, finalText2, 
+	        this.sys.game.config.width / 2,
+	        220, // Posición Y con padding
+	        {
+				fontFamily: 'Verdana, Geneva, sans-serif', // Fuente moderna
+	            fontSize: '30px', // Tamaño del texto más grande
+	            fontStyle: 'bold', // Negrita
+	            color: '#FFFFFF', // Texto blanco
+	            align: 'center' // Alineación
+	        }
+	    )
+    	}
 
     _createRetryButton() {
         this.retryButton = this.add.image(640, 460, 'RetryButton')

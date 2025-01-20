@@ -25,6 +25,7 @@ class OnlineGameScene extends Phaser.Scene {
 	puffy;
 	cuddle;
 	username;
+	text;
 	
 	// Online
 	localUser;
@@ -93,6 +94,19 @@ class OnlineGameScene extends Phaser.Scene {
         }
 
     }
+	
+	/*getLoserString() {
+
+        // Verificar si el jugador 1 ha perdido
+        if (this.player1.isLoser() && this.player2.isLoser()) {
+            return 3; // Devuelve 3 si hay empate
+        } else if (this.player2.isLoser()) {
+            return this.player2.getUsername(); // Devuelve 2 si el jugador 2 ha perdido
+        } else if (this.player1.isLoser()) {
+            return this.player1.getUsername();
+        }
+
+    }*/
     
     // Metodo para comprobar la colisión con los jugadores después de la animación
     checkCollisionWithPlayers(explosionImage) {
@@ -185,7 +199,19 @@ class OnlineGameScene extends Phaser.Scene {
 			}
         }
 		
-		
+		let finalText = "Player 1";
+		// Agregar el texto del ranking encima del overlay
+        this.text = this.add.text(35 + (1.3*3) * 40 + 40, 30, finalText, 
+            this.sys.game.config.width / 2,
+            220, // Posición Y con padding
+            {
+				fontFamily: 'Verdana, Geneva, sans-serif', // Fuente moderna
+                fontSize: '30px', // Tamaño del texto más grande
+                fontStyle: 'bold', // Negrita
+                color: '#FFFFFF', // Texto blanco
+                align: 'center' // Alineación
+            }
+        )
 
         // Vidas del jugador 2
         for (let i = 0; i < 3; i+=1.25) {
@@ -196,6 +222,20 @@ class OnlineGameScene extends Phaser.Scene {
 				this.cuddles = this.add.image(1216 + -(1.3*3) * 40, 730, "CuddlesIcon").setScale(0.8);
 			}
         }
+		
+		let finalText2 = "Player 2";
+		// Agregar el texto del ranking encima del overlay
+        this.text = this.add.text(1216 + -(1.3*3) * 40 - 100, 730, finalText2, 
+            this.sys.game.config.width / 2,
+            220, // Posición Y con padding
+            {
+				fontFamily: 'Verdana, Geneva, sans-serif', // Fuente moderna
+                fontSize: '30px', // Tamaño del texto más grande
+                fontStyle: 'bold', // Negrita
+                color: '#FFFFFF', // Texto blanco
+                align: 'center' // Alineación
+            }
+        )
     }
     
     // Inicializar los jugadores
@@ -447,6 +487,7 @@ class OnlineGameScene extends Phaser.Scene {
     _checkGameOver() {
         if (this.player1.isLoser() || this.player2.isLoser()) {
             const loser = this.getLoser();  // Obtienes el perdedor
+			// const loserString = this.getLoserString();  // Obtienes el perdedor
             this.backgroundMusic.stop();
 			
 			
@@ -454,8 +495,9 @@ class OnlineGameScene extends Phaser.Scene {
 			connection.onclose = (m) => console.log("sesion cerrada por fin de partida.");
 			connection.send("!" + JSON.stringify({gameOver: true}));
 			
+			//this.scene.start('FinalOnlineScene', { loser: loser, "username" : this.username, loserString: loserString});
 			this.scene.start('FinalOnlineScene', { loser: loser, "username" : this.username});
-		}
+		}	
             
     }
 	
