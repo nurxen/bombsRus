@@ -64,14 +64,20 @@ Además, se ajustaron algunos detalles visuales que antes no eran claros, como l
 
 ![Diagramas](IMAGENES_README/PAUSAinterfaz.png)
 
+### INICIAR SESIÓN Y REGISTRARSE ANTES:
+
+![Diagramas](IMAGENES_README/imasssge.png)
+
 ## 3. JUGABILIDAD: 
 
 Lo que realmente ha transformado el juego ha sido la implementación de un escenario procedural, es decir, cada vez que se juegue, los objetos y elementos del terreno se colocan de manera aleatoria en todo el mapa. Esta variabilidad del entorno le da al juego un dinamismo constante, lo que significa que no importa cuántas veces se juegue, siempre habrá algo nuevo. Esto evita que los jugadores se aburran o pierdan el interés al repetir partidas, ya que nunca se enfrentan a la misma experiencia dos veces. A pesar de esto, el diseño se ha cuidado de tal forma que no se sobrecarga visualmente el mapa, garantizando que el juego siga siendo claro en cada partida. Se implementó una mejora en la que ahora, al lado de las vidas de cada jugador, aparece su nombre. 
 
 Además, en la pantalla final, donde se muestra quién ha ganado y quién ha perdido, también se incluye la información de con quién ha jugado cada jugador, lo que hace que sea mucho más claro el contenido del juego. Por último, ahora es posible enviar un mensaje en el chat simplemente presionando la tecla "Enter". Ya no es necesario hacerlo manualmente con el ratón haciendo clic, lo que hace que la interacción sea mucho más rápida y cómoda para el usuario.
 
-### EJEMPLO: 
+### EJEMPLO MAPA ALEATORIO: 
 
 ![Diagramas](IMAGENES_README/ESCENARIOEJEM1.png)
 
 ![Diagramas](IMAGENES_README/ESCENARIOEJEM2.png)
+
+
