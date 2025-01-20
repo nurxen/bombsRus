@@ -25,7 +25,8 @@ class OnlineGameScene extends Phaser.Scene {
 	puffy;
 	cuddle;
 	username;
-
+	text;
+	
 	// Online
 	localUser;
 	outerUser;
@@ -83,14 +84,32 @@ class OnlineGameScene extends Phaser.Scene {
 	// Obtiene el jugador perdedor
 	getLoser() {
 
-		// Verificar si el jugador 1 ha perdido
-		if (this.player1.isLoser() && this.player2.isLoser()) {
-			return 3; // Devuelve 3 si hay empate
-		} else if (this.player2.isLoser()) {
-			return 2; // Devuelve 2 si el jugador 2 ha perdido
-		} else if (this.player1.isLoser()) {
-			return 1; // Devuelve 1 si el jugador 1 ha perdido
-		}
+    }
+	
+	/*getLoserString() {
+
+        // Verificar si el jugador 1 ha perdido
+        if (this.player1.isLoser() && this.player2.isLoser()) {
+            return 3; // Devuelve 3 si hay empate
+        } else if (this.player2.isLoser()) {
+            return this.player2.getUsername(); // Devuelve 2 si el jugador 2 ha perdido
+        } else if (this.player1.isLoser()) {
+            return this.player1.getUsername();
+        }
+
+    }*/
+    
+    // Metodo para comprobar la colisión con los jugadores después de la animación
+    checkCollisionWithPlayers(explosionImage) {
+        // Verificar si el regalo ha colisionado con los jugadores
+        if (this.physics.overlap(explosionImage, this.player1.gameObject)) {
+            this._playerHit(this.player1); // El jugador 1 ha sido golpeado
+        }
+        
+        if (this.physics.overlap(explosionImage, this.player2.gameObject)) {
+            this._playerHit(this.player2); // El jugador 2 ha sido golpeado
+        }
+    }
 
 	}
 	
@@ -196,7 +215,21 @@ class OnlineGameScene extends Phaser.Scene {
 			if (i < 4) {
 				this.puffy = this.add.image(35 + (1.3 * 3) * 40, 30, "PuffyIcon").setScale(0.8);
 			}
-		}
+        }
+		
+		let finalText = matchData.username;
+		// Agregar el texto del ranking encima del overlay
+        this.text = this.add.text(35 + (1.3*3) * 40 + 40, 30, finalText, 
+            this.sys.game.config.width / 2,
+            220, // Posición Y con padding
+            {
+				fontFamily: 'Verdana, Geneva, sans-serif', // Fuente moderna
+                fontSize: '30px', // Tamaño del texto más grande
+                fontStyle: 'bold', // Negrita
+                color: '#FFFFFF', // Texto blanco
+                align: 'center' // Alineación
+            }
+        )
 
 
 
@@ -208,14 +241,28 @@ class OnlineGameScene extends Phaser.Scene {
 			if (i < 4) {
 				this.cuddles = this.add.image(1216 + -(1.3 * 3) * 40, 730, "CuddlesIcon").setScale(0.8);
 			}
-		}
-	}
-
-	// Inicializar los jugadores
-	_initPlayers() {
-		this.player1 = new Player(this, 1, this.position, 1);
-		this.player2 = new Player(this, 2, this.position2, -1);
-
+        }
+		
+		let finalText2 = matchData.otherUsername;
+		// Agregar el texto del ranking encima del overlay
+        this.text = this.add.text(1216 + -(1.3*3) * 40 - 100, 730, finalText2, 
+            this.sys.game.config.width / 2,
+            220, // Posición Y con padding
+            {
+				fontFamily: 'Verdana, Geneva, sans-serif', // Fuente moderna
+                fontSize: '30px', // Tamaño del texto más grande
+                fontStyle: 'bold', // Negrita
+                color: '#FFFFFF', // Texto blanco
+                align: 'center' // Alineación
+            }
+        )
+    }
+    
+    // Inicializar los jugadores
+    _initPlayers() {
+        this.player1 = new Player(this, 1, this.position, 1);
+        this.player2 = new Player(this, 2, this.position2, -1);
+		
 		this.localPlayer = matchData.isPlayer1 ? this.player1 : this.player2;
 		this.remotePlayer = !matchData.isPlayer1 ? this.player1 : this.player2;
 
@@ -462,15 +509,24 @@ class OnlineGameScene extends Phaser.Scene {
 			this.backgroundMusic.stop();
 
 
+    // Método corregido para pasar el perdedor a la escena FinalScene
+    _checkGameOver() {
+        if (this.player1.isLoser() || this.player2.isLoser()) {
+            const loser = this.getLoser();  // Obtienes el perdedor
+			// const loserString = this.getLoserString();  // Obtienes el perdedor
+            this.backgroundMusic.stop();
+			
+			
 			wsMessageCallbacks = [];
 			connection.onclose = (m) => console.log("sesion cerrada por fin de partida.");
-			connection.send("!" + JSON.stringify({ gameOver: true }));
-
-			this.scene.start('FinalOnlineScene', { loser: loser, "username": this.username, "loserS" : this.loserS });
-		}
-
-	}
-
+			connection.send("!" + JSON.stringify({gameOver: true}));
+			
+			//this.scene.start('FinalOnlineScene', { loser: loser, "username" : this.username, loserString: loserString});
+			this.scene.start('FinalOnlineScene', { loser: loser, "username" : this.username});
+		}	
+            
+    }
+	
 	// Crear el botón de "Pause"
 	_createPauseButton() {
 		this.pauseButton = this.add.image(1250, 30, 'PauseButton')
@@ -496,15 +552,16 @@ class OnlineGameScene extends Phaser.Scene {
 			});
 
 	}
-
-	_processPauseToggle() {
-
-		this.scene.pause("OnlineGameScene");
+	
+	_processPauseToggle(){
+		
+		this.scene.pause("OnlineGameScene", {"username" : this.username});
 
 		// Evita que se vuelva a crear el objeto del menú si ya existe
-		if (!this.scene.get("PauseOnlineScene").loaded) {
-			this.scene.get("PauseOnlineScene").loaded = true;
-			this.scene.launch("PauseOnlineScene"); // pone el menu de pausa por encima
+		if(!this.scene.get("PauseOnlineScene", {"username" : this.username}).loaded)
+		{
+		    this.scene.get("PauseOnlineScene", {"username" : this.username}).loaded = true;
+		    this.scene.launch("PauseOnlineScene", {"username" : this.username}); // pone el menu de pausa por encima
 		}
 		else {
 			this.scene.wake("PauseOnlineScene"); // reactiva el menú de pausa (que ya estaba por encima)
@@ -557,15 +614,10 @@ class OnlineGameScene extends Phaser.Scene {
 		}
 	}
 
-	closeWS(msg) {
-		connection = null;
-		console.log(msg);
-		//cambiar de escena a una que muestre el mensaje de conexion perdida, y luego volver al menu principal
-
-		//this.scene.launch("ConnectionLostScene");
-		this.enableInput(false);
-		this.scene.stop("OnlineGameScene");
-		this.scene.sleep("OnlinePauseScene");
-	}
+        this.scene.launch("ConnectionLostScene", {"username" : this.username});
+        this.enableInput(false);
+        this.scene.stop("OnlineGameScene", {"username" : this.username});
+        this.scene.sleep("OnlinePauseScene", {"username" : this.username});
+    }
 
 }
